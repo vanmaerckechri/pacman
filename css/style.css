@@ -1,0 +1,266 @@
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, input, textarea, label, legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal; }
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; }
+
+h1 {
+  margin-bottom: 25px;
+  align-self: flex-start;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: .1rem;
+  color: #40434e; }
+
+h2 {
+  border-bottom: 1px solid #ffffff;
+  text-align: left;
+  font-size: 1.5rem;
+  color: #ffffff; }
+
+h1, h2, label {
+  font-family: "Ubuntu", sans-serif; }
+
+p, button, input, a {
+  font-family: "Raleway", sans-serif;
+  color: #40434e; }
+
+form {
+  border-radius: .5px;
+  padding: .5rem;
+  color: #ffffff;
+  background-color: #6d454c;
+  box-shadow: 3px 4px 3px rgba(0, 0, 80, 0.3); }
+  form h2 {
+    margin: .5rem .5rem 2rem; }
+  form label {
+    margin: .5rem;
+    display: block;
+    font-size: 1.2rem; }
+  form input {
+    margin: .5rem;
+    padding: .2rem; }
+
+#main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  #main .menuMain {
+    border-radius: 5px;
+    padding: 1rem .8rem;
+    background-color: #6d454c;
+    box-shadow: 3px 4px 3px rgba(0, 0, 80, 0.3); }
+    #main .menuMain h2 {
+      margin-bottom: 2rem;
+      margin-left: .2rem; }
+    #main .menuMain .button {
+      margin: 0 .2rem; }
+    #main .menuMain .lobbiesListTitle, #main .menuMain .backToMainMenu {
+      display: inline-block; }
+    #main .menuMain .backToMainMenu {
+      margin-left: 2rem; }
+    #main .menuMain .lobbiesList .button {
+      margin-bottom: .5rem;
+      display: block;
+      width: 100%;
+      text-align: center; }
+  #main .lobby {
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; }
+    #main .lobby .lobbyMembers {
+      margin-right: 10px; }
+      #main .lobby .lobbyMembers .pseudo {
+        margin-bottom: 10px;
+        border: 3px solid #40434e;
+        padding: 0 10px;
+        position: relative;
+        height: 52px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #40434e;
+        background-color: #ffffff; }
+        #main .lobby .lobbyMembers .pseudo .avatar {
+          margin: 0 10px;
+          width: 48px;
+          height: 48px; }
+        #main .lobby .lobbyMembers .pseudo .eject .button {
+          margin-left: 10px;
+          margin-right: 0; }
+      #main .lobby .lobbyMembers .selected:before {
+        border-radius: 50%;
+        content: '';
+        position: absolute;
+        left: -12px;
+        top: calc(50% - 12px);
+        width: 25px;
+        height: 25px;
+        background-color: #6d454c;
+        z-index: -1; }
+      #main .lobby .lobbyMembers .selected:hover {
+        background-color: #ede19e; }
+      #main .lobby .lobbyMembers .pseudoReady {
+        border: 3px solid green; }
+    #main .lobby .talkBoard {
+      border: 1px solid #40434e;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      min-height: 500px;
+      min-width: 300px;
+      background-color: #40434e; }
+      #main .lobby .talkBoard .taskbar {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%; }
+        #main .lobby .talkBoard .taskbar .button {
+          margin: 0; }
+        #main .lobby .talkBoard .taskbar .notReady::before {
+          content: "Ready"; }
+        #main .lobby .talkBoard .taskbar .ready::before {
+          content: "not Ready"; }
+      #main .lobby .talkBoard .messages {
+        flex: 1; }
+        #main .lobby .talkBoard .messages .user {
+          margin: 5px 0;
+          width: 100%;
+          font-weight: 700;
+          color: #ffffff; }
+        #main .lobby .talkBoard .messages .message {
+          color: #ffffff; }
+      #main .lobby .talkBoard .inputMessageContainer {
+        display: flex;
+        align-items: center;
+        width: 100%; }
+        #main .lobby .talkBoard .inputMessageContainer .inputMessage {
+          border: 1px solid #40434e;
+          padding: 0 5px;
+          display: inline-block;
+          flex: 1;
+          height: 60px;
+          resize: none; }
+        #main .lobby .talkBoard .inputMessageContainer .button {
+          margin: 0 0 0 15px;
+          font-size: 1rem;
+          height: 100%; }
+
+.gameMain {
+  background-color: #16171a; }
+  .gameMain .ui {
+    margin: 0 auto 4px;
+    padding: 0 10px;
+    width: 480px; }
+    .gameMain .ui .uiPlayer {
+      width: 50%;
+      display: inline-block; }
+      .gameMain .ui .uiPlayer img {
+        margin-right: 10px;
+        border-radius: 50%;
+        border: 1px solid white;
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-color: #40434e; }
+      .gameMain .ui .uiPlayer .uiPlayerInfos {
+        display: inline-block; }
+        .gameMain .ui .uiPlayer .uiPlayerInfos p {
+          text-align: left;
+          font-size: .8rem;
+          color: white; }
+    .gameMain .ui .uiPlayer2, .gameMain .ui .uiPlayer4 {
+      text-align: right; }
+
+.error {
+  margin: .5rem 0;
+  color: red;
+  font-size: 1rem; }
+
+.disabled {
+  display: none; }
+
+.formOk {
+  border-bottom-right-radius: 25px; }
+  .formOk button {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px; }
+
+.button {
+  margin: .5rem;
+  border-radius: 10px;
+  border: none;
+  padding: .3rem .5rem;
+  text-decoration: none;
+  font-size: 1.2rem;
+  background-color: #ede19e;
+  transition: background-color .5s, box-shadow 1s; }
+  .button:hover {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px #ede19e; }
+
+.modalContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: all .5s; }
+  .modalContainer .chooseAvatarContainer {
+    padding: 5px;
+    border: 3px solid black;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    background-color: white; }
+    .modalContainer .chooseAvatarContainer .chooseAvatar {
+      width: 50%;
+      height: 100%; }
+      .modalContainer .chooseAvatarContainer .chooseAvatar .avatar {
+        margin: 5px;
+        border: 2px solid black;
+        width: 64px;
+        height: 64px; }
+      .modalContainer .chooseAvatarContainer .chooseAvatar .selected {
+        border: 2px solid red; }
+      .modalContainer .chooseAvatarContainer .chooseAvatar .taked {
+        opacity: .2; }
+    .modalContainer .chooseAvatarContainer .introduceAvatar {
+      width: 50%;
+      height: 100%; }
+      .modalContainer .chooseAvatarContainer .introduceAvatar img {
+        max-width: 100%;
+        height: auto;
+        max-height: 100%; }
+
+.displayAvatarsPannel {
+  opacity: 1;
+  pointer-events: auto; }
+
+/*# sourceMappingURL=style.css.map */

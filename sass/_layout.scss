@@ -1,0 +1,36 @@
+@import "variables";
+.ui
+{
+	margin: 0 auto 4px;
+	padding: 0 10px;
+	width: 480px;
+	.uiPlayer
+	{
+		width: 50%;
+		display: inline-block;
+		img
+		{
+			margin-right: 10px;
+			border-radius: 50%;
+			border: 1px solid white;
+			display: inline-block;
+			width: 32px;
+			height: 32px;
+			background-color: $color-dark;
+		}
+		.uiPlayerInfos
+		{
+			display: inline-block;
+			p
+			{
+				text-align: left;
+				font-size: .8rem;
+				color: white;
+			}
+		}
+	}
+	.uiPlayer2, .uiPlayer4
+	{
+		text-align: right;
+	}
+}
