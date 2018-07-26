@@ -1,16 +1,45 @@
-var canvas = document.getElementById("scene");
-var ctx = canvas.getContext("2d");
+// -- CANVAS --
+var canvasBackground = document.getElementById("canvasBackground");
+var ctxBackground = canvasBackground.getContext("2d");
+var canvasFood = document.getElementById("canvasFood");
+var ctxFood = canvasFood.getContext("2d");
+var canvasPlayer = document.getElementById("canvasPlayer");
+var ctxPlayer = canvasPlayer.getContext("2d");
 
-canvas.height = tileSize * tileNumberByRow;
-canvas.width = tileSize * tileNumberByCol;
+// Canvas Size
+(function() {
+	canvasBackground.height = tileSize * tileNumberByRow;
+	canvasBackground.width = tileSize * tileNumberByCol;
+	canvasFood.height = tileSize * tileNumberByRow;
+	canvasFood.width = tileSize * tileNumberByCol;
+	canvasPlayer.height = tileSize * tileNumberByRow;
+	canvasPlayer.width = tileSize * tileNumberByCol;
+})();
 
+// Engine
 function engine()
 {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMap();
+    ctxPlayer.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
     drawPlayer();
     requestAnimationFrame(engine);
 }
 
+// Superimpose Canvas
+function placeCanvasOnBackground()
+{
+	canvasPlayer.style.left = canvasBackground.offsetLeft + "px"
+	canvasPlayer.style.top = canvasBackground.offsetTop + "px"
+	canvasFood.style.left = canvasBackground.offsetLeft + "px"
+	canvasFood.style.top = canvasBackground.offsetTop + "px"
+}
+
+window.addEventListener("resize", placeCanvasOnBackground, false)
+
+// -- LOAD MAP --
 genMapBoard();
-engine();
+window.addEventListener("load", function()
+{
+	placeCanvasOnBackground();
+	drawMap();   
+	requestAnimationFrame(engine); 
+})

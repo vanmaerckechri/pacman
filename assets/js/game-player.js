@@ -96,18 +96,6 @@ let keyUpHandler = function(e)
     }
 }
 
-// -- TAKE FOOD --
-
-let takeFood = function(row, col)
-{
-    if (mapBoards[row][col].type == 1)
-    {
-        mapBoards[row][col].type = 0;
-        let score = document.querySelector("#score");
-        score.innerText = parseInt(score.innerText) + 1;
-    }
-}
-
 // -- MOVES --
 
 let drawPlayer = function()
@@ -210,7 +198,7 @@ let drawPlayer = function()
             player.posX = (tileNumberByCol * tileSize) - (2 * tileSize);
         }
     }
-    ctx.drawImage(player.animationImg[player.animationIndex], player.posX, player.posY, player.size, player.size);
+    ctxPlayer.drawImage(player.animationImg[player.animationIndex], player.posX, player.posY, player.size, player.size);
 }
 
 document.addEventListener("keydown", keyDownHandler, false);

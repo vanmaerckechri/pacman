@@ -101,37 +101,63 @@ function drawMap()
             //sol.
             if(tileType <= 1)
             {
-                ctx.drawImage(switchImg[0], tileX, tileY, tileSize, tileSize);
-                if (tileBonus != undefined)
-                {
-                    switch (tileBonus)
-                    {
-                        case 0:
-                            ctx.drawImage(bonusBombMax, tileX, tileY, tileSize, tileSize);
-                            break;
-                        case 1:
-                            ctx.drawImage(bonusRange, tileX, tileY, tileSize, tileSize);
-                            break;
-                    }
-                }
+                ctxBackground.drawImage(switchImg[0], tileX, tileY, tileSize, tileSize);
             }
             //gommes.
             if(tileType == 1)
             {
-                ctx.beginPath();
-                ctx.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 4, 0, 2*Math.PI);
-                ctx.fillStyle = "white";
-                ctx.fill();
+                ctxFood.beginPath();
+                ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 4, 0, 2*Math.PI);
+                ctxFood.fillStyle = "white";
+                ctxFood.fill();
             }
             //murs.
             if(tileType == 9)
             {
-                ctx.drawImage(unbreakBlock, tileX, tileY, tileSize, tileSize);
+                ctxBackground.drawImage(unbreakBlock, tileX, tileY, tileSize, tileSize);
             }
             if (mapBoards[r][c].wall == 3)
             {
                 mapBoards[r][c].wall = 0;
             }
         }
+    }
+}
+
+// -- FOOD --
+
+function updateFood()
+{
+    let tile;
+    let tileX;
+    let tileY;
+    for(let r = 0; r < tileNumberByRow; r++)
+    {
+        for(let c = 0; c < tileNumberByCol; c++)
+        {
+            tileType = mapBoards[r][c].type;
+            tileX = c  * tileSize;
+            tileY = r  * tileSize;
+            //gommes.
+            if(tileType == 1)
+            {
+                ctxFood.beginPath();
+                ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 4, 0, 2*Math.PI);
+                ctxFood.fillStyle = "white";
+                ctxFood.fill();
+            }
+        }
+    }   
+}
+
+let takeFood = function(row, col)
+{
+    if (mapBoards[row][col].type == 1)
+    {
+        mapBoards[row][col].type = 0;
+        ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
+        updateFood();
+        let score = document.querySelector("#score");
+        score.innerText = parseInt(score.innerText) + 1;
     }
 }
