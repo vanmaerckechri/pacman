@@ -36,6 +36,8 @@ let player =
     alive: 1
 };
 
+// -- KEYS --
+
 let keyDownHandler = function(e)
 {
     if (player.alive == 1)
@@ -94,6 +96,20 @@ let keyUpHandler = function(e)
     }
 }
 
+// -- TAKE FOOD --
+
+let takeFood = function(row, col)
+{
+    if (mapBoards[row][col].type == 1)
+    {
+        mapBoards[row][col].type = 0;
+        let score = document.querySelector("#score");
+        score.innerText = parseInt(score.innerText) + 1;
+    }
+}
+
+// -- MOVES --
+
 let drawPlayer = function()
 {
     let playerPosArrayCol = player.posX / tileSize;
@@ -112,6 +128,7 @@ let drawPlayer = function()
                     if (player.posY == oldPosY - 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 6 ? player.animationIndex + 1 : 6;
+                        takeFood(playerPosArrayRow - 1, playerPosArrayCol + 1)
                         player.moving = false;
                         clearInterval(player.movingTempo);
                     }
@@ -131,6 +148,7 @@ let drawPlayer = function()
                     if (player.posY == oldPosY + 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 2 ? player.animationIndex + 1 : 2;
+                        takeFood(playerPosArrayRow + 3, playerPosArrayCol + 1)
                         player.moving = false;
                         clearInterval(player.movingTempo);
                     }
@@ -152,6 +170,7 @@ let drawPlayer = function()
                     if (player.posX == oldPosX + 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 0 ? player.animationIndex + 1 : 0;
+                        takeFood(playerPosArrayRow + 1, playerPosArrayCol + 3)
                         player.moving = false;
                         clearInterval(player.movingTempo);
                     }
@@ -165,7 +184,8 @@ let drawPlayer = function()
     }
     // MOVE LEFT
     if (player.moving == false && player.leftPressed == true)
-    {
+    {        
+
         if (mapBoards[playerPosArrayRow][playerPosArrayCol - 1] != undefined)
         {
             if (mapBoards[playerPosArrayRow][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 1][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 2][playerPosArrayCol - 1].wall < 1)
@@ -178,6 +198,7 @@ let drawPlayer = function()
                     if (player.posX == oldPosX - 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 4 ? player.animationIndex + 1 : 4;
+                        takeFood(playerPosArrayRow + 1, playerPosArrayCol - 1)
                         player.moving = false;
                         clearInterval(player.movingTempo);
                     }
