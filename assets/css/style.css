@@ -17,7 +17,7 @@ body {
   align-items: center;
   background-color: #ffffff; }
 
-.canvasPlayer, .canvasFood {
+.canvasPlayer, .canvasFood, .canvasGhosts {
   position: absolute;
   left: 0;
   top: 0; }

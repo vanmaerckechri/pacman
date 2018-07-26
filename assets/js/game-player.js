@@ -31,6 +31,7 @@ let player =
     spaceStopPressed: true,
     moving: false,
     movingTempo: null,
+    movingSpeed: tileSize / 2,
     animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
     animationIndex: 0,
     alive: 1
@@ -102,7 +103,6 @@ let drawPlayer = function()
 {
     let playerPosArrayCol = player.posX / tileSize;
     let playerPosArrayRow = player.posY / tileSize;
-    let playerMovingSpeed = tileSize / 2;
     // MOVE TOP
     if (player.moving == false && player.topPressed == true)
     {
@@ -112,7 +112,7 @@ let drawPlayer = function()
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {
-                    player.posY -= playerMovingSpeed;
+                    player.posY -= player.movingSpeed;
                     if (player.posY == oldPosY - 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 6 ? player.animationIndex + 1 : 6;
@@ -132,7 +132,7 @@ let drawPlayer = function()
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {   
-                    player.posY += playerMovingSpeed;
+                    player.posY += player.movingSpeed;
                     if (player.posY == oldPosY + 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 2 ? player.animationIndex + 1 : 2;
@@ -154,7 +154,7 @@ let drawPlayer = function()
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {
-                    player.posX += playerMovingSpeed;
+                    player.posX += player.movingSpeed;
                     if (player.posX == oldPosX + 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 0 ? player.animationIndex + 1 : 0;
@@ -182,7 +182,7 @@ let drawPlayer = function()
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {
-                    player.posX -= playerMovingSpeed;
+                    player.posX -= player.movingSpeed;
                     if (player.posX == oldPosX - 2 * tileSize)
                     {
                         player.animationIndex = player.animationIndex == 4 ? player.animationIndex + 1 : 4;
