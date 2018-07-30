@@ -189,9 +189,6 @@ let initGrid = function()
 let calculPath = function(ghost)
 {
 	grid = JSON.parse(JSON.stringify(gridGabarit));
-		console.log(grid)
-
-
 	grid[Math.ceil(ghost.row/2)][Math.ceil(ghost.col/2)] = "Start";
 	grid[Math.ceil(player.row/2)][Math.ceil(player.col/2)] = "Goal";
 	ghost.path = findShortestPath([Math.ceil(ghost.row/2),Math.ceil(ghost.col/2)], grid);

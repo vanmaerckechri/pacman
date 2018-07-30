@@ -72,7 +72,7 @@ let moveGhost = function(ghost)
         ghost["col"] += 2;
         ghost["movingTempo"] = setInterval(function()
         {   
-            ghost["posX"] -= ghost["movingSpeed"];
+            ghost["posX"] += ghost["movingSpeed"];
             if (ghost["posX"] / tileSize == ghost["col"])
             {
                 clearInterval(ghost.movingTempo);
@@ -93,7 +93,7 @@ let moveGhost = function(ghost)
         ghost["row"] += 2;
         ghost["movingTempo"] = setInterval(function()
         {   
-            ghost["posY"] -= ghost["movingSpeed"];
+            ghost["posY"] += ghost["movingSpeed"];
             if (ghost["posY"] / tileSize == ghost["row"])
             {
                 clearInterval(ghost.movingTempo);
@@ -113,7 +113,7 @@ let moveGhost = function(ghost)
 
 let manageGhosts = function()
 {
-    if (ghost["busy"] == false)
+    if (ghost["busy"] == false && !(ghost.row == player.row && ghost.col == player.col))
     {
         if (ghost["path"].length == 0)
         {
