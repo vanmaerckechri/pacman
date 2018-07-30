@@ -1,12 +1,16 @@
+// Code from Greg Trowbridge <3 => http://gregtrowbridge.com/a-basic-pathfinding-algorithm/
+
 // Start location will be in the following format:
 // [distanceFromTop, distanceFromLeft]
-var findShortestPath = function(startCoordinates, grid) {
+var findShortestPath = function(startCoordinates, grid) 
+{
   var distanceFromTop = startCoordinates[0];
   var distanceFromLeft = startCoordinates[1];
 
   // Each "location" will store its coordinates
   // and the shortest path required to arrive there
-  var location = {
+  var location = 
+  {
     distanceFromTop: distanceFromTop,
     distanceFromLeft: distanceFromLeft,
     path: [],
@@ -17,39 +21,52 @@ var findShortestPath = function(startCoordinates, grid) {
   var queue = [location];
 
   // Loop through the grid searching for the goal
-  while (queue.length > 0) {
+  while (queue.length > 0) 
+  {
     // Take the first location off the queue
     var currentLocation = queue.shift();
 
     // Explore North
     var newLocation = exploreInDirection(currentLocation, 'North', grid);
-    if (newLocation.status === 'Goal') {
+    if (newLocation.status === 'Goal') 
+    {
       return newLocation.path;
-    } else if (newLocation.status === 'Valid') {
+    } 
+    else if (newLocation.status === 'Valid') 
+    {
       queue.push(newLocation);
     }
 
     // Explore East
     var newLocation = exploreInDirection(currentLocation, 'East', grid);
-    if (newLocation.status === 'Goal') {
+    if (newLocation.status === 'Goal') 
+    {
       return newLocation.path;
-    } else if (newLocation.status === 'Valid') {
+    } 
+    else if (newLocation.status === 'Valid') 
+    {
       queue.push(newLocation);
     }
 
     // Explore South
     var newLocation = exploreInDirection(currentLocation, 'South', grid);
-    if (newLocation.status === 'Goal') {
+    if (newLocation.status === 'Goal') 
+    {
       return newLocation.path;
-    } else if (newLocation.status === 'Valid') {
+    } 
+    else if (newLocation.status === 'Valid') 
+    {
       queue.push(newLocation);
     }
 
     // Explore West
     var newLocation = exploreInDirection(currentLocation, 'West', grid);
-    if (newLocation.status === 'Goal') {
+    if (newLocation.status === 'Goal') 
+    {
       return newLocation.path;
-    } else if (newLocation.status === 'Valid') {
+    } 
+    else if (newLocation.status === 'Valid')
+    {
       queue.push(newLocation);
     }
   }
@@ -63,26 +80,30 @@ var findShortestPath = function(startCoordinates, grid) {
 // (a location is "valid" if it is on the grid, is not an "obstacle",
 // and has not yet been visited by our algorithm)
 // Returns "Valid", "Invalid", "Blocked", or "Goal"
-var locationStatus = function(location, grid) {
-  var gridSize = grid.length;
+var locationStatus = function(location, grid) 
+{
   var dft = location.distanceFromTop;
   var dfl = location.distanceFromLeft;
 
-
-  console.log(dft)
   if (location.distanceFromLeft < 0 ||
-      location.distanceFromLeft >= 22 ||
+      location.distanceFromLeft >= gridRowSize ||
       location.distanceFromTop < 0 ||
-      location.distanceFromTop >= 21) {
+      location.distanceFromTop >= gridColSize) {
 
     // location is not on the grid--return false
     return 'Invalid';
-  } else if (grid[dft][dfl] === 'Goal') {
+  } 
+  else if (grid[dft][dfl] === 'Goal') 
+  {
     return 'Goal';
-  } else if (grid[dft][dfl] !== 'Empty') {
+  } 
+  else if (grid[dft][dfl] !== 'Empty') 
+  {
     // location is either an obstacle or has been visited
     return 'Blocked';
-  } else {
+  } 
+  else 
+  {
     return 'Valid';
   }
 };
@@ -97,13 +118,20 @@ var exploreInDirection = function(currentLocation, direction, grid) {
   var dft = currentLocation.distanceFromTop;
   var dfl = currentLocation.distanceFromLeft;
 
-  if (direction === 'North') {
+  if (direction === 'North') 
+  {
     dft -= 1;
-  } else if (direction === 'East') {
+  } 
+  else if (direction === 'East') 
+  {
     dfl += 1;
-  } else if (direction === 'South') {
+  } 
+  else if (direction === 'South') 
+  {
     dft += 1;
-  } else if (direction === 'West') {
+  } 
+  else if (direction === 'West') 
+  {
     dfl -= 1;
   }
 
@@ -116,7 +144,8 @@ var exploreInDirection = function(currentLocation, direction, grid) {
   newLocation.status = locationStatus(newLocation, grid);
 
   // If this new location is valid, mark it as 'Visited'
-  if (newLocation.status === 'Valid') {
+  if (newLocation.status === 'Valid') 
+  {
     grid[newLocation.distanceFromTop][newLocation.distanceFromLeft] = 'Visited';
   }
 
@@ -128,28 +157,42 @@ var exploreInDirection = function(currentLocation, direction, grid) {
 
 // Create a 4x4 grid
 // Represent the grid as a 2-dimensional array
-var gridSize = 4;
-var grid = [];
-for (var i=0; i<22; i++) {
-  grid[i] = [];
-  for (var j=0; j<21; j++) {
-  	if (mapBoards[i*2][j*2].wall != 2)
-  	{
-    	grid[i][j] = 'Empty';
-    }
-    else
-    {
-    	grid[i][j] = 'Obstacle';    	
-    }
-  }
+var gridRowSize = Math.ceil(tileNumberByRow / 2);
+var gridColSize = Math.ceil(tileNumberByCol / 2);
+var gridGabarit = [];
+var grid;
+let initGrid = function()
+{
+	for (var i=0; i<gridRowSize; i++)
+	{
+		  gridGabarit[i] = [];
+		  for (var j=0; j<gridColSize; j++)
+		  {
+			  	if (mapBoards[i*2][j*2].wall != 2)
+			  	{
+			    	gridGabarit[i][j] = 'Empty';
+			    }
+			    else
+			    {
+			    	gridGabarit[i][j] = 'Obstacle';    	
+			    }
+		  }
+	}
 }
 
 // Think of the first index as "distance from the top row"
 // Think of the second index as "distance from the left-most column"
 
 // This is how we would represent the grid with obstacles above
-grid[1][1] = "Start";
-grid[16][18] = "Goal";
 
 
-console.log(findShortestPath([1,1], grid));
+let calculPath = function(ghost)
+{
+	grid = JSON.parse(JSON.stringify(gridGabarit));
+		console.log(grid)
+
+
+	grid[Math.ceil(ghost.row/2)][Math.ceil(ghost.col/2)] = "Start";
+	grid[Math.ceil(player.row/2)][Math.ceil(player.col/2)] = "Goal";
+	ghost.path = findShortestPath([Math.ceil(ghost.row/2),Math.ceil(ghost.col/2)], grid);
+}

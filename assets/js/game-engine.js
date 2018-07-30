@@ -26,7 +26,7 @@ function engine()
     ctxPlayer.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
     ctxGhosts.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
     drawPlayer();
-    //manageGhosts();
+    manageGhosts();
     requestAnimationFrame(engine);
 }
 
@@ -48,6 +48,7 @@ genMapBoard();
 window.addEventListener("load", function()
 {
 	placeCanvasOnBackground();
-	drawMap();   
+	drawMap();
+	initGrid();
 	requestAnimationFrame(engine); 
 })

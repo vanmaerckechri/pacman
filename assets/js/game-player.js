@@ -23,6 +23,8 @@ let player =
     size: tileSize * 3,
     posX: tileSize,
     posY: tileSize,
+    row: 1,
+    col: 1,
     topPressed: false,
     rightPressed: false,
     bottomPressed: false,
@@ -118,6 +120,8 @@ let drawPlayer = function()
                         player.animationIndex = player.animationIndex == 6 ? player.animationIndex + 1 : 6;
                         takeFood(playerPosArrayRow - 1, playerPosArrayCol + 1)
                         player.moving = false;
+                        player.row = player.posY / tileSize;
+                        player.col = player.posX / tileSize;
                         clearInterval(player.movingTempo);
                     }
                 },17);
@@ -138,6 +142,8 @@ let drawPlayer = function()
                         player.animationIndex = player.animationIndex == 2 ? player.animationIndex + 1 : 2;
                         takeFood(playerPosArrayRow + 3, playerPosArrayCol + 1)
                         player.moving = false;
+                        player.row = player.posY / tileSize;
+                        player.col = player.posX / tileSize;
                         clearInterval(player.movingTempo);
                     }
                 },17);
@@ -160,6 +166,8 @@ let drawPlayer = function()
                         player.animationIndex = player.animationIndex == 0 ? player.animationIndex + 1 : 0;
                         takeFood(playerPosArrayRow + 1, playerPosArrayCol + 3)
                         player.moving = false;
+                        player.row = player.posY / tileSize;
+                        player.col = player.posX / tileSize;
                         clearInterval(player.movingTempo);
                     }
                 },17);
@@ -188,6 +196,8 @@ let drawPlayer = function()
                         player.animationIndex = player.animationIndex == 4 ? player.animationIndex + 1 : 4;
                         takeFood(playerPosArrayRow + 1, playerPosArrayCol - 1)
                         player.moving = false;
+                        player.row = player.posY / tileSize;
+                        player.col = player.posX / tileSize;
                         clearInterval(player.movingTempo);
                     }
                 },17);
