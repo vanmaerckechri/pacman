@@ -1,4 +1,4 @@
-let ghost_red = new Image();
+/*let ghost_red = new Image();
 ghost_red.src = 'assets/img/ghost_red.svg';
 
 let ghost =
@@ -116,4 +116,4 @@ let manageGhosts = function()
     followPlayer(ghost);
     moveGhost(ghost);
     ctxGhosts.drawImage(ghost_red, ghost.posX, ghost.posY, ghost.size, ghost.size);
-}
+}*/
