@@ -2,14 +2,14 @@
 
 // Start location will be in the following format:
 // [distanceFromTop, distanceFromLeft]
-var findShortestPath = function(startCoordinates, grid) 
+let findShortestPath = function(startCoordinates, grid) 
 {
-  var distanceFromTop = startCoordinates[0];
-  var distanceFromLeft = startCoordinates[1];
+  let distanceFromTop = startCoordinates[0];
+  let distanceFromLeft = startCoordinates[1];
 
   // Each "location" will store its coordinates
   // and the shortest path required to arrive there
-  var location = 
+  let location = 
   {
     distanceFromTop: distanceFromTop,
     distanceFromLeft: distanceFromLeft,
@@ -18,16 +18,16 @@ var findShortestPath = function(startCoordinates, grid)
   };
 
   // Initialize the queue with the start location already inside
-  var queue = [location];
+  let queue = [location];
 
   // Loop through the grid searching for the goal
   while (queue.length > 0) 
   {
     // Take the first location off the queue
-    var currentLocation = queue.shift();
+    let currentLocation = queue.shift();
 
     // Explore North
-    var newLocation = exploreInDirection(currentLocation, 'North', grid);
+    let newLocation = exploreInDirection(currentLocation, 'North', grid);
     if (newLocation.status === 'Goal') 
     {
       return newLocation.path;
@@ -38,7 +38,7 @@ var findShortestPath = function(startCoordinates, grid)
     }
 
     // Explore East
-    var newLocation = exploreInDirection(currentLocation, 'East', grid);
+    newLocation = exploreInDirection(currentLocation, 'East', grid);
     if (newLocation.status === 'Goal') 
     {
       return newLocation.path;
@@ -49,7 +49,7 @@ var findShortestPath = function(startCoordinates, grid)
     }
 
     // Explore South
-    var newLocation = exploreInDirection(currentLocation, 'South', grid);
+    newLocation = exploreInDirection(currentLocation, 'South', grid);
     if (newLocation.status === 'Goal') 
     {
       return newLocation.path;
@@ -60,7 +60,7 @@ var findShortestPath = function(startCoordinates, grid)
     }
 
     // Explore West
-    var newLocation = exploreInDirection(currentLocation, 'West', grid);
+    newLocation = exploreInDirection(currentLocation, 'West', grid);
     if (newLocation.status === 'Goal') 
     {
       return newLocation.path;
@@ -80,10 +80,10 @@ var findShortestPath = function(startCoordinates, grid)
 // (a location is "valid" if it is on the grid, is not an "obstacle",
 // and has not yet been visited by our algorithm)
 // Returns "Valid", "Invalid", "Blocked", or "Goal"
-var locationStatus = function(location, grid) 
+let locationStatus = function(location, grid) 
 {
-  var dft = location.distanceFromTop;
-  var dfl = location.distanceFromLeft;
+  let dft = location.distanceFromTop;
+  let dfl = location.distanceFromLeft;
 
   if (location.distanceFromLeft < 0 ||
       location.distanceFromLeft >= gridRowSize ||
@@ -111,12 +111,12 @@ var locationStatus = function(location, grid)
 
 // Explores the grid from the given location in the given
 // direction
-var exploreInDirection = function(currentLocation, direction, grid) {
-  var newPath = currentLocation.path.slice();
+let exploreInDirection = function(currentLocation, direction, grid) {
+  let newPath = currentLocation.path.slice();
   newPath.push(direction);
 
-  var dft = currentLocation.distanceFromTop;
-  var dfl = currentLocation.distanceFromLeft;
+  let dft = currentLocation.distanceFromTop;
+  let dfl = currentLocation.distanceFromLeft;
 
   if (direction === 'North') 
   {
@@ -135,7 +135,7 @@ var exploreInDirection = function(currentLocation, direction, grid) {
     dfl -= 1;
   }
 
-  var newLocation = {
+  let newLocation = {
     distanceFromTop: dft,
     distanceFromLeft: dfl,
     path: newPath,
@@ -157,16 +157,16 @@ var exploreInDirection = function(currentLocation, direction, grid) {
 
 // Create a 4x4 grid
 // Represent the grid as a 2-dimensional array
-var gridRowSize = Math.ceil(tileNumberByRow / 2);
-var gridColSize = Math.ceil(tileNumberByCol / 2);
-var gridGabarit = [];
-var grid;
+let gridRowSize = Math.ceil(tileNumberByRow / 2);
+let gridColSize = Math.ceil(tileNumberByCol / 2);
+let gridGabarit = [];
+let grid;
 let initGrid = function()
 {
-	for (var i=0; i<gridRowSize; i++)
+	for (let i=0; i<gridRowSize; i++)
 	{
 		  gridGabarit[i] = [];
-		  for (var j=0; j<gridColSize; j++)
+		  for (let j=0; j<gridColSize; j++)
 		  {
 			  	if (mapBoards[i*2][j*2].wall != 2)
 			  	{
