@@ -160,7 +160,6 @@ let exploreInDirection = function(currentLocation, direction, grid) {
 let gridRowSize = Math.ceil(tileNumberByRow / 2);
 let gridColSize = Math.ceil(tileNumberByCol / 2);
 let gridGabarit = [];
-let grid;
 let initGrid = function()
 {
 	for (let i=0; i<gridRowSize; i++)
@@ -188,7 +187,7 @@ let initGrid = function()
 
 let calculPath = function(ghost)
 {
-	grid = JSON.parse(JSON.stringify(gridGabarit));
+	let grid = JSON.parse(JSON.stringify(gridGabarit));
 	grid[Math.ceil(ghost.row/2)][Math.ceil(ghost.col/2)] = "Start";
 	grid[Math.ceil(player.row/2)][Math.ceil(player.col/2)] = "Goal";
 	ghost.path = findShortestPath([Math.ceil(ghost.row/2),Math.ceil(ghost.col/2)], grid);

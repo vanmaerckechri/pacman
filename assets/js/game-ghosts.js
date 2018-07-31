@@ -1,13 +1,23 @@
 let ghost_red = new Image();
 ghost_red.src = 'assets/img/ghost_red.svg';
 
+let ghost_afraid = new Image();
+ghost_afraid.src = 'assets/img/ghost_afraid.svg';
+
+let ghost_afraidFlash = new Image();
+ghost_afraidFlash.src = 'assets/img/ghost_afraidFlash.svg';
+
 let ghost =
 {
+    state: "start",
+    busy: false,
+    afraidFlashTempo: false,
+    afraidFlashSwitch: ghost_afraid,
     size: tileSize * 3,
-    posX: tileSize * 25,
-    posY: tileSize * 27,
-    row: 27,
-    col: 25,
+    posX: tileSize * 19,
+    posY: tileSize * 15,
+    row: 15,
+    col: 19,
     path: [],
     topPressed: false,
     rightPressed: false,
@@ -15,7 +25,6 @@ let ghost =
     leftPressed: false,
     spacePressed: false,
     spaceStopPressed: true,
-    busy: false,
     movingTempo: null,
     movingSpeed: tileSize / 4,
     alive: 1
@@ -121,8 +130,27 @@ let manageGhosts = function()
         }
         else
         {
-            moveGhost(ghost);
+            //moveGhost(ghost);
         }
     }
-    ctxGhosts.drawImage(ghost_red, ghost.posX, ghost.posY, ghost.size, ghost.size);
+    if (ghost.state == "afraid")
+    {
+        ctxGhosts.drawImage(ghost_afraid, ghost.posX, ghost.posY, ghost.size, ghost.size);
+    }
+    else if (ghost.state == "afraidFlash")
+    {
+        if (ghost.afraidFlashTempo == false)
+        {
+            ghost.afraidFlashTempo = setInterval(function()
+            {   
+                ghost.afraidFlashSwitch = ghost.afraidFlashSwitch == ghost_afraid ? ghost_afraidFlash : ghost_afraid;
+            },500);
+        }
+        ctxGhosts.drawImage(ghost.afraidFlashSwitch, ghost.posX, ghost.posY, ghost.size, ghost.size);
+    }
+    else 
+    {
+        ctxGhosts.drawImage(ghost_red, ghost.posX, ghost.posY, ghost.size, ghost.size);
+    }
+
 }

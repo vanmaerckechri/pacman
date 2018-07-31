@@ -39,6 +39,51 @@ let player =
     alive: 1
 };
 
+let displayAfraidGhost = function()
+{
+
+}
+
+let launchBonus = function()
+{
+    clearTimeout(bonusTempo);      
+    ghost.state = "afraid";
+    bonusTempo = setTimeout(function()
+    {
+        clearTimeout(bonusTempo);   
+        ghost.state = "afraidFlash";   
+        bonusTempo = setTimeout(function()
+        {
+            clearTimeout(bonusTempo);
+            clearInterval(ghost.afraidFlashTempo);
+            ghost.state = "hunt";
+            ghost.afraidFlashTempo = false;
+        },5000);
+
+    },10000);
+}
+
+let takeFood = function(row, col)
+{
+    if (mapBoards[row][col].type == 1)
+    {
+        mapBoards[row][col].type = 0;
+        ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
+        updateFood();
+        let score = document.querySelector("#score");
+        score.innerText = parseInt(score.innerText) + 10;
+    }
+    else if (mapBoards[row][col].type == 2)
+    {
+        mapBoards[row][col].type = 0;
+        ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
+        updateFood();
+        let score = document.querySelector("#score");
+        score.innerText = parseInt(score.innerText) + 50;
+        launchBonus();
+    }
+}
+
 // -- KEYS --
 
 let keyDownHandler = function(e)

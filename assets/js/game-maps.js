@@ -3,6 +3,7 @@ let tileSizeHalf = tileSize / 2;
 let tileNumberByRow = 43;
 let tileNumberByCol = 41;
 let mapBoards = [];
+let bonusTempo;
 // 43 / 41
 let map01 = [
 	9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
@@ -11,7 +12,7 @@ let map01 = [
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9,
     9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9,
-    9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9,
+    9, 0, 2, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 2, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
@@ -37,7 +38,7 @@ let map01 = [
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9,
-    9, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 9,
+    9, 0, 2, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 2, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
@@ -99,7 +100,7 @@ function drawMap()
             switchImg[0] = switchImg[1];
             switchImg[1] = switchTemp;
             //sol.
-            if(tileType <= 1)
+            if(tileType <= 2)
             {
                 ctxBackground.drawImage(switchImg[0], tileX, tileY, tileSize, tileSize);
             }
@@ -111,6 +112,14 @@ function drawMap()
                 ctxFood.fillStyle = "white";
                 ctxFood.fill();
             }
+            //bonus
+            if(tileType == 2)
+            {
+                ctxFood.beginPath();
+                ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 2, 0, 2*Math.PI);
+                ctxFood.fillStyle = "white";
+                ctxFood.fill();
+            }           
             //murs.
             if(tileType == 9)
             {
@@ -146,18 +155,13 @@ function updateFood()
                 ctxFood.fillStyle = "white";
                 ctxFood.fill();
             }
+            else if(tileType == 2)
+            {
+                ctxFood.beginPath();
+                ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 2, 0, 2*Math.PI);
+                ctxFood.fillStyle = "white";
+                ctxFood.fill();
+            }
         }
     }   
-}
-
-let takeFood = function(row, col)
-{
-    if (mapBoards[row][col].type == 1)
-    {
-        mapBoards[row][col].type = 0;
-        ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
-        updateFood();
-        let score = document.querySelector("#score");
-        score.innerText = parseInt(score.innerText) + 1;
-    }
 }
