@@ -12,8 +12,9 @@ let initGhosts = function()
     {
         img: {},
         startAt: 0,
+        startPath: [],
         state: "start",
-        busy: false,
+        busy: true,
         afraidFlashTempo: false,
         afraidFlashSwitch: {},
         size: tileSize * 3,
@@ -22,6 +23,7 @@ let initGhosts = function()
         row: 15,
         col: 19,
         path: [],
+        pathInverse: [],
         topPressed: false,
         rightPressed: false,
         bottomPressed: false,
@@ -40,8 +42,8 @@ let initGhosts = function()
     red["startAt"] = 0;
     red["posY"] = tileSize * 15;
     red["posX"] = tileSize * 19;
-    red["row"] = tileSize * 15;
-    red["col"] = tileSize * 19;
+    red["row"] = 15;
+    red["col"] = 19;
     ghosts.push(red);
 
     // orange
@@ -49,11 +51,12 @@ let initGhosts = function()
     ghost_orange.src = 'assets/img/ghost_orange.svg';
     let orange = JSON.parse(JSON.stringify(ghost));
     orange["img"] = ghost_orange;
-    orange["startAt"] = 0;
+    orange["startAt"] = 3000;
+    orange["startPath"] = ["North", "North", "East", "North", "North"];
     orange["posY"] = tileSize * 19;
     orange["posX"] = tileSize * 19;
-    orange["row"] = tileSize * 19;
-    orange["col"] = tileSize * 19;
+    orange["row"] = 19;
+    orange["col"] = 19;
     ghosts.push(orange);
 }
 
@@ -153,15 +156,27 @@ let manageGhosts = function()
     {
         let ghost = ghosts[i];
         // moves
+        if (ghost["state"] == "start")
+        {
+            ghost.movingTempo = setTimeout(function()
+            {   
+                ghost["busy"] = false
+                clearTimeout(ghost.movingTempo);
+
+            },ghost["startAt"]);
+
+            ghost["path"] = ghost["startPath"];
+            ghost["state"] = "hunt";
+        }
         if (ghost["busy"] == false && !(ghost.row == player.row && ghost.col == player.col))
         {
             if (ghost["path"].length == 0)
             {
-                //calculPath(ghost);
+                calculPath(ghost);
             }
             else
             {
-                //moveGhost(ghost);
+                moveGhost(ghost);
             }
         }
         // display

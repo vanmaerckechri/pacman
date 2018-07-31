@@ -191,4 +191,5 @@ let calculPath = function(ghost)
 	grid[Math.ceil(ghost.row/2)][Math.ceil(ghost.col/2)] = "Start";
 	grid[Math.ceil(player.row/2)][Math.ceil(player.col/2)] = "Goal";
 	ghost.path = findShortestPath([Math.ceil(ghost.row/2),Math.ceil(ghost.col/2)], grid);
+	ghost.pathInverse = ghost.path;
 }
