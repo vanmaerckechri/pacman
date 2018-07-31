@@ -50,5 +50,6 @@ window.addEventListener("load", function()
 	placeCanvasOnBackground();
 	drawMap();
 	initGrid();
+	initGhosts();
 	requestAnimationFrame(engine); 
 })

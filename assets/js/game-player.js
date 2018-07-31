@@ -46,18 +46,27 @@ let displayAfraidGhost = function()
 
 let launchBonus = function()
 {
-    clearTimeout(bonusTempo);      
-    ghost.state = "afraid";
+    clearTimeout(bonusTempo);
+    for (let i = 1; i >= 0; i--)
+    {     
+        ghosts[i].state = "afraid";
+    }
     bonusTempo = setTimeout(function()
     {
         clearTimeout(bonusTempo);   
-        ghost.state = "afraidFlash";   
+        for (let i = 1; i >= 0; i--)
+        {     
+            ghosts[i].state = "afraidFlash";
+        } 
         bonusTempo = setTimeout(function()
         {
             clearTimeout(bonusTempo);
-            clearInterval(ghost.afraidFlashTempo);
-            ghost.state = "hunt";
-            ghost.afraidFlashTempo = false;
+            for (let i = 1; i >= 0; i--)
+            {    
+                clearInterval(ghosts[i].afraidFlashTempo); 
+                ghosts[i].state = "hunt";
+                ghosts[i].afraidFlashTempo = false;
+            }
         },5000);
 
     },10000);
