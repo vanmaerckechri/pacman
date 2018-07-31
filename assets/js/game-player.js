@@ -39,29 +39,24 @@ let player =
     alive: 1
 };
 
-let displayAfraidGhost = function()
-{
-
-}
-
 let launchBonus = function()
 {
     clearTimeout(bonusTempo);
-    for (let i = 1; i >= 0; i--)
+    for (let i = ghosts.length - 1; i >= 0; i--)
     {     
         ghosts[i].state = "afraid";
     }
     bonusTempo = setTimeout(function()
     {
         clearTimeout(bonusTempo);   
-        for (let i = 1; i >= 0; i--)
+        for (let i = ghosts.length - 1; i >= 0; i--)
         {     
             ghosts[i].state = "afraidFlash";
         } 
         bonusTempo = setTimeout(function()
         {
             clearTimeout(bonusTempo);
-            for (let i = 1; i >= 0; i--)
+            for (let i = ghosts.length - 1; i >= 0; i--)
             {    
                 clearInterval(ghosts[i].afraidFlashTempo); 
                 ghosts[i].state = "hunt";

@@ -23,7 +23,6 @@ let initGhosts = function()
         row: 15,
         col: 19,
         path: [],
-        pathInverse: [],
         topPressed: false,
         rightPressed: false,
         bottomPressed: false,
@@ -58,6 +57,160 @@ let initGhosts = function()
     orange["row"] = 19;
     orange["col"] = 19;
     ghosts.push(orange);
+}
+
+let checkWall = function(ghost, direction)
+{
+    let r = ghost["row"];
+    let c = ghost["col"];
+    if (direction == "East" && mapBoards[r+3][c].wall < 1 && mapBoards[r+3][c+1].wall < 1 && mapBoards[r+3][c+2].wall < 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    if (direction == "South" && mapBoards[r][c+3].wall < 1 && mapBoards[r+1][c+3].wall < 1 && mapBoards[r+2][c+3].wall < 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    if (direction == "West" && mapBoards[r][c-1].wall < 1 && mapBoards[r+1][c-1].wall < 1 && mapBoards[r+2][c-1].wall < 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    if (direction == "Nord" && mapBoards[r-1][c].wall < 1 && mapBoards[r-1][c+1].wall < 1 && mapBoards[r-1][c+2].wall < 1)
+    {
+        return true;
+    }  
+    else
+    {
+        return false;
+    } 
+}
+
+let searchWayForEscape = function(ghost)
+{
+    ghost.path = [];
+
+    if (player.rightPressed == true)
+    {
+        if (checkWall(ghost, "East"))
+        {
+            ghost.path[0] = "East"
+            return;
+        }
+        else if (checkWall(ghost, "South"))
+        {
+            ghost.path[0] = "South"
+            return;
+        }            
+        else if (checkWall(ghost, "North"))
+        {
+            ghost.path[0] = "North"
+            return;
+        }            
+        else if (checkWall(ghost, "West"))
+        {
+            ghost.path[0] = "West"
+            return;
+        }
+    }
+    else if (player.topPressed == true)
+    {
+        if (checkWall(ghost, "North"))
+        {
+            ghost.path[0] = "North"
+            return;
+        }  
+        else if (checkWall(ghost, "East"))
+        {
+            ghost.path[0] = "East"
+            return;
+        }                    
+        else if (checkWall(ghost, "West"))
+        {
+            ghost.path[0] = "West"
+            return;
+        }
+        else if (checkWall(ghost, "South"))
+        {
+            ghost.path[0] = "South"
+            return;
+        }  
+    }
+    if (player.leftPressed == true)
+    {
+        if (checkWall(ghost, "West"))
+        {
+            ghost.path[0] = "West"
+            return;
+        }
+        else if (checkWall(ghost, "South"))
+        {
+            ghost.path[0] = "South"
+            return;
+        }            
+        else if (checkWall(ghost, "North"))
+        {
+            ghost.path[0] = "North"
+            return;
+        }            
+        else if (checkWall(ghost, "East"))
+        {
+            ghost.path[0] = "East"
+            return;
+        }
+    }
+    if (player.bottomPressed == true)
+    {
+        if (checkWall(ghost, "South"))
+        {
+            ghost.path[0] = "South"
+            return;
+        }  
+        else if (checkWall(ghost, "East"))
+        {
+            ghost.path[0] = "East"
+            return;
+        }        
+         else if (checkWall(ghost, "West"))
+        {
+            ghost.path[0] = "West"
+            return;
+        }  
+        else if (checkWall(ghost, "North"))
+        {
+            ghost.path[0] = "North"
+            return;
+        }            
+    }
+}
+
+/*let backAtSpawn = function(ghost)
+{
+    let pathInverseLength = (ghost.pathInverse.length - ghost.path.length) + 1;
+    ghost.pathInverse.reverse();
+    ghost.pathInverse = pathInverse.slice(0, pathInverseLength)
+}*/
+
+let checkCollisionWithPlayer = function(ghost)
+{
+    if (ghost.posX > player.posX - ghost.size && ghost.posX < player.posX + player.size && ghost.posY > player.posY - player.size && ghost.posY < player.posY + ghost.size)
+    {
+        if (ghost.state == "afraid")
+        {
+            //backAtSpawn(ghost);
+        }
+    }
 }
 
 let moveGhost = function(ghost)
@@ -155,9 +308,10 @@ let manageGhosts = function()
     for (let i = ghosts.length - 1; i >= 0; i--)
     {
         let ghost = ghosts[i];
+        checkCollisionWithPlayer(ghost);
         // moves
         if (ghost["state"] == "start")
-        {
+        {        
             ghost.movingTempo = setTimeout(function()
             {   
                 ghost["busy"] = false
@@ -168,17 +322,24 @@ let manageGhosts = function()
             ghost["path"] = ghost["startPath"];
             ghost["state"] = "hunt";
         }
-        if (ghost["busy"] == false && !(ghost.row == player.row && ghost.col == player.col))
+
+        if (ghost["busy"] == false && ghost["state"] == "hunt")
         {
             if (ghost["path"].length == 0)
             {
-                calculPath(ghost);
+                calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
             }
             else
             {
                 moveGhost(ghost);
             }
         }
+        else if (ghost["state"] == "afraid")
+        {
+            searchWayForEscape(ghost);
+            moveGhost(ghost);
+        }
+
         // display
         if (ghost.state == "afraid")
         {

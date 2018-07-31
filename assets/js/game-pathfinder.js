@@ -185,11 +185,10 @@ let initGrid = function()
 // This is how we would represent the grid with obstacles above
 
 
-let calculPath = function(ghost)
+let calculPath = function(ghost, rowOrigin, colOrigin, rowFocus, ColFocus)
 {
 	let grid = JSON.parse(JSON.stringify(gridGabarit));
-	grid[Math.ceil(ghost.row/2)][Math.ceil(ghost.col/2)] = "Start";
-	grid[Math.ceil(player.row/2)][Math.ceil(player.col/2)] = "Goal";
-	ghost.path = findShortestPath([Math.ceil(ghost.row/2),Math.ceil(ghost.col/2)], grid);
-	ghost.pathInverse = ghost.path;
+	grid[rowOrigin][colOrigin] = "Start";
+	grid[rowFocus][ColFocus] = "Goal";
+	ghost.path = findShortestPath([rowOrigin,colOrigin], grid);
 }
