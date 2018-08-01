@@ -59,6 +59,8 @@ unbreakBlock.src = 'assets/img/unbreak.svg';
 let box = new Image();
 box.src = 'assets/img/box1.svg';
 // transforme les tableaux map de dimension unique en tableau à deux dimensions (row / col)
+let row4Rand = [];
+let col4Rand = [];
 function genMapBoard()
 {
 	let mapIndex = 0;
@@ -77,6 +79,12 @@ function genMapBoard()
 			}
 			mapBoards[r][c].type = map01[mapIndex];
 			mapIndex++;
+            //coord for random pathfinder
+            if (r % 2 != 0 && c % 2 != 0 && mapBoards[r][c].type == 0 && mapBoards[r][c].wall != 2)
+            {
+                row4Rand.push(Math.ceil(r / 2));
+                col4Rand.push(Math.ceil(c / 2));
+            }
 		}
     }
 }

@@ -59,140 +59,17 @@ let initGhosts = function()
     ghosts.push(orange);
 }
 
-let checkWall = function(ghost, direction)
-{
-    let r = ghost["row"];
-    let c = ghost["col"];
-    if (direction == "East" && mapBoards[r+3][c].wall < 1 && mapBoards[r+3][c+1].wall < 1 && mapBoards[r+3][c+2].wall < 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    if (direction == "South" && mapBoards[r][c+3].wall < 1 && mapBoards[r+1][c+3].wall < 1 && mapBoards[r+2][c+3].wall < 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    if (direction == "West" && mapBoards[r][c-1].wall < 1 && mapBoards[r+1][c-1].wall < 1 && mapBoards[r+2][c-1].wall < 1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    if (direction == "Nord" && mapBoards[r-1][c].wall < 1 && mapBoards[r-1][c+1].wall < 1 && mapBoards[r-1][c+2].wall < 1)
-    {
-        return true;
-    }  
-    else
-    {
-        return false;
-    } 
-}
-
 let searchWayForEscape = function(ghost)
 {
-    ghost.path = [];
+    /*if (ghost.row < tileNumberByRow / 2)
+    {
+        if (ghost.col < tileNumberByCol /2)
+        {
 
-    if (player.rightPressed == true)
-    {
-        if (checkWall(ghost, "East"))
-        {
-            ghost.path[0] = "East"
-            return;
         }
-        else if (checkWall(ghost, "South"))
-        {
-            ghost.path[0] = "South"
-            return;
-        }            
-        else if (checkWall(ghost, "North"))
-        {
-            ghost.path[0] = "North"
-            return;
-        }            
-        else if (checkWall(ghost, "West"))
-        {
-            ghost.path[0] = "West"
-            return;
-        }
-    }
-    else if (player.topPressed == true)
-    {
-        if (checkWall(ghost, "North"))
-        {
-            ghost.path[0] = "North"
-            return;
-        }  
-        else if (checkWall(ghost, "East"))
-        {
-            ghost.path[0] = "East"
-            return;
-        }                    
-        else if (checkWall(ghost, "West"))
-        {
-            ghost.path[0] = "West"
-            return;
-        }
-        else if (checkWall(ghost, "South"))
-        {
-            ghost.path[0] = "South"
-            return;
-        }  
-    }
-    if (player.leftPressed == true)
-    {
-        if (checkWall(ghost, "West"))
-        {
-            ghost.path[0] = "West"
-            return;
-        }
-        else if (checkWall(ghost, "South"))
-        {
-            ghost.path[0] = "South"
-            return;
-        }            
-        else if (checkWall(ghost, "North"))
-        {
-            ghost.path[0] = "North"
-            return;
-        }            
-        else if (checkWall(ghost, "East"))
-        {
-            ghost.path[0] = "East"
-            return;
-        }
-    }
-    if (player.bottomPressed == true)
-    {
-        if (checkWall(ghost, "South"))
-        {
-            ghost.path[0] = "South"
-            return;
-        }  
-        else if (checkWall(ghost, "East"))
-        {
-            ghost.path[0] = "East"
-            return;
-        }        
-         else if (checkWall(ghost, "West"))
-        {
-            ghost.path[0] = "West"
-            return;
-        }  
-        else if (checkWall(ghost, "North"))
-        {
-            ghost.path[0] = "North"
-            return;
-        }            
-    }
+    }*/
+    /*let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
+    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);*/
 }
 
 /*let backAtSpawn = function(ghost)
@@ -216,89 +93,76 @@ let checkCollisionWithPlayer = function(ghost)
 let moveGhost = function(ghost)
 {
     ghost["busy"] = true;
-    if (ghost["path"][0] == "North")
+    if (typeof ghost["path"][0] != "undefined")
     {
-        ghost["path"].splice(0, 1);
-        ghost["row"] -= 2;
-        ghost.movingTempo = setInterval(function()
-        {   
-            ghost["posY"] -= ghost["movingSpeed"];
-            if (ghost["posY"] / tileSize == ghost["row"])
-            {
-                clearInterval(ghost.movingTempo);
-                if (ghost["path"].length != 0)
+        if (ghost["path"][0] == "North")
+        {
+            console.log(ghost["path"][0])
+            ghost["path"].splice(0, 1);
+            ghost["row"] -= 2;
+            ghost.movingTempo = setInterval(function()
+            {   
+                ghost["posY"] -= ghost["movingSpeed"];
+                if (ghost["posY"] / tileSize == ghost["row"])
                 {
-                    moveGhost(ghost);
-                }
-                else
-                {
+                    console.log("close")
+                    clearInterval(ghost.movingTempo);
                     ghost["busy"] = false;
                 }
-            }
-        },17);
+            },17);
+        }
+        else if (ghost["path"][0] == "West")
+        {
+            console.log(ghost["path"][0])
+            ghost["path"].splice(0, 1);
+            ghost["col"] -= 2;
+            ghost["movingTempo"] = setInterval(function()
+            {   
+                ghost["posX"] -= ghost["movingSpeed"];
+                if (ghost["posX"] / tileSize == ghost["col"])
+                {
+                    console.log("close")
+                    clearInterval(ghost.movingTempo);
+                    ghost["busy"] = false;
+                }
+            },17);
+        }
+        else if (ghost["path"][0] == "East")
+        {
+            console.log(ghost["path"][0])
+            ghost["path"].splice(0, 1);
+            ghost["col"] += 2;
+            ghost["movingTempo"] = setInterval(function()
+            {   
+                ghost["posX"] += ghost["movingSpeed"];
+                if (ghost["posX"] / tileSize == ghost["col"])
+                {
+                    console.log("close")
+                    clearInterval(ghost.movingTempo);
+                    ghost["busy"] = false;
+                }
+            },17);
+        }
+        else if (ghost["path"][0] == "South")
+        {
+            console.log(ghost["path"][0])
+            ghost["path"].splice(0, 1);
+            ghost["row"] += 2;
+            ghost["movingTempo"] = setInterval(function()
+            {   
+                ghost["posY"] += ghost["movingSpeed"];
+                if (ghost["posY"] / tileSize == ghost["row"])
+                {
+                    console.log("close")
+                    clearInterval(ghost.movingTempo);
+                    ghost["busy"] = false;
+                }
+            },17);
+        }
     }
-    else if (ghost["path"][0] == "West")
+    else
     {
-        ghost["path"].splice(0, 1);
-        ghost["col"] -= 2;
-        ghost["movingTempo"] = setInterval(function()
-        {   
-            ghost["posX"] -= ghost["movingSpeed"];
-            if (ghost["posX"] / tileSize == ghost["col"])
-            {
-                clearInterval(ghost.movingTempo);
-                if (ghost["path"].length != 0)
-                {
-                    moveGhost(ghost);
-                }
-                else
-                {
-                    ghost["busy"] = false;
-                }
-            }
-        },17);
-    }
-    else if (ghost["path"][0] == "East")
-    {
-        ghost["path"].splice(0, 1);
-        ghost["col"] += 2;
-        ghost["movingTempo"] = setInterval(function()
-        {   
-            ghost["posX"] += ghost["movingSpeed"];
-            if (ghost["posX"] / tileSize == ghost["col"])
-            {
-                clearInterval(ghost.movingTempo);
-                if (ghost["path"].length != 0)
-                {
-                    moveGhost(ghost);
-                }
-                else
-                {
-                    ghost["busy"] = false;
-                }
-            }
-        },17);
-    }
-    else if (ghost["path"][0] == "South")
-    {
-        ghost["path"].splice(0, 1);
-        ghost["row"] += 2;
-        ghost["movingTempo"] = setInterval(function()
-        {   
-            ghost["posY"] += ghost["movingSpeed"];
-            if (ghost["posY"] / tileSize == ghost["row"])
-            {
-                clearInterval(ghost.movingTempo);
-                if (ghost["path"].length != 0)
-                {
-                    moveGhost(ghost);
-                }
-                else
-                {
-                    ghost["busy"] = false;
-                }
-            }
-        },17);
+        ghost["busy"] = false;
     }
 }
 
@@ -323,23 +187,25 @@ let manageGhosts = function()
             ghost["state"] = "hunt";
         }
 
-        if (ghost["busy"] == false && ghost["state"] == "hunt")
+        if (ghost["busy"] == false)
         {
-            if (ghost["path"].length == 0)
+            if (ghost["state"] == "hunt")
             {
-                calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+                if (ghost["path"].length == 0)
+                {
+                    console.log("PATH")
+                    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+                }
+                else
+                {
+                }
             }
-            else
+            else if (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash")
             {
-                moveGhost(ghost);
+                searchWayForEscape(ghost);
             }
-        }
-        else if (ghost["state"] == "afraid")
-        {
-            searchWayForEscape(ghost);
             moveGhost(ghost);
         }
-
         // display
         if (ghost.state == "afraid")
         {

@@ -45,6 +45,7 @@ let launchBonus = function()
     for (let i = ghosts.length - 1; i >= 0; i--)
     {     
         ghosts[i].state = "afraid";
+        ghosts[i]["path"] = [];
     }
     bonusTempo = setTimeout(function()
     {
@@ -62,9 +63,9 @@ let launchBonus = function()
                 ghosts[i].state = "hunt";
                 ghosts[i].afraidFlashTempo = false;
             }
-        },5000);
+        },1000);
 
-    },10000);
+    },2000);
 }
 
 let takeFood = function(row, col)
@@ -157,51 +158,57 @@ let drawPlayer = function()
     // MOVE TOP
     if (player.moving == false && player.topPressed == true)
     {
-        if (mapBoards[playerPosArrayRow - 1][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 2].wall < 1)
+        if (typeof mapBoards[playerPosArrayRow - 1][playerPosArrayCol] != "undefined")
         {
-                let oldPosY = player.posY;
-                player.moving = true;
-                player.movingTempo = setInterval(function()
-                {
-                    player.posY -= player.movingSpeed;
-                    if (player.posY == oldPosY - 2 * tileSize)
+            if (mapBoards[playerPosArrayRow - 1][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 2].wall < 1)
+            {
+                    let oldPosY = player.posY;
+                    player.moving = true;
+                    player.movingTempo = setInterval(function()
                     {
-                        player.animationIndex = player.animationIndex == 6 ? player.animationIndex + 1 : 6;
-                        takeFood(playerPosArrayRow - 1, playerPosArrayCol + 1)
-                        player.moving = false;
-                        player.row = player.posY / tileSize;
-                        player.col = player.posX / tileSize;
-                        clearInterval(player.movingTempo);
-                    }
-                },17);
+                        player.posY -= player.movingSpeed;
+                        if (player.posY == oldPosY - 2 * tileSize)
+                        {
+                            player.animationIndex = player.animationIndex == 6 ? player.animationIndex + 1 : 6;
+                            takeFood(playerPosArrayRow - 1, playerPosArrayCol + 1)
+                            player.moving = false;
+                            player.row = player.posY / tileSize;
+                            player.col = player.posX / tileSize;
+                            clearInterval(player.movingTempo);
+                        }
+                    },17);
+            }
         }
     }
     // MOVE BOTTOM
     if (player.moving == false && player.bottomPressed == true)
     {
-        if (mapBoards[playerPosArrayRow + 3][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 2].wall < 1)
+        if (typeof mapBoards[playerPosArrayRow + 3][playerPosArrayCol] != "undefined")
         {
-                let oldPosY = player.posY;
-                player.moving = true;
-                player.movingTempo = setInterval(function()
-                {   
-                    player.posY += player.movingSpeed;
-                    if (player.posY == oldPosY + 2 * tileSize)
-                    {
-                        player.animationIndex = player.animationIndex == 2 ? player.animationIndex + 1 : 2;
-                        takeFood(playerPosArrayRow + 3, playerPosArrayCol + 1)
-                        player.moving = false;
-                        player.row = player.posY / tileSize;
-                        player.col = player.posX / tileSize;
-                        clearInterval(player.movingTempo);
-                    }
-                },17);
+            if (mapBoards[playerPosArrayRow + 3][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 2].wall < 1)
+            {
+                    let oldPosY = player.posY;
+                    player.moving = true;
+                    player.movingTempo = setInterval(function()
+                    {   
+                        player.posY += player.movingSpeed;
+                        if (player.posY == oldPosY + 2 * tileSize)
+                        {
+                            player.animationIndex = player.animationIndex == 2 ? player.animationIndex + 1 : 2;
+                            takeFood(playerPosArrayRow + 3, playerPosArrayCol + 1)
+                            player.moving = false;
+                            player.row = player.posY / tileSize;
+                            player.col = player.posX / tileSize;
+                            clearInterval(player.movingTempo);
+                        }
+                    },17);
+            }
         }
     }
     // MOVE RIGHT
     if (player.moving == false && player.rightPressed == true)
     {
-        if (mapBoards[playerPosArrayRow][playerPosArrayCol + 3] != undefined)
+        if (typeof mapBoards[playerPosArrayRow][playerPosArrayCol + 3] != "undefined")
         {
             if (mapBoards[playerPosArrayRow][playerPosArrayCol + 3].wall < 1 && mapBoards[playerPosArrayRow + 1][playerPosArrayCol + 3].wall < 1 && mapBoards[playerPosArrayRow + 2][playerPosArrayCol + 3].wall < 1)
             {
@@ -231,7 +238,7 @@ let drawPlayer = function()
     if (player.moving == false && player.leftPressed == true)
     {        
 
-        if (mapBoards[playerPosArrayRow][playerPosArrayCol - 1] != undefined)
+        if (typeof mapBoards[playerPosArrayRow][playerPosArrayCol - 1] != "undefined")
         {
             if (mapBoards[playerPosArrayRow][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 1][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 2][playerPosArrayCol - 1].wall < 1)
             {
