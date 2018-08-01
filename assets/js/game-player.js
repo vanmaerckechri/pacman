@@ -45,14 +45,22 @@ let launchBonus = function()
     for (let i = ghosts.length - 1; i >= 0; i--)
     {     
         ghosts[i].state = "afraid";
-        ghosts[i]["path"] = [];
+        ghosts[i]["display"] = "afraid"
+        if (ghosts[i]["state"] != "start")
+        {
+            ghosts[i]["path"] = [];
+        }
     }
     bonusTempo = setTimeout(function()
     {
         clearTimeout(bonusTempo);   
         for (let i = ghosts.length - 1; i >= 0; i--)
-        {     
-            ghosts[i].state = "afraidFlash";
+        {
+            if (ghosts[i]["state"] != "dead")
+            {     
+                ghosts[i].state = "afraidFlash";
+                ghosts[i]["display"] = "afraidFlash"
+            }
         } 
         bonusTempo = setTimeout(function()
         {
@@ -60,9 +68,16 @@ let launchBonus = function()
             for (let i = ghosts.length - 1; i >= 0; i--)
             {    
                 clearInterval(ghosts[i].afraidFlashTempo);
-                ghosts[i]["path"] = [];
-                ghosts[i].state = "hunt";
-                ghosts[i].afraidFlashTempo = false;
+                if (ghosts[i]["state"] != "start")
+                {
+                    ghosts[i]["path"] = [];
+                }
+                if (ghosts[i]["state"] != "dead")
+                {   
+                    ghosts[i]["display"] = "normal"
+                    ghosts[i].state = "hunt";
+                    ghosts[i].afraidFlashTempo = false;
+                }
             }
         },1000);
 

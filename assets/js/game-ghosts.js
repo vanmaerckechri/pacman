@@ -4,6 +4,9 @@ ghost_afraid.src = 'assets/img/ghost_afraid.svg';
 let ghost_afraidFlash = new Image();
 ghost_afraidFlash.src = 'assets/img/ghost_afraidFlash.svg';
 
+let ghost_dead = new Image();
+ghost_dead.src = 'assets/img/ghost_dead.svg';
+
 let ghosts = [];
 
 let initGhosts = function()
@@ -11,6 +14,7 @@ let initGhosts = function()
     let ghost =
     {
         name: "",
+        display: "normal",
         img: {},
         startAt: 0,
         startPath: [],
@@ -24,13 +28,8 @@ let initGhosts = function()
         row: 15,
         col: 19,
         path: [],
-        topPressed: false,
-        rightPressed: false,
-        bottomPressed: false,
-        leftPressed: false,
-        spacePressed: false,
-        spaceStopPressed: true,
         movingTempo: null,
+        movingSpeedOrigin: tileSize / 8,
         movingSpeed: tileSize / 8,
         alive: 1
     };
@@ -65,38 +64,47 @@ let initGhosts = function()
 let moveRandomGhost = function(ghost)
 {
     let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
-    console.log(row4Rand[rand])
-        console.log(col4Rand[rand])
-
     calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);    
 }
 
 let searchWayForEscape = function(ghost)
 {
-    if (ghost.row < tileNumberByRow / 2)
+    /*if (ghost.row < tileNumberByRow / 2)
     {
         if (ghost.col < tileNumberByCol /2)
         {
 
         }
-    }
+    }*/
     moveRandomGhost(ghost);
 }
 
-/*let backAtSpawn = function(ghost)
+let backAtSpawn = function(ghost)
 {
-    let pathInverseLength = (ghost.pathInverse.length - ghost.path.length) + 1;
-    ghost.pathInverse.reverse();
-    ghost.pathInverse = pathInverse.slice(0, pathInverseLength)
-}*/
+    if (mapBoards[ghost.row][ghost.col].type == 3)
+    {
+        ghost["state"] = "start";
+        ghost["display"] = "normal";
+        startGhost(ghost);
+        return;
+    }
+    if (ghost["path"].length == 0)
+    {
+        ghost["afraidFlashTempo"] = false;
+        ghost["movingSpeed"] = tileSize / 4;
+        calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), 8, 10);
+        ghost["path"].push("South", "South");
+    }
+}
 
 let checkCollisionWithPlayer = function(ghost)
 {
     if (ghost.posX > player.posX - ghost.size && ghost.posX < player.posX + player.size && ghost.posY > player.posY - player.size && ghost.posY < player.posY + ghost.size)
     {
-        if (ghost.state == "afraid")
+        if (ghost.state == "afraid" || ghost.state == "afraidFlash")
         {
-            //backAtSpawn(ghost);
+            ghost["state"] = "dead";
+            ghost["display"] = "dead";
         }
     }
 }
@@ -169,7 +177,23 @@ let moveGhost = function(ghost)
     }
 }
 
-
+let startGhost = function(ghost)
+{
+    if (ghost["path"].length == 0)
+    {
+        ghost["busy"] = true;
+        ghost.movingTempo = setTimeout(function()
+        {           
+            ghost["movingSpeed"] = ghost["movingSpeedOrigin"];
+            ghost["path"] = ghost["startPath"];
+            ghost["state"] = "hunt";
+            ghost["startAt"] = 1000;
+            ghost["startPath"] = ["North", "North"];
+            ghost["busy"] = false;
+            clearTimeout(ghost.movingTempo);
+        },ghost["startAt"]);
+    }
+}
 let manageGhosts = function()
 {
     for (let i = ghosts.length - 1; i >= 0; i--)
@@ -177,17 +201,9 @@ let manageGhosts = function()
         let ghost = ghosts[i];
         checkCollisionWithPlayer(ghost);
         // moves
-        if (ghost["state"] == "start")
+        if (ghost["state"] == "start" && ghost.movingTempo == null)
         {        
-            ghost.movingTempo = setTimeout(function()
-            {   
-                ghost["busy"] = false
-                clearTimeout(ghost.movingTempo);
-
-            },ghost["startAt"]);
-
-            ghost["path"] = ghost["startPath"];
-            ghost["state"] = "hunt";
+            startGhost(ghost);
         }
 
         if (ghost["busy"] == false)
@@ -205,19 +221,23 @@ let manageGhosts = function()
                         moveRandomGhost(ghost);
                     }
                 }
-                else if (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash")
+                else if (mapBoards[ghost["row"]][ghost["col"]].type != 3 && (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash"))
                 {
                     searchWayForEscape(ghost);
+                }
+                else if (ghost["state"] == "dead")
+                {
+                    backAtSpawn(ghost);
                 }
             }
             moveGhost(ghost);
         }
         // display
-        if (ghost.state == "afraid")
+        if (ghost["display"] == "afraid")
         {
             ctxGhosts.drawImage(ghost_afraid, ghost.posX, ghost.posY, ghost.size, ghost.size);
         }
-        else if (ghost.state == "afraidFlash")
+        else if (ghost["display"] == "afraidFlash")
         {
             if (ghost.afraidFlashTempo == false)
             {
@@ -228,6 +248,10 @@ let manageGhosts = function()
                 },500);
             }
             ctxGhosts.drawImage(ghost["afraidFlashSwitch"], ghost.posX, ghost.posY, ghost.size, ghost.size);
+        }
+        else if (ghost["display"] == "dead")
+        {
+            ctxGhosts.drawImage(ghost_dead, ghost.posX, ghost.posY, ghost.size, ghost.size);
         }
         else 
         {
