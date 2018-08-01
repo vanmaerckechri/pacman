@@ -33,7 +33,7 @@ let player =
     spaceStopPressed: true,
     moving: false,
     movingTempo: null,
-    movingSpeed: tileSize / 2,
+    movingSpeed: tileSize / 8,
     animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
     animationIndex: 0,
     alive: 1
@@ -59,7 +59,8 @@ let launchBonus = function()
             clearTimeout(bonusTempo);
             for (let i = ghosts.length - 1; i >= 0; i--)
             {    
-                clearInterval(ghosts[i].afraidFlashTempo); 
+                clearInterval(ghosts[i].afraidFlashTempo);
+                ghosts[i]["path"] = [];
                 ghosts[i].state = "hunt";
                 ghosts[i].afraidFlashTempo = false;
             }

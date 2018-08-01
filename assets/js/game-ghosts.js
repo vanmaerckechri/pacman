@@ -30,7 +30,7 @@ let initGhosts = function()
         spacePressed: false,
         spaceStopPressed: true,
         movingTempo: null,
-        movingSpeed: tileSize / 4,
+        movingSpeed: tileSize / 8,
         alive: 1
     };
     // red
@@ -61,13 +61,13 @@ let initGhosts = function()
 
 let searchWayForEscape = function(ghost)
 {
-    /*if (ghost.row < tileNumberByRow / 2)
+    if (ghost.row < tileNumberByRow / 2)
     {
         if (ghost.col < tileNumberByCol /2)
         {
 
         }
-    }*/
+    }
     let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
     calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);
 }

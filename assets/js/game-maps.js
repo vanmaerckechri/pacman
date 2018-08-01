@@ -80,13 +80,14 @@ function genMapBoard()
 			mapBoards[r][c].type = map01[mapIndex];
 			mapIndex++;
             //coord for random pathfinder
-            if (r % 2 != 0 && c % 2 != 0 && mapBoards[r][c].type == 0 && mapBoards[r][c].wall != 2)
+            if (r % 2 != 0 && c % 2 != 0 && mapBoards[r][c].type == 0 && mapBoards[r][c].wall != 2 && r < tileNumberByRow - 3 && c < tileNumberByCol - 3)//(r < tileNumberByRow -3 => size of ghost 3/3)
             {
                 row4Rand.push(Math.ceil(r / 2));
                 col4Rand.push(Math.ceil(c / 2));
             }
 		}
     }
+    console.log(row4Rand)
 }
 
 function drawMap()
