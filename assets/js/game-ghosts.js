@@ -10,6 +10,7 @@ let initGhosts = function()
 {
     let ghost =
     {
+        name: "",
         img: {},
         startAt: 0,
         startPath: [],
@@ -43,6 +44,7 @@ let initGhosts = function()
     red["posX"] = tileSize * 19;
     red["row"] = 15;
     red["col"] = 19;
+    red["name"] = "red";
     ghosts.push(red);
 
     // orange
@@ -56,7 +58,17 @@ let initGhosts = function()
     orange["posX"] = tileSize * 19;
     orange["row"] = 19;
     orange["col"] = 19;
+    orange["name"] = "orange";
     ghosts.push(orange);
+}
+
+let moveRandomGhost = function(ghost)
+{
+    let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
+    console.log(row4Rand[rand])
+        console.log(col4Rand[rand])
+
+    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);    
 }
 
 let searchWayForEscape = function(ghost)
@@ -68,8 +80,7 @@ let searchWayForEscape = function(ghost)
 
         }
     }
-    let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
-    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);
+    moveRandomGhost(ghost);
 }
 
 /*let backAtSpawn = function(ghost)
@@ -185,7 +196,14 @@ let manageGhosts = function()
             {
                 if (ghost["state"] == "hunt")
                 {
-                    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+                    if (ghost["name"] == "red")
+                    {
+                        calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+                    }
+                    else if (ghost["name"] == "orange")
+                    {
+                        moveRandomGhost(ghost);
+                    }
                 }
                 else if (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash")
                 {
