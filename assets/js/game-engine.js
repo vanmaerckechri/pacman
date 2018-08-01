@@ -27,6 +27,7 @@ function engine()
     ctxGhosts.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
     drawPlayer();
     manageGhosts();
+    displayPointsByGhost();
     requestAnimationFrame(engine);
 }
 

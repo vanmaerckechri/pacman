@@ -31,7 +31,11 @@ let initGhosts = function()
         movingTempo: null,
         movingSpeedOrigin: tileSize / 8,
         movingSpeed: tileSize / 8,
-        alive: 1
+        alive: 1,
+        pointsByGhost: 100,
+        pointsByGhostTempo: false,
+        displayPointsByGhostPosX: false,
+        displayPointsByGhostPosY: false
     };
     // red
     let ghost_red = new Image();
@@ -90,14 +94,38 @@ let backAtSpawn = function(ghost)
     }
     if (ghost["path"].length == 0)
     {
-        player["pointsByGhost"] *= 2;
-        console.log(player["pointsByGhost"])
-        updateScore(player["pointsByGhost"]);
         ghost["afraidFlashTempo"] = false;
         ghost["movingSpeed"] = tileSize / 4;
         calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), 8, 10);
         ghost["path"].push("South", "South");
     }
+}
+
+let givePointsByGhost = function(ghost)
+{
+	clearInterval(ghost["pointsByGhostTempo"]);
+    player["pointsByGhost"] *= 2;
+    ghost["pointsByGhost"] = player["pointsByGhost"];
+    updateScore(player["pointsByGhost"]);
+    ghost["displayPointsByGhostPosX"] = ghost["posX"];
+    ghost["displayPointsByGhostPosY"] = ghost["posY"];
+    ghost["pointsByGhostTempo"] = setTimeout(function()
+    {
+    	ghost["displayPointsByGhostPosX"] = false;
+    	ghost["displayPointsByGhostPosY"] = false;
+    }, 2000);
+}
+
+let displayPointsByGhost = function()
+{
+	for (let i = ghosts.length - 1; i >= 0; i--)
+	{
+		if (ghosts[i]["displayPointsByGhostPosX"] != false && ghosts[i]["displayPointsByGhostPosY"] != false)
+		{
+			ctxFood.font = "18px Arial";
+			ctxFood.fillText(ghosts[i]["pointsByGhost"], ghosts[i]["displayPointsByGhostPosX"], ghosts[i]["displayPointsByGhostPosY"]);
+		}
+	}
 }
 
 let checkCollisionWithPlayer = function(ghost)
@@ -110,9 +138,11 @@ let checkCollisionWithPlayer = function(ghost)
             ghost["display"] = "dead";
             ghost["path"] = [];
             ghost["alive"] = 0;
+            givePointsByGhost(ghost);
+        	displayPointsByGhost(ghost);
         }
     }
-}
+} 
 
 let moveGhost = function(ghost)
 {
