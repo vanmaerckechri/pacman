@@ -90,6 +90,9 @@ let backAtSpawn = function(ghost)
     }
     if (ghost["path"].length == 0)
     {
+        player["pointsByGhost"] *= 2;
+        console.log(player["pointsByGhost"])
+        updateScore(player["pointsByGhost"]);
         ghost["afraidFlashTempo"] = false;
         ghost["movingSpeed"] = tileSize / 4;
         calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), 8, 10);

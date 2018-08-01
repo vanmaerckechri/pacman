@@ -33,10 +33,11 @@ let player =
     spaceStopPressed: true,
     moving: false,
     movingTempo: null,
-    movingSpeed: tileSize / 8,
+    movingSpeed: tileSize / 4,
     animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
     animationIndex: 0,
-    alive: 1
+    alive: 1,
+    pointsByGhost: 100
 };
 
 let launchBonus = function()
@@ -65,6 +66,7 @@ let launchBonus = function()
         bonusTempo = setTimeout(function()
         {
             clearTimeout(bonusTempo);
+            player["pointsByGhost"] = 100;
             for (let i = ghosts.length - 1; i >= 0; i--)
             {    
                 clearInterval(ghosts[i].afraidFlashTempo);
@@ -79,9 +81,15 @@ let launchBonus = function()
                     ghosts[i].afraidFlashTempo = false;
                 }
             }
-        },1000);
+        },3000);
 
-    },2000);
+    },5000);
+}
+
+let updateScore = function(points)
+{
+    let score = document.querySelector("#score");
+    score.innerText = parseInt(score.innerText) + points;    
 }
 
 let takeFood = function(row, col)
@@ -91,16 +99,14 @@ let takeFood = function(row, col)
         mapBoards[row][col].type = 0;
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
-        let score = document.querySelector("#score");
-        score.innerText = parseInt(score.innerText) + 10;
+        updateScore(10);
     }
     else if (mapBoards[row][col].type == 2)
     {
         mapBoards[row][col].type = 0;
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
-        let score = document.querySelector("#score");
-        score.innerText = parseInt(score.innerText) + 50;
+        updateScore(50);
         launchBonus();
     }
 }
