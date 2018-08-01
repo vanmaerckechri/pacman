@@ -113,7 +113,7 @@ let givePointsByGhost = function(ghost)
     {
     	ghost["displayPointsByGhostPosX"] = false;
     	ghost["displayPointsByGhostPosY"] = false;
-    }, 2000);
+    }, 1000);
 }
 
 let displayPointsByGhost = function()

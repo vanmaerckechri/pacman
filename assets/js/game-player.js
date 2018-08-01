@@ -42,6 +42,7 @@ let player =
 
 let launchBonus = function()
 {
+    player["pointsByGhost"] = 100;
     clearTimeout(bonusTempo);
     for (let i = ghosts.length - 1; i >= 0; i--)
     {
@@ -55,7 +56,6 @@ let launchBonus = function()
     }
     bonusTempo = setTimeout(function()
     {
-        player["pointsByGhost"] = 100;
         clearTimeout(bonusTempo);   
         for (let i = ghosts.length - 1; i >= 0; i--)
         {
