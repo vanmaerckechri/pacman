@@ -108,6 +108,8 @@ let checkCollisionWithPlayer = function(ghost)
         {
             ghost["state"] = "dead";
             ghost["display"] = "dead";
+            ghost["path"] = [];
+            ghost["alive"] = 0;
         }
     }
 }

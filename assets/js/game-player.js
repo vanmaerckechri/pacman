@@ -44,20 +44,22 @@ let launchBonus = function()
 {
     clearTimeout(bonusTempo);
     for (let i = ghosts.length - 1; i >= 0; i--)
-    {     
-        ghosts[i].state = "afraid";
-        ghosts[i]["display"] = "afraid"
-        if (ghosts[i]["state"] != "start")
-        {
+    {
+        ghosts[i]["alive"] = 1; 
+        if (ghosts[i]["state"] != "start" && ghosts[i]["state"] != "dead")
+        {        
+            ghosts[i].state = "afraid";
+            ghosts[i]["display"] = "afraid"
             ghosts[i]["path"] = [];
         }
     }
     bonusTempo = setTimeout(function()
     {
+        player["pointsByGhost"] = 100;
         clearTimeout(bonusTempo);   
         for (let i = ghosts.length - 1; i >= 0; i--)
         {
-            if (ghosts[i]["state"] != "dead")
+            if (ghosts[i]["alive"] == 1 && ghosts[i]["state"] == "afraid")
             {     
                 ghosts[i].state = "afraidFlash";
                 ghosts[i]["display"] = "afraidFlash"
@@ -66,7 +68,6 @@ let launchBonus = function()
         bonusTempo = setTimeout(function()
         {
             clearTimeout(bonusTempo);
-            player["pointsByGhost"] = 100;
             for (let i = ghosts.length - 1; i >= 0; i--)
             {    
                 clearInterval(ghosts[i].afraidFlashTempo);
