@@ -68,8 +68,8 @@ let searchWayForEscape = function(ghost)
 
         }
     }*/
-    /*let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
-    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);*/
+    let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
+    calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);
 }
 
 /*let backAtSpawn = function(ghost)
@@ -97,15 +97,13 @@ let moveGhost = function(ghost)
     {
         if (ghost["path"][0] == "North")
         {
-            console.log(ghost["path"][0])
             ghost["path"].splice(0, 1);
-            ghost["row"] -= 2;
             ghost.movingTempo = setInterval(function()
             {   
                 ghost["posY"] -= ghost["movingSpeed"];
-                if (ghost["posY"] / tileSize == ghost["row"])
+                if (ghost["posY"] / tileSize == ghost["row"] - 2)
                 {
-                    console.log("close")
+                    ghost["row"] -= 2;
                     clearInterval(ghost.movingTempo);
                     ghost["busy"] = false;
                 }
@@ -113,15 +111,13 @@ let moveGhost = function(ghost)
         }
         else if (ghost["path"][0] == "West")
         {
-            console.log(ghost["path"][0])
             ghost["path"].splice(0, 1);
-            ghost["col"] -= 2;
             ghost["movingTempo"] = setInterval(function()
             {   
                 ghost["posX"] -= ghost["movingSpeed"];
-                if (ghost["posX"] / tileSize == ghost["col"])
+                if (ghost["posX"] / tileSize == ghost["col"] - 2)
                 {
-                    console.log("close")
+                    ghost["col"] -= 2;
                     clearInterval(ghost.movingTempo);
                     ghost["busy"] = false;
                 }
@@ -129,15 +125,13 @@ let moveGhost = function(ghost)
         }
         else if (ghost["path"][0] == "East")
         {
-            console.log(ghost["path"][0])
             ghost["path"].splice(0, 1);
-            ghost["col"] += 2;
             ghost["movingTempo"] = setInterval(function()
             {   
                 ghost["posX"] += ghost["movingSpeed"];
-                if (ghost["posX"] / tileSize == ghost["col"])
+                if (ghost["posX"] / tileSize == ghost["col"] + 2)
                 {
-                    console.log("close")
+                    ghost["col"] += 2;
                     clearInterval(ghost.movingTempo);
                     ghost["busy"] = false;
                 }
@@ -145,15 +139,13 @@ let moveGhost = function(ghost)
         }
         else if (ghost["path"][0] == "South")
         {
-            console.log(ghost["path"][0])
             ghost["path"].splice(0, 1);
-            ghost["row"] += 2;
             ghost["movingTempo"] = setInterval(function()
             {   
                 ghost["posY"] += ghost["movingSpeed"];
-                if (ghost["posY"] / tileSize == ghost["row"])
+                if (ghost["posY"] / tileSize == ghost["row"] + 2)
                 {
-                    console.log("close")
+                    ghost["row"] += 2;
                     clearInterval(ghost.movingTempo);
                     ghost["busy"] = false;
                 }
@@ -189,20 +181,16 @@ let manageGhosts = function()
 
         if (ghost["busy"] == false)
         {
-            if (ghost["state"] == "hunt")
+            if (ghost["path"].length == 0)
             {
-                if (ghost["path"].length == 0)
+                if (ghost["state"] == "hunt")
                 {
-                    console.log("PATH")
                     calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
                 }
-                else
+                else if (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash")
                 {
+                    searchWayForEscape(ghost);
                 }
-            }
-            else if (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash")
-            {
-                searchWayForEscape(ghost);
             }
             moveGhost(ghost);
         }
