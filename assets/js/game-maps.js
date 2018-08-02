@@ -7,11 +7,11 @@ let bonusTempo;
 // 43 / 41
 let map01 = [
 	9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-	9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
-    9, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 9,
-    9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
+	9, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 9,
+    9, 6, 6, 6, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 5, 5, 5, 9,
+    9, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 9,
     9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9,
-    9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9, 0, 0, 0, 9,
+    9, 0, 0, 0, 9, 3, 3, 3, 9, 0, 0, 0, 9, 3, 3, 3, 9, 0, 0, 0, 9, 0, 0, 0, 9, 3, 3, 3, 9, 0, 0, 0, 9, 3, 3, 3, 9, 0, 0, 0, 9,
     9, 0, 2, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 1, 0, 9, 9, 9, 9, 9, 0, 2, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9,
@@ -45,9 +45,9 @@ let map01 = [
     9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 9, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 9,
     9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
     9, 0, 1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 1, 0, 9, 0, 1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 1, 0, 9,
-    9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
-    9, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 9,
-    9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9,
+    9, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 9,
+    9, 4, 4, 4, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 7, 7, 7, 9,
+    9, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 9,
     9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
 	];
 let floor1 = new Image();
@@ -58,6 +58,14 @@ let unbreakBlock = new Image();
 unbreakBlock.src = 'assets/img/unbreak.svg';
 let box = new Image();
 box.src = 'assets/img/box1.svg';
+let pmc = new Image();
+pmc.src = 'assets/img/pmc.svg';
+let verre_colore = new Image();
+verre_colore.src = 'assets/img/verre_colore.svg';
+let verre_incolore = new Image();
+verre_incolore.src = 'assets/img/verre_incolore.svg';
+let carton = new Image();
+carton.src = 'assets/img/carton.svg';
 // transforme les tableaux map de dimension unique en tableau à deux dimensions (row / col)
 let row4Rand = [];
 let col4Rand = [];
@@ -115,26 +123,38 @@ function drawMap()
                 ctxFood.fill();
             }
             //bonus
-            if(tileType == 2)
+            else if(tileType == 2)
             {
                 ctxFood.beginPath();
                 ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 2, 0, 2*Math.PI);
                 ctxFood.fillStyle = "white";
                 ctxFood.fill();
-            }           
+            }
+            else if(tileType == 4 && typeof mapBoards[r-2] != "undefined" && typeof mapBoards[r-2][c-2] != "undefined" && mapBoards[r-2][c-2].type == 4)
+            {
+                ctxBackground.drawImage(pmc, tileX - (tileSize * 2), tileY - (tileSize * 2), tileSize * 3, tileSize * 3);
+            } 
+            else if(tileType == 5 && typeof mapBoards[r-2] != "undefined" && typeof mapBoards[r-2][c-2] != "undefined" && mapBoards[r-2][c-2].type == 5)
+            {
+                ctxBackground.drawImage(verre_colore, tileX - (tileSize * 2), tileY - (tileSize * 2), tileSize * 3, tileSize * 3);
+            }
+            else if(tileType == 6 && typeof mapBoards[r-2] != "undefined" && typeof mapBoards[r-2][c-2] != "undefined" && mapBoards[r-2][c-2].type == 6)
+            {
+                ctxBackground.drawImage(verre_incolore, tileX - (tileSize * 2), tileY - (tileSize * 2), tileSize * 3, tileSize * 3);
+            } 
+            else if(tileType == 7 && typeof mapBoards[r-2] != "undefined" && typeof mapBoards[r-2][c-2] != "undefined" && mapBoards[r-2][c-2].type == 7)
+            {
+                ctxBackground.drawImage(carton, tileX - (tileSize * 2), tileY - (tileSize * 2), tileSize * 3, tileSize * 3);
+            }               
             //murs.
-            if(tileType == 9)
+            else if(tileType == 9)
             {
                 ctxBackground.drawImage(unbreakBlock, tileX, tileY, tileSize, tileSize);
-            }
-            if (mapBoards[r][c].wall == 3)
-            {
-                mapBoards[r][c].wall = 0;
             }
             //coord for random pathfinder
             if (r % 2 != 0 && c % 2 != 0 && mapBoards[r][c].wall != 2 && r < tileNumberByRow - 3 && c < tileNumberByCol - 3)//(r < tileNumberByRow -3 => size of ghost 3/3)
             {
-                if (mapBoards[r][c].type == 0 && mapBoards[r+1][c].type == 0 && mapBoards[r+2][c].type == 0 && mapBoards[r][c+1].type == 0 && mapBoards[r+1][c+1].type == 0 && mapBoards[r+2][c+1].type == 0)
+                if (mapBoards[r][c].type == 0 && mapBoards[r+1][c].type <= 1 && mapBoards[r+2][c].type <= 1 && mapBoards[r][c+1].type <= 1 && mapBoards[r+1][c+1].type <= 1 && mapBoards[r+2][c+1].type <= 1)
                 {
                     row4Rand.push(Math.ceil(r / 2));
                     col4Rand.push(Math.ceil(c / 2));

@@ -21,10 +21,10 @@ pacman_top01.src = 'assets/img/pacman_top01.svg';
 let player =
 {
     size: tileSize * 3,
-    posX: tileSize,
-    posY: tileSize,
-    row: 1,
-    col: 1,
+    posY: tileSize * 39,
+    posX: tileSize * 19,
+    row: 39,
+    col: 19,
     topPressed: false,
     rightPressed: false,
     bottomPressed: false,
