@@ -103,7 +103,6 @@ let backAtSpawn = function(ghost)
 
 let givePointsByGhost = function(ghost)
 {
-	clearInterval(ghost["pointsByGhostTempo"]);
     player["pointsByGhost"] *= 2;
     ghost["pointsByGhost"] = player["pointsByGhost"];
     updateScore(player["pointsByGhost"]);
