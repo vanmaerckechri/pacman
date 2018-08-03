@@ -40,18 +40,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="32.000001"
-     inkscape:cx="27.237254"
-     inkscape:cy="50.801978"
+     inkscape:cx="21.534129"
+     inkscape:cy="5.8019794"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1853"
-     inkscape:window-height="1025"
-     inkscape:window-x="67"
-     inkscape:window-y="27"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="100"
      inkscape:window-maximized="1"
      inkscape:snap-global="false">
     <sodipodi:guide
@@ -80,7 +80,7 @@
      id="layer1"
      transform="translate(0,-280.06665)">
     <path
-       style="fill:#a8641e;fill-opacity:0.5482234;stroke:#000000;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#a8641e;fill-opacity:1;stroke:#000000;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 6.9494728,281.58867 c 0,0 -0.4425017,2.91549 -0.6697369,3.27584 -0.4224015,0.66983 -1.1031155,1.02664 -1.3394729,1.69769 -0.2433837,0.691 -0.087356,8.94278 -0.087356,8.94278 0,0 -0.1747138,1.36293 3.2904445,1.31511 3.4651595,-0.0478 3.7563475,-0.6456 3.8145855,-1.38684 0.05824,-0.74125 0.194107,-6.89896 0.145596,-8.27327 -0.03889,-1.10178 -1.135639,-1.75748 -1.397711,-2.1281 -0.541001,-0.76509 -0.7279741,-3.37147 -0.7279741,-3.37147 0,0 0.1455951,-0.0239 0.1747141,-0.23912 0.02912,-0.21519 -0.2150381,-0.21559 -0.262071,-0.47821 -0.025772,-0.1439 0.291189,-0.15543 0.160155,-0.4304 -0.1379431,-0.28948 -3.0720534,-0.33476 -3.2176487,-0.0478 -0.1455945,0.28694 0.2329525,0.26302 0.2329525,0.45431 0,0.19129 -0.3790324,0.29178 -0.3494285,0.49018 0.022063,0.14786 0.2329515,0.1793 0.2329515,0.1793 z"
        id="path7865"
        inkscape:connector-curvature="0"

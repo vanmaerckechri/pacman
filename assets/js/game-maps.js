@@ -66,6 +66,16 @@ let verre_incolore = new Image();
 verre_incolore.src = 'assets/img/verre_incolore.svg';
 let carton = new Image();
 carton.src = 'assets/img/carton.svg';
+// garbages img
+let garbagesList = ["dechet_pmc01", "dechet_pmc02", "dechet_carton01", "dechet_carton02", "dechet_verrecolore01", "dechet_verrecolore02", "dechet_verreincolore01", "dechet_verreincolore02"];
+let garbagesImages = [];
+for (let i = garbagesList.length - 1; i >= 0; i--)
+{
+    let img = new Image();
+    img.src = 'assets/img/'+garbagesList[i]+'.svg';
+    garbagesImages.push(img);
+}
+
 // transforme les tableaux map de dimension unique en tableau à deux dimensions (row / col)
 let row4Rand = [];
 let col4Rand = [];
@@ -79,7 +89,7 @@ function genMapBoard()
 		mapBoards[r] = [];
         for(let c = 0; c < tileNumberByCol; c++)
         {
-			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodPositif: true, garbageHere: false};
+			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodPositif: true, garbageHere: false, garbageType: false};
             //murs.
 			if (map01[mapIndex] == 9)
 			{

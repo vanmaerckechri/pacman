@@ -67,13 +67,13 @@ let initGhosts = function()
     orange["garbageTime"] = setInterval(function()
     {
     	orange["wantDropGarbage"] = true;
-    }, 20000)
+    }, 1000)
     ghosts.push(orange);
 }
 
 let moveRandomGhost = function(ghost)
 {
-    let rand = Math.floor((Math.random() * row4Rand.length - 1) + 1); 
+    let rand = Math.floor((Math.random() * (row4Rand.length - 1)) + 1); 
     calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), row4Rand[rand], col4Rand[rand]);    
 }
 
@@ -235,9 +235,29 @@ let startGhost = function(ghost)
     }
 }
 
-let dropGarbage = function(ghost)
+let drawGarbage = function()
 {
-	alert("drop");
+	let garbagePositionListRow = [7, 7, 27, 27];
+	let garbagePositionListCol = [9, 29, 9, 29];	
+	for (let i = garbagePositionListRow.length - 1; i >= 0; i--)
+	{
+		let row = garbagePositionListRow[i];
+		let col = garbagePositionListCol[i];
+		let garbageIndex = mapBoards[row][col].garbageType;
+		if (mapBoards[row][col].garbageType !== false)
+		{
+			ctxPlayer.drawImage(garbagesImages[garbageIndex], col * tileSize, row * tileSize, tileSize * 3, tileSize * 3);
+		}
+	}
+}
+
+let dropGarbage = function(row, col)
+{
+	console.log("row"+row)
+	console.log("col"+col)
+	let rand = Math.floor((Math.random() * (garbagesList.length - 1)) + 0);
+	mapBoards[row][col].garbageType = rand;
+	console.log("drop:"+mapBoards[row][col].garbageType)
 }
 
 let chooseGarbagePosition = function(ghost)
@@ -258,7 +278,7 @@ let chooseGarbagePosition = function(ghost)
 	}
 	if (garbagePositionListRowFree.length > 0)
 	{
-		let rand = Math.floor((Math.random() * garbagePositionListRowFree.length) + 0);
+		let rand = Math.floor((Math.random() * (garbagePositionListRowFree.length - 1)) + 0);
 		let row = garbagePositionListRowFree[rand];
 		let col = garbagePositionListColFree[rand];
         calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(row/2), Math.ceil(col/2));
@@ -288,14 +308,14 @@ let manageGhosts = function()
             {
              	if (ghost["state"] == "dropGarbage")
             	{
-            		let row = ghost["row"];
-            		let col = ghost["col"];
+            		let row = ghost["posY"] / tileSize;
+            		let col = ghost["posX"] / tileSize;
             		if (mapBoards[row][col].garbageHere == false)
             		{
             			mapBoards[row][col].garbageHere = true;
             			ghost["wantDropGarbage"] = false;
             			ghost["state"] = "hunt";
-            			dropGarbage(ghost);
+            			dropGarbage(row, col);
             		}
             		else
             		{
