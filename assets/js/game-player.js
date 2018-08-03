@@ -42,7 +42,7 @@ let player =
 
 let launchBonus = function()
 {
-    player["pointsByGhost"] = 100;
+    player["pointsByGhost"] = 10;
     clearTimeout(bonusTempo);
     for (let i = ghosts.length - 1; i >= 0; i--)
     {
@@ -87,10 +87,17 @@ let launchBonus = function()
     },5000);
 }
 
-let updateScore = function(points)
+let updateScore = function(points, foodPositif)
 {
     let score = document.querySelector("#score");
-    score.innerText = parseInt(score.innerText) + points;    
+    if (foodPositif == true)
+    {
+        score.innerText = parseInt(score.innerText) + points;    
+    }
+    else if (foodPositif == false && parseInt(score.innerText) > 0)
+    {
+         score.innerText = parseInt(score.innerText) - points;           
+    }
 }
 
 let takeFood = function(row, col)
@@ -104,14 +111,14 @@ let takeFood = function(row, col)
         }, 10000);
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
-        updateScore(10);
+        updateScore(1, mapBoards[row][col].foodPositif);
     }
     else if (mapBoards[row][col].type == 2)
     {
         mapBoards[row][col].type = 0;
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
-        updateScore(50);
+        updateScore(5);
         launchBonus();
     }
 }

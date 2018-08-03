@@ -32,7 +32,7 @@ let initGhosts = function()
         movingSpeedOrigin: tileSize / 8,
         movingSpeed: tileSize / 8,
         alive: 1,
-        pointsByGhost: 100,
+        pointsByGhost: 10,
         pointsByGhostTempo: false,
         displayPointsByGhostPosX: false,
         displayPointsByGhostPosY: false
