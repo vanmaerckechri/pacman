@@ -35,7 +35,9 @@ let initGhosts = function()
         pointsByGhost: 10,
         pointsByGhostTempo: false,
         displayPointsByGhostPosX: false,
-        displayPointsByGhostPosY: false
+        displayPointsByGhostPosY: false,
+        wantDropGarbage: false,
+        garbageTime: null,
     };
     // red
     let ghost_red = new Image();
@@ -62,6 +64,10 @@ let initGhosts = function()
     orange["row"] = 19;
     orange["col"] = 19;
     orange["name"] = "orange";
+    orange["garbageTime"] = setInterval(function()
+    {
+    	orange["wantDropGarbage"] = true;
+    }, 20000)
     ghosts.push(orange);
 }
 
@@ -228,6 +234,42 @@ let startGhost = function(ghost)
         },ghost["startAt"]);
     }
 }
+
+let dropGarbage = function(ghost)
+{
+	alert("drop");
+}
+
+let chooseGarbagePosition = function(ghost)
+{
+	let garbagePositionListRow = [7, 7, 27, 27];
+	let garbagePositionListCol = [9, 29, 9, 29];
+	let garbagePositionListRowFree = [];
+	let garbagePositionListColFree = [];
+	for (let i = garbagePositionListRow.length - 1; i >= 0; i--)
+	{
+		let row = garbagePositionListRow[i];
+		let col = garbagePositionListCol[i];
+		if (mapBoards[row][col].garbageHere == false)
+		{
+			garbagePositionListRowFree.push(row);
+			garbagePositionListColFree.push(col);
+		}
+	}
+	if (garbagePositionListRowFree.length > 0)
+	{
+		let rand = Math.floor((Math.random() * garbagePositionListRowFree.length) + 0);
+		let row = garbagePositionListRowFree[rand];
+		let col = garbagePositionListColFree[rand];
+        calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(row/2), Math.ceil(col/2));
+	}
+	else
+	{
+		ghost["wantDropGarbage"] = false;
+		ghost["state"] = "hunt";
+	}
+}
+
 let manageGhosts = function()
 {
     for (let i = ghosts.length - 1; i >= 0; i--)
@@ -244,7 +286,28 @@ let manageGhosts = function()
         {
             if (ghost["path"].length == 0)
             {
-                if (ghost["state"] == "hunt")
+             	if (ghost["state"] == "dropGarbage")
+            	{
+            		let row = ghost["row"];
+            		let col = ghost["col"];
+            		if (mapBoards[row][col].garbageHere == false)
+            		{
+            			mapBoards[row][col].garbageHere = true;
+            			ghost["wantDropGarbage"] = false;
+            			ghost["state"] = "hunt";
+            			dropGarbage(ghost);
+            		}
+            		else
+            		{
+            			chooseGarbagePosition(ghost);
+            		}
+            	}           	
+            	else if (ghost["wantDropGarbage"] == true && ghost["state"] != "start" && ghost["state"] != "afraid" && ghost["state"] != "afraidFlash")
+            	{
+            		ghost["state"] = "dropGarbage";
+            		chooseGarbagePosition(ghost);
+            	}
+                else if (ghost["state"] == "hunt")
                 {
                     if (ghost["name"] == "red")
                     {

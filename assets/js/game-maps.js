@@ -79,7 +79,7 @@ function genMapBoard()
 		mapBoards[r] = [];
         for(let c = 0; c < tileNumberByCol; c++)
         {
-			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodPositif: true};
+			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodPositif: true, garbageHere: false};
             //murs.
 			if (map01[mapIndex] == 9)
 			{
