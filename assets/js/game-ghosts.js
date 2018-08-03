@@ -356,7 +356,7 @@ let manageGhosts = function()
             			chooseGarbagePosition(ghost);
             		}
             	}           	
-            	else if (ghost["wantDropGarbage"] == true && ghost["state"] != "start" && ghost["state"] != "afraid" && ghost["state"] != "afraidFlash")
+            	else if (ghost["wantDropGarbage"] == true && ghost["state"] != "start" && ghost["state"] != "afraid" && ghost["state"] != "afraidFlash" && ghost["state"] != "dead")
             	{
             		ghost["state"] = "dropGarbage";
             		chooseGarbagePosition(ghost);

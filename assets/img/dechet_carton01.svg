@@ -55,6 +55,12 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-280.06665)">
+    <circle
+       style="opacity:1;vector-effect:none;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.02784886;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:15.19999981;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path839"
+       cx="8.4666662"
+       cy="288.53333"
+       r="8.4666662" />
     <path
        style="fill:#ffffff;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 6.3138181,283.6008 c -1.9818727,0.92268 -3.4727142,-0.054 -4.7333097,0.66834 0.6330368,1.04779 0.9589538,3.48953 0.9403806,4.82626 -0.023058,1.65954 0.04818,4.19919 -0.5938404,5.7514 1.2682962,-1.24226 4.3102282,-0.004 5.1186966,-1.21232 C 9.0019707,290.71141 6.3138181,283.6008 6.3138181,283.6008 Z"
