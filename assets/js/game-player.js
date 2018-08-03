@@ -96,7 +96,7 @@ let updateScore = function(points, foodPositif)
     }
     else if (foodPositif == false && parseInt(score.innerText) > 0)
     {
-         score.innerText = parseInt(score.innerText) - points;           
+        score.innerText = parseInt(score.innerText) - points;           
     }
 }
 

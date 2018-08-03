@@ -111,8 +111,8 @@ let givePointsByGhost = function(ghost)
 {
     player["pointsByGhost"] *= 2;
     ghost["pointsByGhost"] = player["pointsByGhost"];
-    updateScore(player["pointsByGhost"]);
-    ghost["displayPointsByGhostPosX"] = ghost["posX"];
+    updateScore(player["pointsByGhost"], true);
+    ghost["displayPointsByGhostPosX"] = ghost["posX"] + tileSize;
     ghost["displayPointsByGhostPosY"] = ghost["posY"];
     ghost["pointsByGhostTempo"] = setTimeout(function()
     {
@@ -128,6 +128,7 @@ let displayPointsByGhost = function()
 		if (ghosts[i]["displayPointsByGhostPosX"] != false && ghosts[i]["displayPointsByGhostPosY"] != false)
 		{
 			ctxFood.font = "18px Arial";
+			ctxFood.fillStyle = "white";
 			ctxFood.fillText(ghosts[i]["pointsByGhost"], ghosts[i]["displayPointsByGhostPosX"], ghosts[i]["displayPointsByGhostPosY"]);
 		}
 	}
@@ -237,7 +238,7 @@ let startGhost = function(ghost)
 
 let drawGarbage = function()
 {
-	let garbagePositionListRow = [7, 7, 27, 27];
+	let garbagePositionListRow = [7, 7, 31, 31];
 	let garbagePositionListCol = [9, 29, 9, 29];	
 	for (let i = garbagePositionListRow.length - 1; i >= 0; i--)
 	{
@@ -260,19 +261,11 @@ let dropGarbage = function(row, col)
 	mapBoards[row][col].garbageType = rand;
 	mapBoards[row][col].foodNegatifTime = setInterval(function()
 	{
-		if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == true && distance <= 6)
+		if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == true && distance <= 8)
 		{
-			/*mapBoards[centerRow - distance][centerCol].foodPositif = false;
-			mapBoards[centerRow + distance][centerCol].foodPositif = false;
-			mapBoards[centerRow][centerCol - distance].foodPositif = false;
-			mapBoards[centerRow][centerCol + distance].foodPositif = false;
-			mapBoards[centerRow - distance][centerCol - distance].foodPositif = false;
-			mapBoards[centerRow - distance][centerCol + distance].foodPositif = false;
-			mapBoards[centerRow + distance][centerCol + distance].foodPositif = false;
-			mapBoards[centerRow + distance][centerCol - distance].foodPositif = false;*/
 			let rowToChange = -1*distance;
 			let colToChange = -1*distance;
-			for (let i = ((distance * 2) * (distance * 3)) - 1; i >= 0; i--)
+			for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
 			{
 				if (mapBoards[centerRow + rowToChange][centerCol + colToChange].type == 1)
 				{
@@ -280,12 +273,12 @@ let dropGarbage = function(row, col)
 				}
 				if (colToChange < distance)
 				{
-					colToChange += 1;
+					colToChange += 2;
 				}
 				else
 				{
 					colToChange = -1*distance;
-					rowToChange += 1;
+					rowToChange += 2;
 				}
 			}
 			updateFood();
@@ -296,7 +289,7 @@ let dropGarbage = function(row, col)
 
 let chooseGarbagePosition = function(ghost)
 {
-	let garbagePositionListRow = [7, 7, 27, 27];
+	let garbagePositionListRow = [7, 7, 31, 31];
 	let garbagePositionListCol = [9, 29, 9, 29];
 	let garbagePositionListRowFree = [];
 	let garbagePositionListColFree = [];

@@ -181,6 +181,7 @@ function updateFood()
     let tile;
     let tileX;
     let tileY;
+    ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
     for(let r = 0; r < tileNumberByRow; r++)
     {
         for(let c = 0; c < tileNumberByCol; c++)
