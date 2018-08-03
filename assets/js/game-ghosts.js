@@ -253,11 +253,45 @@ let drawGarbage = function()
 
 let dropGarbage = function(row, col)
 {
-	console.log("row"+row)
-	console.log("col"+col)
+	let centerRow = row + 1;
+	let centerCol = col + 1;
+	let distance = 2;
 	let rand = Math.floor((Math.random() * (garbagesList.length - 1)) + 0);
 	mapBoards[row][col].garbageType = rand;
-	console.log("drop:"+mapBoards[row][col].garbageType)
+	mapBoards[row][col].foodNegatifTime = setInterval(function()
+	{
+		if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == true && distance <= 6)
+		{
+			/*mapBoards[centerRow - distance][centerCol].foodPositif = false;
+			mapBoards[centerRow + distance][centerCol].foodPositif = false;
+			mapBoards[centerRow][centerCol - distance].foodPositif = false;
+			mapBoards[centerRow][centerCol + distance].foodPositif = false;
+			mapBoards[centerRow - distance][centerCol - distance].foodPositif = false;
+			mapBoards[centerRow - distance][centerCol + distance].foodPositif = false;
+			mapBoards[centerRow + distance][centerCol + distance].foodPositif = false;
+			mapBoards[centerRow + distance][centerCol - distance].foodPositif = false;*/
+			let rowToChange = -1*distance;
+			let colToChange = -1*distance;
+			for (let i = ((distance * 2) * (distance * 3)) - 1; i >= 0; i--)
+			{
+				if (mapBoards[centerRow + rowToChange][centerCol + colToChange].type == 1)
+				{
+					mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = false;
+				}
+				if (colToChange < distance)
+				{
+					colToChange += 1;
+				}
+				else
+				{
+					colToChange = -1*distance;
+					rowToChange += 1;
+				}
+			}
+			updateFood();
+			distance += 2;
+		}
+	}, 2000)
 }
 
 let chooseGarbagePosition = function(ghost)

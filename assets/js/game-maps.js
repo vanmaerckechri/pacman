@@ -89,7 +89,7 @@ function genMapBoard()
 		mapBoards[r] = [];
         for(let c = 0; c < tileNumberByCol; c++)
         {
-			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodPositif: true, garbageHere: false, garbageType: false};
+			mapBoards[r][c] = {wall: 0, type: 0, foodTime: false, foodNegatifTime: null, foodPositif: true, garbageHere: false, garbageType: false};
             //murs.
 			if (map01[mapIndex] == 9)
 			{
@@ -187,6 +187,7 @@ function updateFood()
         {
             let tileType = mapBoards[r][c].type;
             let foodTime = mapBoards[r][c].foodTime;
+            let foodPositif = mapBoards[r][c].foodPositif;
             tileX = c  * tileSize;
             tileY = r  * tileSize;
             //gommes.
@@ -194,7 +195,14 @@ function updateFood()
             {
                 ctxFood.beginPath();
                 ctxFood.arc(tileX + (tileSize / 2), tileY + (tileSize / 2), tileSize / 4, 0, 2*Math.PI);
-                ctxFood.fillStyle = "white";
+                if (foodPositif == true)
+                {
+                    ctxFood.fillStyle = "white";
+                }
+                else
+                {
+                    ctxFood.fillStyle = "red";
+                }
                 ctxFood.fill();
             }
             else if(tileType == 2)
