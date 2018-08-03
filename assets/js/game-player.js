@@ -95,9 +95,13 @@ let updateScore = function(points)
 
 let takeFood = function(row, col)
 {
-    if (mapBoards[row][col].type == 1)
+    if (mapBoards[row][col].type == 1 && mapBoards[row][col].foodTime == false)
     {
-        mapBoards[row][col].type = 0;
+        mapBoards[row][col].foodTime =  setTimeout(function()
+        {
+            mapBoards[row][col].foodTime = false;
+            updateFood();
+        }, 10000);
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
         updateScore(10);
