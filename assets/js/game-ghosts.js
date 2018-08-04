@@ -97,7 +97,7 @@ let initGhosts = function()
     pink["row"] = 19;
     pink["col"] = 21;
     pink["name"] = "pink";
-    pink["switchMove"] = "rand";
+    pink["switchMove"] = "embush";
     ghosts.push(pink);
 }
 
@@ -398,16 +398,30 @@ let manageGhosts = function()
                     }
                     else if (ghost["name"] == "pink" || ghost["name"] == "orange")
                     {
-                    	if (ghost["switchMove"] == "rand")
+                    	if (player["row"] == 19 && player["col"] >= 0 && player["col"] <= 8 || player["row"] == 19 && player["col"] >= 33 && player["col"] <= 41)
                     	{
-                        	moveRandomGhost(ghost);
-                        	ghost["switchMove"] = "embush";
-                        }
-                        else
-                        {
-                        	calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
-                        	ghost["switchMove"] = "rand";
-                        }
+							if (ghost["name"] == "pink" )
+							{
+	                        	calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), 10, 0);
+							}
+							else
+							{
+	                        	calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), 10, 20);
+							}
+                    	}
+                    	else
+                    	{
+	                    	if (ghost["switchMove"] == "rand")
+	                    	{
+	                        	moveRandomGhost(ghost);
+	                        	ghost["switchMove"] = "embush";
+	                        }
+	                        else
+	                        {
+	                        	calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+	                        	ghost["switchMove"] = "rand";
+	                        }
+	                    }
                     }
                 }
                 else if (mapBoards[ghost["row"]][ghost["col"]].type != 3 && (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash"))
