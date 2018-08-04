@@ -52,23 +52,53 @@ let initGhosts = function()
     red["name"] = "red";
     ghosts.push(red);
 
+    // green
+    let ghost_green = new Image();
+    ghost_green.src = 'assets/img/ghost_green.svg';
+    let green = JSON.parse(JSON.stringify(ghost));
+    green["img"] = ghost_green;
+    green["startAt"] = 1000;
+    green["startPath"] = ["North", "North", "East", "North", "North"];
+    green["posY"] = tileSize * 19;
+    green["posX"] = tileSize * 19;
+    green["row"] = 19;
+    green["col"] = 19;
+    green["name"] = "green";
+    green["garbageTime"] = setInterval(function()
+    {
+    	green["wantDropGarbage"] = true;
+    }, 10000)
+    ghosts.push(green);
+
     // orange
     let ghost_orange = new Image();
     ghost_orange.src = 'assets/img/ghost_orange.svg';
     let orange = JSON.parse(JSON.stringify(ghost));
     orange["img"] = ghost_orange;
-    orange["startAt"] = 3000;
-    orange["startPath"] = ["North", "North", "East", "North", "North"];
+    orange["startAt"] = 2000;
+    orange["startPath"] = ["East", "North", "North", "West", "North", "North"];
     orange["posY"] = tileSize * 19;
-    orange["posX"] = tileSize * 19;
+    orange["posX"] = tileSize * 17;
     orange["row"] = 19;
-    orange["col"] = 19;
+    orange["col"] = 17;
     orange["name"] = "orange";
-    orange["garbageTime"] = setInterval(function()
-    {
-    	orange["wantDropGarbage"] = true;
-    }, 10000)
+    orange["switchMove"] = "rand";
     ghosts.push(orange);
+
+    // pink
+    let ghost_pink = new Image();
+    ghost_pink.src = 'assets/img/ghost_pink.svg';
+    let pink = JSON.parse(JSON.stringify(ghost));
+    pink["img"] = ghost_pink;
+    pink["startAt"] = 3000;
+    pink["startPath"] = ["West", "North", "North", "East", "North", "North"];
+    pink["posY"] = tileSize * 19;
+    pink["posX"] = tileSize * 21;
+    pink["row"] = 19;
+    pink["col"] = 21;
+    pink["name"] = "pink";
+    pink["switchMove"] = "rand";
+    ghosts.push(pink);
 }
 
 let moveRandomGhost = function(ghost)
@@ -362,9 +392,22 @@ let manageGhosts = function()
                     {
                         calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
                     }
-                    else if (ghost["name"] == "orange")
+                    else if (ghost["name"] == "green")
                     {
                         moveRandomGhost(ghost);
+                    }
+                    else if (ghost["name"] == "pink" || ghost["name"] == "orange")
+                    {
+                    	if (ghost["switchMove"] == "rand")
+                    	{
+                        	moveRandomGhost(ghost);
+                        	ghost["switchMove"] = "embush";
+                        }
+                        else
+                        {
+                        	calculPath(ghost, Math.ceil(ghost.row/2), Math.ceil(ghost.col/2), Math.ceil(player.row/2), Math.ceil(player.col/2));
+                        	ghost["switchMove"] = "rand";
+                        }
                     }
                 }
                 else if (mapBoards[ghost["row"]][ghost["col"]].type != 3 && (ghost["state"] == "afraid" || ghost["state"] == "afraidFlash"))
