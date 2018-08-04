@@ -108,10 +108,7 @@ let cleanFood = function(row, col)
                 let colToChange = -1*distance;
                 for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
                 {
-                    if (mapBoards[centerRow + rowToChange][centerCol + colToChange].type == 1)
-                    {
-                        mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = true;
-                    }
+                    mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = true;
                     if (colToChange < distance)
                     {
                         colToChange += 2;
@@ -124,13 +121,44 @@ let cleanFood = function(row, col)
                 }
                 updateFood();
                 distance += 2;
-                if (distance > 8)
-                {
-                    clearInterval(mapBoards[row][col].foodNegatifTime);
-                    distance = 2;
-                }
+
+            }
+            if (distance > 8)
+            {
+                clearInterval(mapBoards[row][col].foodNegatifTime); 
             }
         }, 2000)
+    }
+}
+
+let playerRecyclingGarbage = function()
+{
+    console.log(player["garbageType"])
+    let row = player["row"];
+    let col = player["col"];
+    if (player["garbageType"] == "pmc" && (mapBoards[row][col].type == "4" || mapBoards[row + 1][col].type == "4" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "4")))
+    {
+        player["garbageType"] = false;
+        player["haveGarbage"] = false;
+        console.log('drop pmc')
+    }
+    else if (player["garbageType"] == "colore" && (mapBoards[row][col].type == "5" || mapBoards[row][col + 1].type == "5" || (typeof mapBoards[row][col + 2]  != "undefined" && mapBoards[row][col + 2].type == "5")))
+    {
+        player["garbageType"] = false;
+        player["haveGarbage"] = false;
+        console.log('drop color')
+    }
+    else if (player["garbageType"] == "incolore" && mapBoards[row][col].type == "6")
+    {
+        player["garbageType"] = false;
+        player["haveGarbage"] = false;
+        console.log('drop incolore')
+    }  
+    else if (player["garbageType"] == "carton" && (mapBoards[row][col].type == "7" || mapBoards[row + 1][col].type == "7" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "7") || mapBoards[row][col + 1].type == "7" || (typeof mapBoards[row][col + 2].type != "undefined" && mapBoards[row][col + 2].type == "7")))
+    {
+        player["garbageType"] = false;
+        player["haveGarbage"] = false;
+        console.log('drop carton')
     }
 }
 
@@ -139,19 +167,20 @@ let takeGarbage = function(row, col)
     if (player["haveGarbage"] == false)
     {
         let garbagesListIndex = mapBoards[row][col]["garbageType"];
-        if (garbagesList[garbagesListIndex].includes("carton") == true)
+        console.log(garbagesListIndex)
+        if (garbagesImages[garbagesListIndex].src.includes("carton") == true)
         {
             player["garbageType"] = "carton";
         }
-        else if (garbagesList[garbagesListIndex].includes("pmc") == true)
+        else if (garbagesImages[garbagesListIndex].src.includes("pmc") == true)
         {
             player["garbageType"] = "pmc";
         }
-        else if (garbagesList[garbagesListIndex].includes("incolore") == true)
+        else if (garbagesImages[garbagesListIndex].src.includes("incolore") == true)
         {
             player["garbageType"] = "incolore";
         }
-        else if (garbagesList[garbagesListIndex].includes("colore") == true)
+        else if (garbagesImages[garbagesListIndex].src.includes("colore") == true)
         {
             player["garbageType"] = "colore";
         }
@@ -370,9 +399,13 @@ let drawPlayer = function()
             player.posX = (tileNumberByCol * tileSize) - (2 * tileSize);
         }
     }
-    if (mapBoards[player["row"]][player["col"]].garbageHere == true)
+    if (player["haveGarbage"] == false && typeof mapBoards[player["row"]] != "undefined" && typeof mapBoards[player["row"]][player["col"]] != "undefined" && mapBoards[player["row"]][player["col"]].garbageHere == true)
     {
         takeGarbage(player["row"], player["col"]);
+    }
+    if (player["haveGarbage"] == true)
+    {
+        playerRecyclingGarbage(player["row"], player["col"])
     }
     ctxPlayer.drawImage(player.animationImg[player.animationIndex], player.posX, player.posY, player.size, player.size);
 }

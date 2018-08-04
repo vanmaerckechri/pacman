@@ -67,7 +67,7 @@ let initGhosts = function()
     orange["garbageTime"] = setInterval(function()
     {
     	orange["wantDropGarbage"] = true;
-    }, 1000)
+    }, 10000)
     ghosts.push(orange);
 }
 
@@ -268,10 +268,7 @@ let dropGarbage = function(row, col)
 			let colToChange = -1*distance;
 			for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
 			{
-				if (mapBoards[centerRow + rowToChange][centerCol + colToChange].type == 1)
-				{
-					mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = false;
-				}
+				mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = false;
 				if (colToChange < distance)
 				{
 					colToChange += 2;
@@ -284,6 +281,10 @@ let dropGarbage = function(row, col)
 			}
 			updateFood();
 			distance += 2;
+		}
+		if (distance > 8)
+		{
+			clearInterval(mapBoards[row][col].foodNegatifTime);	
 		}
 	}, 2000)
 }
