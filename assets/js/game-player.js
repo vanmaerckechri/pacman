@@ -37,7 +37,9 @@ let player =
     animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
     animationIndex: 0,
     alive: 1,
-    pointsByGhost: 100
+    pointsByGhost: 100,
+    haveGarbage: false,
+    garbageType: false,
 };
 
 let launchBonus = function()
@@ -85,6 +87,76 @@ let launchBonus = function()
         },3000);
 
     },5000);
+}
+
+let cleanFood = function(row, col)
+{
+    if (player["haveGarbage"] == false)
+    {
+        clearInterval(mapBoards[row][col].foodNegatifTime);
+        player["haveGarbage"] = true;
+        mapBoards[player["row"]][player["col"]].garbageHere = false;
+        mapBoards[player["row"]][player["col"]].garbageType = false;
+        let centerRow = row + 1;
+        let centerCol = col + 1;
+        let distance = 2;
+        mapBoards[row][col].foodNegatifTime = setInterval(function()
+        {
+            if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == false && distance <= 8)
+            {
+                let rowToChange = -1*distance;
+                let colToChange = -1*distance;
+                for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
+                {
+                    if (mapBoards[centerRow + rowToChange][centerCol + colToChange].type == 1)
+                    {
+                        mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = true;
+                    }
+                    if (colToChange < distance)
+                    {
+                        colToChange += 2;
+                    }
+                    else
+                    {
+                        colToChange = -1*distance;
+                        rowToChange += 2;
+                    }
+                }
+                updateFood();
+                distance += 2;
+                if (distance > 8)
+                {
+                    clearInterval(mapBoards[row][col].foodNegatifTime);
+                    distance = 2;
+                }
+            }
+        }, 2000)
+    }
+}
+
+let takeGarbage = function(row, col)
+{
+    if (player["haveGarbage"] == false)
+    {
+        let garbagesListIndex = mapBoards[row][col]["garbageType"];
+        if (garbagesList[garbagesListIndex].includes("carton") == true)
+        {
+            player["garbageType"] = "carton";
+        }
+        else if (garbagesList[garbagesListIndex].includes("pmc") == true)
+        {
+            player["garbageType"] = "pmc";
+        }
+        else if (garbagesList[garbagesListIndex].includes("incolore") == true)
+        {
+            player["garbageType"] = "incolore";
+        }
+        else if (garbagesList[garbagesListIndex].includes("colore") == true)
+        {
+            player["garbageType"] = "colore";
+        }
+    }
+    cleanFood(row, col);
 }
 
 let updateScore = function(points, foodPositif)
@@ -297,6 +369,10 @@ let drawPlayer = function()
         {
             player.posX = (tileNumberByCol * tileSize) - (2 * tileSize);
         }
+    }
+    if (mapBoards[player["row"]][player["col"]].garbageHere == true)
+    {
+        takeGarbage(player["row"], player["col"]);
     }
     ctxPlayer.drawImage(player.animationImg[player.animationIndex], player.posX, player.posY, player.size, player.size);
 }

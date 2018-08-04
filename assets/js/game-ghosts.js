@@ -254,6 +254,7 @@ let drawGarbage = function()
 
 let dropGarbage = function(row, col)
 {
+	clearInterval(mapBoards[row][col].foodNegatifTime);
 	let centerRow = row + 1;
 	let centerCol = col + 1;
 	let distance = 2;
