@@ -39,7 +39,9 @@ let player =
     alive: 1,
     pointsByGhost: 100,
     haveGarbage: false,
+    garbage: false,
     garbageType: false,
+    garbagePosition: null
 };
 
 let launchBonus = function()
@@ -96,7 +98,7 @@ let cleanFood = function(row, col)
         clearInterval(mapBoards[row][col].foodNegatifTime);
         player["haveGarbage"] = true;
         mapBoards[player["row"]][player["col"]].garbageHere = false;
-        mapBoards[player["row"]][player["col"]].garbageType = false;
+        mapBoards[player["row"]][player["col"]].garbage = false;
         let centerRow = row + 1;
         let centerCol = col + 1;
         let distance = 2;
@@ -133,41 +135,62 @@ let cleanFood = function(row, col)
 
 let playerRecyclingGarbage = function()
 {
-    console.log(player["garbageType"])
     let row = player["row"];
     let col = player["col"];
     if (player["garbageType"] == "pmc" && (mapBoards[row][col].type == "4" || mapBoards[row + 1][col].type == "4" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "4")))
     {
+        player["garbage"] = false;
         player["garbageType"] = false;
         player["haveGarbage"] = false;
-        console.log('drop pmc')
+        updateScore(100, true);
+        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
     }
     else if (player["garbageType"] == "colore" && (mapBoards[row][col].type == "5" || mapBoards[row][col + 1].type == "5" || (typeof mapBoards[row][col + 2]  != "undefined" && mapBoards[row][col + 2].type == "5")))
     {
+        player["garbage"] = false;
         player["garbageType"] = false;
         player["haveGarbage"] = false;
-        console.log('drop color')
+        updateScore(100, true);
+        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
     }
     else if (player["garbageType"] == "incolore" && mapBoards[row][col].type == "6")
     {
+        player["garbage"] = false;
         player["garbageType"] = false;
         player["haveGarbage"] = false;
-        console.log('drop incolore')
+        updateScore(100, true);
+        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
     }  
     else if (player["garbageType"] == "carton" && (mapBoards[row][col].type == "7" || mapBoards[row + 1][col].type == "7" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "7") || mapBoards[row][col + 1].type == "7" || (typeof mapBoards[row][col + 2].type != "undefined" && mapBoards[row][col + 2].type == "7")))
     {
+        player["garbage"] = false;
         player["garbageType"] = false;
         player["haveGarbage"] = false;
-        console.log('drop carton')
+        updateScore(100, true);
+        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
     }
+}
+
+let displayPointsOnMapBoard = function(points, posX, posY, time)
+{
+    let displayPoints = setInterval(function()
+    {
+        ctxFood.font = "18px Arial";
+        ctxFood.fillStyle = "white";
+        ctxFood.fillText(points, posX, posY);
+    }, 17)
+    let stopDisplayPoints = setTimeout(function()
+    {
+        clearInterval(displayPoints);
+    }, time);
 }
 
 let takeGarbage = function(row, col)
 {
     if (player["haveGarbage"] == false)
     {
-        let garbagesListIndex = mapBoards[row][col]["garbageType"];
-        console.log(garbagesListIndex)
+        let garbagesListIndex = mapBoards[row][col]["garbage"];
+        player["garbage"] = garbagesImages[garbagesListIndex];
         if (garbagesImages[garbagesListIndex].src.includes("carton") == true)
         {
             player["garbageType"] = "carton";
@@ -298,6 +321,7 @@ let drawPlayer = function()
             if (mapBoards[playerPosArrayRow - 1][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow - 1][playerPosArrayCol + 2].wall < 1)
             {
                     let oldPosY = player.posY;
+                    player.garbagePosition = "top";
                     player.moving = true;
                     player.movingTempo = setInterval(function()
                     {
@@ -323,6 +347,7 @@ let drawPlayer = function()
             if (mapBoards[playerPosArrayRow + 3][playerPosArrayCol].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 1].wall < 1 && mapBoards[playerPosArrayRow + 3][playerPosArrayCol + 2].wall < 1)
             {
                     let oldPosY = player.posY;
+                    player.garbagePosition = "bottom";
                     player.moving = true;
                     player.movingTempo = setInterval(function()
                     {   
@@ -348,6 +373,7 @@ let drawPlayer = function()
             if (mapBoards[playerPosArrayRow][playerPosArrayCol + 3].wall < 1 && mapBoards[playerPosArrayRow + 1][playerPosArrayCol + 3].wall < 1 && mapBoards[playerPosArrayRow + 2][playerPosArrayCol + 3].wall < 1)
             {
                 let oldPosX = player.posX;
+                player.garbagePosition = "right";
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {
@@ -372,12 +398,12 @@ let drawPlayer = function()
     // MOVE LEFT
     if (player.moving == false && player.leftPressed == true)
     {        
-
         if (typeof mapBoards[playerPosArrayRow][playerPosArrayCol - 1] != "undefined")
         {
             if (mapBoards[playerPosArrayRow][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 1][playerPosArrayCol - 1].wall < 1 && mapBoards[playerPosArrayRow + 2][playerPosArrayCol - 1].wall < 1)
             {
                 let oldPosX = player.posX;
+                player.garbagePosition = "left";
                 player.moving = true;
                 player.movingTempo = setInterval(function()
                 {
@@ -405,9 +431,30 @@ let drawPlayer = function()
     }
     if (player["haveGarbage"] == true)
     {
-        playerRecyclingGarbage(player["row"], player["col"])
+        playerRecyclingGarbage(player["row"], player["col"]);
     }
+    // display player
     ctxPlayer.drawImage(player.animationImg[player.animationIndex], player.posX, player.posY, player.size, player.size);
+    // display garbage on player
+    if (player["haveGarbage"] == true)
+    {
+        if (player.garbagePosition == "right")
+        {
+            ctxPlayer.drawImage(player["garbage"], player.posX - tileSize, player.posY + (tileSize / 2), tileSize * 2, tileSize * 2);
+        }
+        else if (player.garbagePosition == "bottom")
+        {
+            ctxPlayer.drawImage(player["garbage"], player.posX + (tileSize / 2), player.posY - tileSize, tileSize * 2, tileSize * 2);
+        }
+        else if (player.garbagePosition == "left")
+        {
+            ctxPlayer.drawImage(player["garbage"], player.posX + (tileSize * 2), player.posY + (tileSize / 2), tileSize * 2, tileSize * 2);
+        }
+        else if (player.garbagePosition == "top")
+        {
+            ctxPlayer.drawImage(player["garbage"], player.posX + (tileSize / 2), player.posY + (tileSize * 2), tileSize * 2, tileSize * 2);
+        }
+    }
 }
 
 document.addEventListener("keydown", keyDownHandler, false);

@@ -244,8 +244,8 @@ let drawGarbage = function()
 	{
 		let row = garbagePositionListRow[i];
 		let col = garbagePositionListCol[i];
-		let garbageIndex = mapBoards[row][col].garbageType;
-		if (mapBoards[row][col].garbageType !== false)
+		let garbageIndex = mapBoards[row][col].garbage;
+		if (mapBoards[row][col].garbage !== false)
 		{
 			ctxPlayer.drawImage(garbagesImages[garbageIndex], col * tileSize, row * tileSize, tileSize * 3, tileSize * 3);
 		}
@@ -259,7 +259,7 @@ let dropGarbage = function(row, col)
 	let centerCol = col + 1;
 	let distance = 2;
 	let rand = Math.floor((Math.random() * (garbagesList.length - 1)) + 0);
-	mapBoards[row][col].garbageType = rand;
+	mapBoards[row][col].garbage = rand;
 	mapBoards[row][col].foodNegatifTime = setInterval(function()
 	{
 		if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == true && distance <= 8)
