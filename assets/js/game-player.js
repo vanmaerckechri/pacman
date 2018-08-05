@@ -109,30 +109,42 @@ let cleanFood = function(row, col)
         let centerRow = row + 1;
         let centerCol = col + 1;
         let distance = 2;
+        let distanceMax = 8;
         mapBoards[row][col].foodNegatifTime = setInterval(function()
         {
-            if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == false && distance <= 8)
+            let rowToChange = -1*distance;
+            let colToChange = -1*distance;
+            mapBoards[centerRow - distance][centerCol].foodPositif = true;
+            for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
             {
-                let rowToChange = -1*distance;
-                let colToChange = -1*distance;
-                for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
+                if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == -10)
                 {
-                    mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = true;
-                    if (colToChange < distance)
-                    {
-                        colToChange += 2;
-                    }
-                    else
-                    {
-                        colToChange = -1*distance;
-                        rowToChange += 2;
-                    }
+                    mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = -5;                    
                 }
-                updateFood();
-                distance += 2;
-
+                else if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == -5)
+                {
+                    mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = -1;                    
+                }
+                else if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == -1)
+                {
+                    mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = 1;                   
+                }                    
+                if (colToChange < distance)
+                {
+                    colToChange += 2;
+                }
+                else
+                {
+                    colToChange = -1*distance;
+                    rowToChange += 2;
+                }
             }
-            if (distance > 8)
+            updateFood();
+            if (distance < distanceMax)
+            {
+                distance += 2;
+            }
+            if (mapBoards[centerRow - 2][centerCol].foodPoints == 1 && mapBoards[centerRow - 4][centerCol].foodPoints == 1 && mapBoards[centerRow - 8][centerCol].foodPoints == 1)
             {
                 clearInterval(mapBoards[row][col].foodNegatifTime); 
             }
@@ -144,7 +156,6 @@ let playerRecyclingGarbage = function()
 {
     let row = player["row"];
     let col = player["col"];
-    console.log(player["garbageType"]);
     if (typeof mapBoards[row][col] != "undefined" && typeof mapBoards[row][col + 1] != "undefined" && typeof mapBoards[row][col + 2] != "undefined" && typeof mapBoards[row][col - 1] != "undefined" && typeof mapBoards[row][col - 2] != "undefined")
     {
         if (player["garbageType"] == "pmc" && (mapBoards[row][col].type == "4" || mapBoards[row + 1][col].type == "4" || mapBoards[row + 2][col].type == "4"))
@@ -222,16 +233,13 @@ let takeGarbage = function(row, col)
     cleanFood(row, col);
 }
 
-let updateScore = function(points, foodPositif)
+let updateScore = function(points)
 {
     let score = document.querySelector("#score");
-    if (foodPositif == true)
+    score.innerText = parseInt(score.innerText) + points;
+    if (parseInt(score.innerText) < 0)
     {
-        score.innerText = parseInt(score.innerText) + points;    
-    }
-    else if (foodPositif == false && parseInt(score.innerText) > 0)
-    {
-        score.innerText = parseInt(score.innerText) - points;           
+        score.innerText = 0;
     }
 }
 
@@ -246,7 +254,7 @@ let takeFood = function(row, col)
         }, 20000);
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
-        updateScore(1, mapBoards[row][col].foodPositif);
+        updateScore(mapBoards[row][col].foodPoints);
     }
     else if (mapBoards[row][col].type == 2)
     {

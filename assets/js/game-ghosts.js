@@ -45,10 +45,11 @@ let initGhosts = function()
     let red = JSON.parse(JSON.stringify(ghost));
     red["img"] = ghost_red;
     red["startAt"] = 0;
-    red["posY"] = tileSize * 15;
-    red["posX"] = tileSize * 19;
-    red["row"] = 15;
-    red["col"] = 19;
+    red["startPath"] = ["East", "North", "North", "West", "North", "North"];
+    red["posY"] = tileSize * 19;
+    red["posX"] = tileSize * 17;
+    red["row"] = 19;
+    red["col"] = 17;
     red["name"] = "red";
     ghosts.push(red);
 
@@ -69,7 +70,7 @@ let initGhosts = function()
     	green["wantDropGarbage"] = true;
     }, 10000)
     ghosts.push(green);
-
+    	/*
     // orange
     let ghost_orange = new Image();
     ghost_orange.src = 'assets/img/ghost_orange.svg';
@@ -83,7 +84,7 @@ let initGhosts = function()
     orange["col"] = 17;
     orange["name"] = "orange";
     orange["switchMove"] = "rand";
-    ghosts.push(orange);
+    ghosts.push(orange);*/
 
     // pink
     let ghost_pink = new Image();
@@ -177,7 +178,7 @@ let checkCollisionWithPlayer = function(ghost)
             givePointsByGhost(ghost);
         	displayPointsByGhost(ghost);
         }
-        else if (ghost.state != "afraid" && ghost.state != "afraidFlash" && ghost.state != "dead")
+        /*else if (ghost.state != "afraid" && ghost.state != "afraidFlash" && ghost.state != "dead")
         {
         	player["alive"] = 0;
         	player["topPressed"] = false;
@@ -186,7 +187,7 @@ let checkCollisionWithPlayer = function(ghost)
         	player["bottomPressed"] = false;
         	launchGameOver();
         	document.getElementById("gameOver").style.display = "block";
-        }
+        }*/
     }
 } 
 
@@ -298,35 +299,47 @@ let dropGarbage = function(row, col)
 	let centerRow = row + 1;
 	let centerCol = col + 1;
 	let distance = 2;
+	let distanceMax = 8;
 	let rand = Math.floor((Math.random() * (garbagesList.length - 1)) + 0);
 	mapBoards[row][col].garbage = rand;
 	mapBoards[row][col].foodNegatifTime = setInterval(function()
 	{
-		if (typeof mapBoards[centerRow - distance] != "undefined" && mapBoards[centerRow - distance][centerCol].foodPositif == true && distance <= 8)
+		let rowToChange = -1*distance;
+		let colToChange = -1*distance;
+		for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
 		{
-			let rowToChange = -1*distance;
-			let colToChange = -1*distance;
-			for (let i = ((distance+1) * (distance+1)) - 1; i >= 0; i--)
+			if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == 1)
 			{
-				mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPositif = false;
-				if (colToChange < distance)
-				{
-					colToChange += 2;
-				}
-				else
-				{
-					colToChange = -1*distance;
-					rowToChange += 2;
-				}
+				mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = -1;					
 			}
-			updateFood();
+			else if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == -1)
+			{
+				mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = -5;					
+			}
+			else if (mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints == -5)
+			{
+				mapBoards[centerRow + rowToChange][centerCol + colToChange].foodPoints = -10;					
+			}
+			if (colToChange < distance)
+			{
+				colToChange += 2;
+			}
+			else
+			{
+				colToChange = -1*distance;
+				rowToChange += 2;
+			}
+		}
+		updateFood();
+		if (distance < distanceMax)
+		{
 			distance += 2;
 		}
-		if (distance > 8)
+		if (mapBoards[centerRow - 2][centerCol].foodPoints == -10 && mapBoards[centerRow - 4][centerCol].foodPoints == -10 && mapBoards[centerRow - 8][centerCol].foodPoints == -10)
 		{
 			clearInterval(mapBoards[row][col].foodNegatifTime);	
 		}
-	}, 2000)
+	}, 5000)
 }
 
 let chooseGarbagePosition = function(ghost)
