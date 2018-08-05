@@ -28,6 +28,7 @@ let initGhosts = function()
         row: 15,
         col: 19,
         path: [],
+        lastImg: 0,
         movingTempo: null,
         movingSpeedOrigin: tileSize / 8,
         movingSpeed: tileSize / 8,
@@ -40,10 +41,16 @@ let initGhosts = function()
         garbageTime: null,
     };
     // red
-    let ghost_red = new Image();
-    ghost_red.src = 'assets/img/ghost_red.svg';
+    let ghost_red_left = new Image();
+    ghost_red_left.src = 'assets/img/ghost_red_left.svg';
+    let ghost_red_right = new Image();
+    ghost_red_right.src = 'assets/img/ghost_red_right.svg';
+    let ghost_red_top = new Image();
+    ghost_red_top.src = 'assets/img/ghost_red_top.svg';
+    let ghost_red_bottom = new Image();
+    ghost_red_bottom.src = 'assets/img/ghost_red_bottom.svg';
     let red = JSON.parse(JSON.stringify(ghost));
-    red["img"] = ghost_red;
+    red["img"] = [ghost_red_top, ghost_red_right, ghost_red_bottom, ghost_red_left];
     red["startAt"] = 0;
     red["startPath"] = ["East", "North", "North", "West", "North", "North"];
     red["posY"] = tileSize * 19;
@@ -54,10 +61,16 @@ let initGhosts = function()
     ghosts.push(red);
 
     // green
-    let ghost_green = new Image();
-    ghost_green.src = 'assets/img/ghost_green.svg';
+    let ghost_green_left = new Image();
+    ghost_green_left.src = 'assets/img/ghost_green_left.svg';
+    let ghost_green_right = new Image();
+    ghost_green_right.src = 'assets/img/ghost_green_right.svg';
+    let ghost_green_top = new Image();
+    ghost_green_top.src = 'assets/img/ghost_green_top.svg';
+    let ghost_green_bottom = new Image();
+    ghost_green_bottom.src = 'assets/img/ghost_green_bottom.svg';
     let green = JSON.parse(JSON.stringify(ghost));
-    green["img"] = ghost_green;
+    green["img"] = [ghost_green_top, ghost_green_right, ghost_green_bottom, ghost_green_left];
     green["startAt"] = 1000;
     green["startPath"] = ["North", "North", "East", "North", "North"];
     green["posY"] = tileSize * 19;
@@ -70,12 +83,18 @@ let initGhosts = function()
     	green["wantDropGarbage"] = true;
     }, 10000)
     ghosts.push(green);
-    	/*
+    /*
     // orange
-    let ghost_orange = new Image();
-    ghost_orange.src = 'assets/img/ghost_orange.svg';
+    let ghost_orange_left = new Image();
+    ghost_orange_left.src = 'assets/img/ghost_orange_left.svg';
+    let ghost_orange_right = new Image();
+    ghost_orange_right.src = 'assets/img/ghost_orange_right.svg';
+    let ghost_orange_top = new Image();
+    ghost_orange_top.src = 'assets/img/ghost_orange_top.svg';
+    let ghost_orange_bottom = new Image();
+    ghost_orange_bottom.src = 'assets/img/ghost_orange_bottom.svg';
     let orange = JSON.parse(JSON.stringify(ghost));
-    orange["img"] = ghost_orange;
+    orange["img"] = [ghost_orange_top, ghost_orange_right, ghost_orange_bottom, ghost_orange_left];
     orange["startAt"] = 2000;
     orange["startPath"] = ["East", "North", "North", "West", "North", "North"];
     orange["posY"] = tileSize * 19;
@@ -87,10 +106,16 @@ let initGhosts = function()
     ghosts.push(orange);*/
 
     // pink
-    let ghost_pink = new Image();
-    ghost_pink.src = 'assets/img/ghost_pink.svg';
+    let ghost_pink_left = new Image();
+    ghost_pink_left.src = 'assets/img/ghost_pink_left.svg';
+    let ghost_pink_right = new Image();
+    ghost_pink_right.src = 'assets/img/ghost_pink_right.svg';
+    let ghost_pink_top = new Image();
+    ghost_pink_top.src = 'assets/img/ghost_pink_top.svg';
+    let ghost_pink_bottom = new Image();
+    ghost_pink_bottom.src = 'assets/img/ghost_pink_bottom.svg';
     let pink = JSON.parse(JSON.stringify(ghost));
-    pink["img"] = ghost_pink;
+    pink["img"] = [ghost_pink_top, ghost_pink_right, ghost_pink_bottom, ghost_pink_left];
     pink["startAt"] = 3000;
     pink["startPath"] = ["West", "North", "North", "East", "North", "North"];
     pink["posY"] = tileSize * 19;
@@ -481,7 +506,30 @@ let manageGhosts = function()
         }
         else 
         {
-            ctxGhosts.drawImage(ghost["img"], ghost.posX, ghost.posY, ghost.size, ghost.size);
+        	if (ghost["path"][0] == "North")
+        	{
+            	ctxGhosts.drawImage(ghost["img"][0], ghost.posX, ghost.posY, ghost.size, ghost.size);
+            	ghost["lastImg"] = 0;
+        	}
+        	else if (ghost["path"][0] == "East")
+        	{
+            	ctxGhosts.drawImage(ghost["img"][1], ghost.posX, ghost.posY, ghost.size, ghost.size);
+            	ghost["lastImg"] = 1;
+        	}
+        	else if (ghost["path"][0] == "South")
+        	{
+            	ctxGhosts.drawImage(ghost["img"][2], ghost.posX, ghost.posY, ghost.size, ghost.size);
+            	ghost["lastImg"] = 2;
+        	}
+        	else if (ghost["path"][0] == "West")
+        	{
+            	ctxGhosts.drawImage(ghost["img"][3], ghost.posX, ghost.posY, ghost.size, ghost.size);
+            	ghost["lastImg"] = 3;
+        	}
+        	else
+        	{
+        		ctxGhosts.drawImage(ghost["img"][ghost["lastImg"]], ghost.posX, ghost.posY, ghost.size, ghost.size);
+        	}
         }
     }
 
