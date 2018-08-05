@@ -44,6 +44,13 @@ let player =
     garbagePosition: null
 };
 
+let launchGameOver = function()
+{
+    ctxFood.font = "36px Arial";
+    ctxFood.fillStyle = "white";
+    ctxPlayer.fillText("GAME OVER", (tileSize * tileNumberByCol) / 2, (tileSize * tileNumberByRow) / 2);   
+}
+
 let launchBonus = function()
 {
     player["pointsByGhost"] = 10;
@@ -137,37 +144,41 @@ let playerRecyclingGarbage = function()
 {
     let row = player["row"];
     let col = player["col"];
-    if (player["garbageType"] == "pmc" && (mapBoards[row][col].type == "4" || mapBoards[row + 1][col].type == "4" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "4")))
+    console.log(player["garbageType"]);
+    if (typeof mapBoards[row][col] != "undefined" && typeof mapBoards[row][col + 1] != "undefined" && typeof mapBoards[row][col + 2] != "undefined" && typeof mapBoards[row][col - 1] != "undefined" && typeof mapBoards[row][col - 2] != "undefined")
     {
-        player["garbage"] = false;
-        player["garbageType"] = false;
-        player["haveGarbage"] = false;
-        updateScore(100, true);
-        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
-    }
-    else if (player["garbageType"] == "colore" && (mapBoards[row][col].type == "5" || mapBoards[row][col + 1].type == "5" || (typeof mapBoards[row][col + 2]  != "undefined" && mapBoards[row][col + 2].type == "5")))
-    {
-        player["garbage"] = false;
-        player["garbageType"] = false;
-        player["haveGarbage"] = false;
-        updateScore(100, true);
-        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
-    }
-    else if (player["garbageType"] == "incolore" && mapBoards[row][col].type == "6")
-    {
-        player["garbage"] = false;
-        player["garbageType"] = false;
-        player["haveGarbage"] = false;
-        updateScore(100, true);
-        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
-    }  
-    else if (player["garbageType"] == "carton" && (mapBoards[row][col].type == "7" || mapBoards[row + 1][col].type == "7" || (typeof mapBoards[row + 2][col] != "undefined" && mapBoards[row + 2][col].type == "7") || mapBoards[row][col + 1].type == "7" || (typeof mapBoards[row][col + 2].type != "undefined" && mapBoards[row][col + 2].type == "7")))
-    {
-        player["garbage"] = false;
-        player["garbageType"] = false;
-        player["haveGarbage"] = false;
-        updateScore(100, true);
-        displayPointsOnMapBoard(100, player["posX"], player["posY"], 1000);
+        if (player["garbageType"] == "pmc" && (mapBoards[row][col].type == "4" || mapBoards[row + 1][col].type == "4" || mapBoards[row + 2][col].type == "4"))
+        {
+            player["garbage"] = false;
+            player["garbageType"] = false;
+            player["haveGarbage"] = false;
+            /*updateScore(100, true);
+            displayPointsOnMapBoard(20, player["posX"], player["posY"], 1000);*/
+        }
+        else if (player["garbageType"] == "colore" && (mapBoards[row][col].type == "5" || mapBoards[row][col + 1].type == "5" || mapBoards[row][col + 2].type == "5"))
+        {
+            player["garbage"] = false;
+            player["garbageType"] = false;
+            player["haveGarbage"] = false;
+            /*updateScore(100, true);
+            displayPointsOnMapBoard(20, player["posX"], player["posY"], 1000);*/
+        }
+        else if (player["garbageType"] == "incolore" && mapBoards[row][col].type == "6")
+        {
+            player["garbage"] = false;
+            player["garbageType"] = false;
+            player["haveGarbage"] = false;
+            /*updateScore(100, true);
+            displayPointsOnMapBoard(20, player["posX"], player["posY"], 1000);*/
+        }  
+        else if (player["garbageType"] == "carton" && (mapBoards[row][col].type == "7" || mapBoards[row + 1][col].type == "7" || mapBoards[row + 2][col].type == "7" || mapBoards[row][col + 1].type == "7" || mapBoards[row][col + 2].type == "7"))
+        {
+            player["garbage"] = false;
+            player["garbageType"] = false;
+            player["haveGarbage"] = false;
+            /*updateScore(100, true);
+            displayPointsOnMapBoard(20, player["posX"], player["posY"], 1000);*/
+        }
     }
 }
 
@@ -232,7 +243,7 @@ let takeFood = function(row, col)
         {
             mapBoards[row][col].foodTime = false;
             updateFood();
-        }, 10000);
+        }, 20000);
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
         updateScore(1, mapBoards[row][col].foodPositif);

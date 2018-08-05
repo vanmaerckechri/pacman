@@ -177,6 +177,16 @@ let checkCollisionWithPlayer = function(ghost)
             givePointsByGhost(ghost);
         	displayPointsByGhost(ghost);
         }
+        else if (ghost.state != "afraid" && ghost.state != "afraidFlash" && ghost.state != "dead")
+        {
+        	player["alive"] = 0;
+        	player["topPressed"] = false;
+        	player["leftPressed"] = false;
+        	player["rightPressed"] = false;
+        	player["bottomPressed"] = false;
+        	launchGameOver();
+        	document.getElementById("gameOver").style.display = "block";
+        }
     }
 } 
 
