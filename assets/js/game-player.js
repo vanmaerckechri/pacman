@@ -256,9 +256,9 @@ let takeFood = function(row, col)
         updateFood();
         updateScore(mapBoards[row][col].foodPoints);
     }
-    else if (mapBoards[row][col].type == 2)
+    else if (mapBoards[row][col].type == 2 && mapBoards[row][col].bonus == true)
     {
-        mapBoards[row][col].type = 0;
+        mapBoards[row][col].bonus = false;
         ctxFood.clearRect(0, 0, canvasPlayer.width, canvasPlayer.height);
         updateFood();
         updateScore(5);

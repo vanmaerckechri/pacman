@@ -78,6 +78,7 @@ let initGhosts = function()
     green["row"] = 19;
     green["col"] = 19;
     green["name"] = "green";
+    green["wantDropGarbage"] = true;
     green["garbageTime"] = setInterval(function()
     {
     	green["wantDropGarbage"] = true;
@@ -192,7 +193,7 @@ let displayPointsByGhost = function()
 
 let checkCollisionWithPlayer = function(ghost)
 {
-    if (ghost.posX > player.posX - ghost.size && ghost.posX < player.posX + player.size && ghost.posY > player.posY - player.size && ghost.posY < player.posY + ghost.size)
+    if (ghost.posX > player.posX - (ghost.size / 2) && ghost.posX < player.posX + (player.size / 2) && ghost.posY > player.posY - (ghost.size / 2) && ghost.posY < player.posY + (player.size / 2))
     {
         if (ghost.state == "afraid" || ghost.state == "afraidFlash")
         {
