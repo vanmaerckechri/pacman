@@ -17,8 +17,7 @@
 {
 	flex-wrap: wrap;
 	justify-content: space-between;
-	height: 100vh;
-	background-color: pink;
+	max-height: 100vh;
  	.canvasContainer
  	{
 		order: 2; 	
@@ -28,8 +27,6 @@
 	{
 		margin-top: 10px;
 		order: 0;
-			background-color: orange;
-
 	}
 	.mobilePad
 	{

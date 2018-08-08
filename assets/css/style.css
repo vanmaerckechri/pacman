@@ -65,15 +65,13 @@ body {
 .pacmanLandscape {
   flex-wrap: wrap;
   justify-content: space-between;
-  height: 100vh;
-  background-color: pink; }
+  max-height: 100vh; }
   .pacmanLandscape .canvasContainer {
     order: 2;
     height: 100%; }
   .pacmanLandscape .ui {
     margin-top: 10px;
-    order: 0;
-    background-color: orange; }
+    order: 0; }
   .pacmanLandscape .mobilePad {
     margin-bottom: 10px;
     order: 1; }
