@@ -328,6 +328,11 @@ let keyUpHandler = function(e)
 
 // -- MOVES --
 
+let collisions = function()
+{
+
+}
+
 let drawPlayer = function()
 {
     let playerPosArrayCol = player.posX / tileSize;
@@ -483,19 +488,35 @@ function loadPadMobiles()
     let padRight = document.querySelector(".mobilePadRight");
     let padBottom = document.querySelector(".mobilePadBottom");
     let padLeft = document.querySelector(".mobilePadLeft");
+    let key;
 
-    let handleMoveMobile = function(event)
+    let handleUpMobile = function(event)
+    {
+        if (event.target == padTop)
+        {
+            player["topPressed"] = false;
+        }
+        else if (event.target == padRight)
+        {
+             player["rightPressed"] = false;           
+        }
+        else if (event.target == padBottom)
+        {
+             player["bottomPressed"] = false;           
+        }        
+        else if (event.target == padLeft)
+        {
+             player["leftPressed"] = false;           
+        }
+    }
+
+    let handleDownMobile = function(event)
     {
         event.preventDefault();
-                console.log(event)
+        console.log(event)
 
         if (player["alive"] == 1)
         {
-            player["topPressed"] = false;
-            player["rightPressed"] = false;
-            player["bottomPressed"] = false;
-            player["leftPressed"] = false;
-
             if (event.target == padTop)
             {
                 player["topPressed"] = true;
@@ -515,11 +536,14 @@ function loadPadMobiles()
         }
     }
 
-    padTop.addEventListener("touchstart", handleMoveMobile, false);
-    padRight.addEventListener("touchstart", handleMoveMobile, false);
-    padBottom.addEventListener("touchstart", handleMoveMobile, false);
-    padLeft.addEventListener("touchstart", handleMoveMobile, false);
-    document.addEventListener("touchend", handleMoveMobile, false);
+    padTop.addEventListener("touchstart", handleDownMobile, false);
+    padRight.addEventListener("touchstart", handleDownMobile, false);
+    padBottom.addEventListener("touchstart", handleDownMobile, false);
+    padLeft.addEventListener("touchstart", handleDownMobile, false);
+    padTop.addEventListener("touchend", handleUpMobile, false);
+    padRight.addEventListener("touchend", handleUpMobile, false);
+    padBottom.addEventListener("touchend", handleUpMobile, false);
+    padLeft.addEventListener("touchend", handleUpMobile, false);
 }
 
 window.addEventListener("load", function()
