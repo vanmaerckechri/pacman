@@ -81,12 +81,10 @@ function launchPacmanGame()
 		initGrid();
 		initPlayer();
 		initGhosts();
-					adaptToMobileLandscape();
-							    loadPadMobiles();
-
-
 		if (typeof window.orientation !== 'undefined')
 		{
+			adaptToMobileLandscape();
+		    loadPadMobiles();
 		}
 		placeCanvasOnBackground();
 		requestAnimationFrame(engine); 
