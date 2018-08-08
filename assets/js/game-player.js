@@ -488,7 +488,6 @@ function loadPadMobiles()
     let padRight = document.querySelector(".mobilePadRight");
     let padBottom = document.querySelector(".mobilePadBottom");
     let padLeft = document.querySelector(".mobilePadLeft");
-    let key;
 
     let handleUpMobile = function(event)
     {
@@ -513,8 +512,6 @@ function loadPadMobiles()
     let handleDownMobile = function(event)
     {
         event.preventDefault();
-        console.log(event)
-
         if (player["alive"] == 1)
         {
             if (event.target == padTop)
@@ -551,8 +548,8 @@ window.addEventListener("load", function()
 /*if (typeof window.orientation !== 'undefined')
 {*/
     let pacmanContainer = document.getElementById("pacmanContainer");
-    let maxSize = document.body.clientWidth < document.body.clientHeight ? document.body.clientWidth : document.body.clientHeight;
-    let gameSize = document.body.clientWidth < document.body.clientHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
+    let maxSize = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
+    let gameSize = window.innerWidth < window.innerHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
     console.log(maxSize)
     console.log(gameSize)
     if (gameSize > maxSize)
