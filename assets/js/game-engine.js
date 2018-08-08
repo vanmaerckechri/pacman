@@ -65,7 +65,7 @@ function adaptToMobileLandscape()
     let landscape = window.innerWidth > window.innerHeight ? true : false;	
     if (landscape == true)
     {
-    	document.getElementById("canvasContainer").classList.add("pacmanContainer");
+    	document.getElementById("pacmanContainer").classList.add("pacmanLandscape");
     }
 }
 // -- LOAD MAP --
@@ -77,15 +77,15 @@ function launchPacmanGame()
 	{
 		adaptGameSizeToScreen();
 		genMapBoard();
-		placeCanvasOnBackground();
 		drawMap();
 		initGrid();
 		initPlayer();
 		initGhosts();
+		adaptToMobileLandscape();
+		placeCanvasOnBackground();
 
 		if (typeof window.orientation !== 'undefined')
 		{
-			adaptToMobileLandscape();
 		    loadPadMobiles();
 		}
 
