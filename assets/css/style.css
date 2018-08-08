@@ -32,21 +32,26 @@ body {
     width: 170px;
     height: 170px;
     background-color: rgba(0, 100, 150, 0.2); }
+    .pacmanContainer .mobilePad .mobilePadTop, .pacmanContainer .mobilePad .mobilePadRight, .pacmanContainer .mobilePad .mobilePadBottom, .pacmanContainer .mobilePad .mobilePadLeft {
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      background-color: pink; }
     .pacmanContainer .mobilePad .mobilePadTop {
       position: absolute;
-      top: 6px;
+      top: 0px;
       left: 50px; }
     .pacmanContainer .mobilePad .mobilePadRight {
       position: absolute;
       top: 50px;
-      left: 96px; }
+      left: 102px; }
     .pacmanContainer .mobilePad .mobilePadBottom {
       position: absolute;
-      top: 96px;
-      left: 56px; }
+      top: 102px;
+      left: 50px; }
     .pacmanContainer .mobilePad .mobilePadLeft {
       position: absolute;
       top: 50px;
-      left: 6px; }
+      left: 0px; }
 
 /*# sourceMappingURL=style.css.map */
