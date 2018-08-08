@@ -72,7 +72,8 @@ body {
     height: 100%; }
   .pacmanLandscape .ui {
     margin-top: 10px;
-    order: 0; }
+    order: 0;
+    background-color: orange; }
   .pacmanLandscape .mobilePad {
     margin-bottom: 10px;
     order: 1; }
