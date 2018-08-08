@@ -11,24 +11,25 @@
 }*/
  @media only screen and (orientation:landscape) and (max-width: 1024px)
  {
- 	.pacmanContainer
- 	{
- 		flex-wrap: wrap;
- 		justify-content: space-between;
- 		height: 100vh;
-	 	.canvasContainer
-	 	{
-			order: 0; 		
-	 	}
-	 	.ui
-		{
-			margin-top: 20px;
-			order: 1;
-		}
-		.mobilePad
-		{
-			margin-bottom: 20px;
-			order: 2;
-		}
-	}
  }
+ // responsive landscape with js
+.pacmanLandscape
+{
+	flex-wrap: wrap;
+	justify-content: space-between;
+	height: 100vh;
+ 	.canvasContainer
+ 	{
+		order: 0; 		
+ 	}
+ 	.ui
+	{
+		margin-top: 20px;
+		order: 1;
+	}
+	.mobilePad
+	{
+		margin-bottom: 20px;
+		order: 2;
+	}
+}

@@ -60,7 +60,16 @@ function adaptGameSizeToScreen()
 		canvasGhosts.width = tileSize * tileNumberByCol;
 }
 
+function adaptToMobileLandscape()
+{
+    let landscape = window.innerWidth > window.innerHeight ? true : false;	
+    if (landscape == true)
+    {
+    	document.getElementById("canvasContainer").classList.add("pacmanContainer");
+    }
+}
 // -- LOAD MAP --
+
 let pacmanGameLaunched = false
 function launchPacmanGame()
 {
@@ -73,6 +82,13 @@ function launchPacmanGame()
 		initGrid();
 		initPlayer();
 		initGhosts();
+
+		if (typeof window.orientation !== 'undefined')
+		{
+			adaptToMobileLandscape();
+		    loadPadMobiles();
+		}
+
 		requestAnimationFrame(engine); 
 		pacmanGameLaunched = true;
 	}

@@ -492,6 +492,8 @@ function loadPadMobiles()
     let padBottom = document.querySelector(".mobilePadBottom");
     let padLeft = document.querySelector(".mobilePadLeft");
 
+    document.getElementById("mobilePad").style.display = "block";
+
     let handleUpMobile = function(event)
     {
         if (event.target == padTop)
@@ -544,12 +546,6 @@ function loadPadMobiles()
     padRight.addEventListener("touchend", handleUpMobile, false);
     padBottom.addEventListener("touchend", handleUpMobile, false);
     padLeft.addEventListener("touchend", handleUpMobile, false);
-}
-
-if (typeof window.orientation !== 'undefined')
-{
-    document.getElementById("mobilePad").style.display = "block";
-    loadPadMobiles();
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
