@@ -484,9 +484,11 @@ function loadPadMobiles()
     let padBottom = document.querySelector(".mobilePadBottom");
     let padLeft = document.querySelector(".mobilePadLeft");
 
-    let handleMoveMobile = function(event, direction = false)
+    let handleMoveMobile = function(event)
     {
         event.preventDefault();
+                console.log(event)
+
         if (player["alive"] == 1)
         {
             player["topPressed"] = false;
@@ -494,29 +496,29 @@ function loadPadMobiles()
             player["bottomPressed"] = false;
             player["leftPressed"] = false;
 
-            if (direction == "top")
+            if (event.target == padTop)
             {
                 player["topPressed"] = true;
             }
-            else if (direction == "right")
+            else if (event.target == padRight)
             {
                  player["rightPressed"] = true;           
             }
-            else if (direction == "bottom")
+            else if (event.target == padBottom)
             {
                  player["bottomPressed"] = true;           
             }        
-            else if (direction == "left")
+            else if (event.target == padLeft)
             {
                  player["leftPressed"] = true;           
             }
         }
     }
 
-    padTop.addEventListener("touchstart", handleMoveMobile.bind(this, "top"), false);
-    padRight.addEventListener("touchstart", handleMoveMobile.bind(this, "right"), false);
-    padBottom.addEventListener("touchstart", handleMoveMobile.bind(this, "bottom"), false);
-    padLeft.addEventListener("touchstart", handleMoveMobile.bind(this, "left"), false);
+    padTop.addEventListener("touchstart", handleMoveMobile, false);
+    padRight.addEventListener("touchstart", handleMoveMobile, false);
+    padBottom.addEventListener("touchstart", handleMoveMobile, false);
+    padLeft.addEventListener("touchstart", handleMoveMobile, false);
     document.addEventListener("touchend", handleMoveMobile, false);
 }
 
