@@ -47,11 +47,21 @@ window.addEventListener("resize", placeCanvasOnBackground, false)
 
 // -- LOAD MAP --
 genMapBoard();
+let pacmanGameLaunched = false
+function launchPacmanGame()
+{
+	if (pacmanGameLaunched == false)
+	{
+		placeCanvasOnBackground();
+		drawMap();
+		initGrid();
+		initGhosts();
+		requestAnimationFrame(engine); 
+		pacmanGameLaunched = true;
+	}
+}
+
 window.addEventListener("load", function()
 {
-	placeCanvasOnBackground();
-	drawMap();
-	initGrid();
-	initGhosts();
-	requestAnimationFrame(engine); 
-})
+	launchPacmanGame();
+});

@@ -365,7 +365,7 @@ let dropGarbage = function(row, col)
 		{
 			clearInterval(mapBoards[row][col].foodNegatifTime);	
 		}
-	}, 5000)
+	}, 4000)
 }
 
 let chooseGarbagePosition = function(ghost)
