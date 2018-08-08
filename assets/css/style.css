@@ -65,7 +65,8 @@ body {
 .pacmanLandscape {
   flex-wrap: wrap;
   justify-content: space-between;
-  height: 100vh; }
+  height: 100vh;
+  background-color: pink; }
   .pacmanLandscape .canvasContainer {
     order: 2;
     height: 100%; }
