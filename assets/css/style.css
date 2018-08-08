@@ -18,9 +18,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; }
-  .pacmanContainer .ui {
-    width: 100%; }
+  align-items: center;
+  height: 100vh; }
   .pacmanContainer .canvasPlayer, .pacmanContainer .canvasFood, .pacmanContainer .canvasGhosts {
     position: absolute;
     left: 0;
@@ -62,25 +61,19 @@ body {
  	{
  		align-items: flex-start;
  	}
-}
- @media only screen and (orientation:landscape) and (max-width: 1024px)
- {
- 	.pacmanContainer
- 	{
- 		flex-direction: row;
-	 	.canvasContainer
-	 	{
-			order: 0; 		
-	 	}
-	 	.ui
-		{
-			order: 1;
-		}
-		.mobilePad
-		{
-			order: 2;
-		}
-	}
- }*/
+}*/
+@media only screen and (orientation: landscape) and (max-width: 1024px) {
+  .pacmanContainer {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100vh; }
+    .pacmanContainer .canvasContainer {
+      order: 0; }
+    .pacmanContainer .ui {
+      margin-top: 20px;
+      order: 1; }
+    .pacmanContainer .mobilePad {
+      margin-bottom: 20px;
+      order: 2; } }
 
 /*# sourceMappingURL=style.css.map */

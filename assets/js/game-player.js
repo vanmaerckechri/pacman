@@ -546,14 +546,11 @@ function loadPadMobiles()
     padLeft.addEventListener("touchend", handleUpMobile, false);
 }
 
-window.addEventListener("load", function()
+if (typeof window.orientation !== 'undefined')
 {
-/*if (typeof window.orientation !== 'undefined')
-{*/
     document.getElementById("mobilePad").style.display = "block";
     loadPadMobiles();
-});
-//}
+}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
