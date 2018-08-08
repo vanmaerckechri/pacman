@@ -484,8 +484,9 @@ function loadPadMobiles()
     let padBottom = document.querySelector(".mobilePadBottom");
     let padLeft = document.querySelector(".mobilePadLeft");
 
-    let handleMoveMobile = function(direction = false)
+    let handleMoveMobile = function(event, direction = false)
     {
+        event.preventDefault();
         if (player["alive"] == 1)
         {
             player["topPressed"] = false;
@@ -518,20 +519,27 @@ function loadPadMobiles()
     padLeft.addEventListener("touchstart", handleMoveMobile.bind(this, "left"), false);
     document.addEventListener("touchend", handleMoveMobile, false);
 }
-if (typeof window.orientation !== 'undefined')
+
+window.addEventListener("load", function()
 {
+/*if (typeof window.orientation !== 'undefined')
+{*/
     let pacmanContainer = document.getElementById("pacmanContainer");
-    let maxSize = pacmanContainer.clientWidth < pacmanContainer.clientHeight ? pacmanContainer.clientWidth : pacmanContainer.clientHeight;
-    if (tileSize * tileNumberByCol > maxSize)
+    let maxSize = document.body.clientWidth < document.body.clientHeight ? document.body.clientWidth : document.body.clientHeight;
+    let gameSize = document.body.clientWidth < document.body.clientHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
+    console.log(maxSize)
+    console.log(gameSize)
+    if (gameSize > maxSize)
     {   
-        let scalePercent = maxSize / (tileNumberByCol * tileSize);
+        let scalePercent = maxSize / gameSize;
         scalePercent = (scalePercent * 10) / 10;
         pacmanContainer.style.transformOrigin = "left top";
         pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
     }
     document.getElementById("mobilePad").style.display = "block";
     loadPadMobiles();
-}
+});
+//}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
