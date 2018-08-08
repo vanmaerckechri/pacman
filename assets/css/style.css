@@ -68,7 +68,7 @@ body {
   height: 100vh; }
   .pacmanLandscape .canvasContainer {
     order: 2;
-    height: 100vh; }
+    height: 100%; }
   .pacmanLandscape .ui {
     margin-top: 10px;
     order: 0; }
