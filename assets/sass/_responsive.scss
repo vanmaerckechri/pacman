@@ -20,16 +20,17 @@
 	height: 100vh;
  	.canvasContainer
  	{
-		order: 0; 		
+		order: 2; 	
+		height: 100vh;
  	}
  	.ui
 	{
-		margin-top: 20px;
-		order: 1;
+		margin-top: 10px;
+		order: 0;
 	}
 	.mobilePad
 	{
-		margin-bottom: 20px;
-		order: 2;
+		margin-bottom: 10px;
+		order: 1;
 	}
 }

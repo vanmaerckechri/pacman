@@ -67,12 +67,13 @@ body {
   justify-content: space-between;
   height: 100vh; }
   .pacmanLandscape .canvasContainer {
-    order: 0; }
+    order: 2;
+    height: 100vh; }
   .pacmanLandscape .ui {
-    margin-top: 20px;
-    order: 1; }
+    margin-top: 10px;
+    order: 0; }
   .pacmanLandscape .mobilePad {
-    margin-bottom: 20px;
-    order: 2; }
+    margin-bottom: 10px;
+    order: 1; }
 
 /*# sourceMappingURL=style.css.map */
