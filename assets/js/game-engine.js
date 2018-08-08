@@ -52,14 +52,6 @@ function launchPacmanGame()
 {
 	if (pacmanGameLaunched == false)
 	{
-		let pacmanContainer = document.getElementById("pacmanContainer");
-		if (tileSize * tileNumberByCol > pacmanContainer.clientWidth)
-		{	
-			let scalePercent = pacmanContainer.clientWidth / (tileNumberByCol * tileSize);
-			scalePercent = (scalePercent * 10) / 10;
-			pacmanContainer.style.transformOrigin = "left top";
-			pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
-		}
 		placeCanvasOnBackground();
 		drawMap();
 		initGrid();

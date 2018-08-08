@@ -520,6 +520,15 @@ function loadPadMobiles()
 }
 if (typeof window.orientation !== 'undefined')
 {
+    let pacmanContainer = document.getElementById("pacmanContainer");
+    let maxSize = pacmanContainer.clientWidth < pacmanContainer.clientHeight ? pacmanContainer.clientWidth : pacmanContainer.clientHeight;
+    if (tileSize * tileNumberByCol > maxSize)
+    {   
+        let scalePercent = maxSize / (tileNumberByCol * tileSize);
+        scalePercent = (scalePercent * 10) / 10;
+        pacmanContainer.style.transformOrigin = "left top";
+        pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
+    }
     document.getElementById("mobilePad").style.display = "block";
     loadPadMobiles();
 }
