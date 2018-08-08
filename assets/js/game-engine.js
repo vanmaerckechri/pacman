@@ -57,7 +57,7 @@ function launchPacmanGame()
 		{	
 			let scalePercent = pacmanContainer.clientWidth / (tileNumberByCol * tileSize);
 			scalePercent = (scalePercent * 10) / 10;
-			pacmanContainer.style.transformOrigin = "center top";
+			pacmanContainer.style.transformOrigin = "left top";
 			pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
 		}
 		placeCanvasOnBackground();

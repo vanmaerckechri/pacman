@@ -520,7 +520,6 @@ function loadPadMobiles()
 }
 if (typeof window.orientation !== 'undefined')
 {
-    document.getElementById("pacmanContainer").style.height = "auto";
     document.getElementById("mobilePad").style.display = "block";
     loadPadMobiles();
 }
