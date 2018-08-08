@@ -476,5 +476,54 @@ let drawPlayer = function()
     }
 }
 
+// -- LOAD PAD FOR MOBILES --
+function loadPadMobiles()
+{
+    let padTop = document.querySelector(".mobilePadTop");
+    let padRight = document.querySelector(".mobilePadRight");
+    let padBottom = document.querySelector(".mobilePadBottom");
+    let padLeft = document.querySelector(".mobilePadLeft");
+
+    let handleMoveMobile = function(direction = false)
+    {
+        if (player["alive"] == 1)
+        {
+            player["topPressed"] = false;
+            player["rightPressed"] = false;
+            player["bottomPressed"] = false;
+            player["leftPressed"] = false;
+
+            if (direction == "top")
+            {
+                player["topPressed"] = true;
+            }
+            else if (direction == "right")
+            {
+                 player["rightPressed"] = true;           
+            }
+            else if (direction == "bottom")
+            {
+                 player["bottomPressed"] = true;           
+            }        
+            else if (direction == "left")
+            {
+                 player["leftPressed"] = true;           
+            }
+        }
+    }
+
+    padTop.addEventListener("touchstart", handleMoveMobile.bind(this, "top"), false);
+    padRight.addEventListener("touchstart", handleMoveMobile.bind(this, "right"), false);
+    padBottom.addEventListener("touchstart", handleMoveMobile.bind(this, "bottom"), false);
+    padLeft.addEventListener("touchstart", handleMoveMobile.bind(this, "left"), false);
+    document.addEventListener("touchend", handleMoveMobile, false);
+}
+if (typeof window.orientation !== 'undefined')
+{
+    document.getElementById("pacmanContainer").style.height = "auto";
+    document.getElementById("mobilePad").style.display = "block";
+    loadPadMobiles();
+}
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);

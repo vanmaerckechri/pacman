@@ -52,12 +52,13 @@ function launchPacmanGame()
 {
 	if (pacmanGameLaunched == false)
 	{
-		if (tileSize * tileNumberByCol > document.body.clientWidth)
+		let pacmanContainer = document.getElementById("pacmanContainer");
+		if (tileSize * tileNumberByCol > pacmanContainer.clientWidth)
 		{	
-			let scalePercent = document.body.clientWidth / (tileNumberByCol * tileSize);
+			let scalePercent = pacmanContainer.clientWidth / (tileNumberByCol * tileSize);
 			scalePercent = (scalePercent * 10) / 10;
-
-			document.querySelector("html").style.transform = "scale("+scalePercent+", "+scalePercent+")";
+			pacmanContainer.style.transformOrigin = "center top";
+			pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
 		}
 		placeCanvasOnBackground();
 		drawMap();
@@ -72,10 +73,3 @@ window.addEventListener("load", function()
 {
 	launchPacmanGame();
 });
-
-// DETECT MOBILE
-
-if (typeof window.orientation !== 'undefined')
-{
-	alert("mobile")
-}
