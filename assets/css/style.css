@@ -14,7 +14,13 @@ body {
 
 .pacmanContainer {
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .pacmanContainer .ui {
+    width: 100%; }
   .pacmanContainer .canvasPlayer, .pacmanContainer .canvasFood, .pacmanContainer .canvasGhosts {
     position: absolute;
     left: 0;
@@ -49,5 +55,32 @@ body {
       position: absolute;
       top: 50px;
       left: 0px; }
+
+/*@media (max-width: 1024px)
+{
+	.pacmanContainer
+ 	{
+ 		align-items: flex-start;
+ 	}
+}
+ @media only screen and (orientation:landscape) and (max-width: 1024px)
+ {
+ 	.pacmanContainer
+ 	{
+ 		flex-direction: row;
+	 	.canvasContainer
+	 	{
+			order: 0; 		
+	 	}
+	 	.ui
+		{
+			order: 1;
+		}
+		.mobilePad
+		{
+			order: 2;
+		}
+	}
+ }*/
 
 /*# sourceMappingURL=style.css.map */

@@ -18,30 +18,33 @@ pacman_top00.src = 'assets/img/pacman_top00.svg';
 let pacman_top01 = new Image();
 pacman_top01.src = 'assets/img/pacman_top01.svg';
 
-let player =
+let player = {}
+let initPlayer = function() 
 {
-    size: tileSize * 3,
-    posY: tileSize * 39,
-    posX: tileSize * 19,
-    row: 39,
-    col: 19,
-    topPressed: false,
-    rightPressed: false,
-    bottomPressed: false,
-    leftPressed: false,
-    spacePressed: false,
-    spaceStopPressed: true,
-    moving: false,
-    movingTempo: null,
-    movingSpeed: tileSize / 4,
-    animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
-    animationIndex: 0,
-    alive: 1,
-    pointsByGhost: 100,
-    haveGarbage: false,
-    garbage: false,
-    garbageType: false,
-    garbagePosition: null
+    player = {
+        size: tileSize * 3,
+        posY: tileSize * 39,
+        posX: tileSize * 19,
+        row: 39,
+        col: 19,
+        topPressed: false,
+        rightPressed: false,
+        bottomPressed: false,
+        leftPressed: false,
+        spacePressed: false,
+        spaceStopPressed: true,
+        moving: false,
+        movingTempo: null,
+        movingSpeed: tileSize / 4,
+        animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
+        animationIndex: 0,
+        alive: 1,
+        pointsByGhost: 100,
+        haveGarbage: false,
+        garbage: false,
+        garbageType: false,
+        garbagePosition: null
+    }
 };
 
 let launchGameOver = function()
@@ -547,18 +550,6 @@ window.addEventListener("load", function()
 {
 /*if (typeof window.orientation !== 'undefined')
 {*/
-    let pacmanContainer = document.getElementById("pacmanContainer");
-    let maxSize = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
-    let gameSize = window.innerWidth < window.innerHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
-    console.log(maxSize)
-    console.log(gameSize)
-    if (gameSize > maxSize)
-    {   
-        let scalePercent = maxSize / gameSize;
-        scalePercent = (scalePercent * 10) / 10;
-        pacmanContainer.style.transformOrigin = "left top";
-        pacmanContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";
-    }
     document.getElementById("mobilePad").style.display = "block";
     loadPadMobiles();
 });

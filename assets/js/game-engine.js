@@ -8,18 +8,6 @@ var ctxPlayer = canvasPlayer.getContext("2d");
 var canvasGhosts = document.getElementById("canvasGhosts");
 var ctxGhosts = canvasGhosts.getContext("2d");
 
-// Canvas Size
-(function() {
-	canvasBackground.height = tileSize * tileNumberByRow;
-	canvasBackground.width = tileSize * tileNumberByCol;
-	canvasFood.height = tileSize * tileNumberByRow;
-	canvasFood.width = tileSize * tileNumberByCol;
-	canvasPlayer.height = tileSize * tileNumberByRow;
-	canvasPlayer.width = tileSize * tileNumberByCol;
-	canvasGhosts.height = tileSize * tileNumberByRow;
-	canvasGhosts.width = tileSize * tileNumberByCol;
-})();
-
 // Engine
 function engine()
 {
@@ -45,16 +33,45 @@ function placeCanvasOnBackground()
 
 window.addEventListener("resize", placeCanvasOnBackground, false)
 
+// -- ADAPT SIZE TO SCREEN --
+function adaptGameSizeToScreen()
+{
+    let canvasContainer = document.getElementById("canvasContainer");
+    let maxSize = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
+    let gameSize = window.innerWidth < window.innerHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
+    console.log(maxSize)
+    console.log(gameSize)
+    if (gameSize > maxSize)
+    {   
+        let scalePercent = maxSize / gameSize;
+        scalePercent = (scalePercent * 10) / 10;
+        tileSize = Math.floor(tileSize * scalePercent);
+        /*canvasContainer.style.transformOrigin = "left top";
+        canvasContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";*/
+    }
+    // Canvas Size
+		canvasBackground.height = tileSize * tileNumberByRow;
+		canvasBackground.width = tileSize * tileNumberByCol;
+		canvasFood.height = tileSize * tileNumberByRow;
+		canvasFood.width = tileSize * tileNumberByCol;
+		canvasPlayer.height = tileSize * tileNumberByRow;
+		canvasPlayer.width = tileSize * tileNumberByCol;
+		canvasGhosts.height = tileSize * tileNumberByRow;
+		canvasGhosts.width = tileSize * tileNumberByCol;
+}
+
 // -- LOAD MAP --
-genMapBoard();
 let pacmanGameLaunched = false
 function launchPacmanGame()
 {
 	if (pacmanGameLaunched == false)
 	{
+		adaptGameSizeToScreen();
+		genMapBoard();
 		placeCanvasOnBackground();
 		drawMap();
 		initGrid();
+		initPlayer();
 		initGhosts();
 		requestAnimationFrame(engine); 
 		pacmanGameLaunched = true;
