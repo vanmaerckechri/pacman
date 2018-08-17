@@ -1,27 +1,16 @@
-let pacmanImg00 = new Image();
-pacmanImg00.src = 'assets/img/pacman00.svg';
-let pacmanImg01 = new Image();
-pacmanImg01.src = 'assets/img/pacman01.svg';
-
-let pacman_bottom00 = new Image();
-pacman_bottom00.src = 'assets/img/pacman_bottom00.svg';
-let pacman_bottom01 = new Image();
-pacman_bottom01.src = 'assets/img/pacman_bottom01.svg';
-
-let pacman_left00 = new Image();
-pacman_left00.src = 'assets/img/pacman_left00.svg';
-let pacman_left01 = new Image();
-pacman_left01.src = 'assets/img/pacman_left01.svg';
-
-let pacman_top00 = new Image();
-pacman_top00.src = 'assets/img/pacman_top00.svg';
-let pacman_top01 = new Image();
-pacman_top01.src = 'assets/img/pacman_top01.svg';
-
 let player = {}
 let initPlayer = function() 
 {
     player = {
+        pacmanImg00: new Image(),
+        pacmanImg01: new Image(),
+        pacman_bottom00: new Image(),
+        pacman_bottom01: new Image(),
+        pacman_left00: new Image(),
+        pacman_left01: new Image(),
+        pacman_top00: new Image(),
+        pacman_top01: new Image(),
+
         size: tileSize * 3,
         posY: tileSize * 39,
         posX: tileSize * 19,
@@ -36,7 +25,7 @@ let initPlayer = function()
         moving: false,
         movingTempo: null,
         movingSpeed: tileSize / 4,
-        animationImg: [pacmanImg00, pacmanImg01, pacman_bottom00, pacman_bottom01, pacman_left00, pacman_left01, pacman_top00, pacman_top01],
+        animationImg: [],
         animationIndex: 0,
         alive: 1,
         pointsByGhost: 100,
@@ -44,7 +33,16 @@ let initPlayer = function()
         garbage: false,
         garbageType: false,
         garbagePosition: null
-    }
+    };
+    player["pacmanImg00"].src = 'assets/img/pacman00.svg';
+    player["pacmanImg01"].src = 'assets/img/pacman01.svg';
+    player["pacman_bottom00"].src = 'assets/img/pacman_bottom00.svg';
+    player["pacman_bottom01"].src = 'assets/img/pacman_bottom01.svg';
+    player["pacman_left00"].src = 'assets/img/pacman_left00.svg';
+    player["pacman_left01"].src = 'assets/img/pacman_left01.svg';
+    player["pacman_top00"].src = 'assets/img/pacman_top00.svg';
+    player["pacman_top01"].src = 'assets/img/pacman_top01.svg';
+    player["animationImg"] = [player["pacmanImg00"], player["pacmanImg01"], player["pacman_bottom00"], player["pacman_bottom01"], player["pacman_left00"], player["pacman_left01"], player["pacman_top00"], player["pacman_top01"]];
 };
 
 let launchGameOver = function()
