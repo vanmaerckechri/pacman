@@ -71,10 +71,11 @@ function adaptToMobileLandscape()
 // -- LOAD MAP --
 
 let pacmanGameLaunched = false
-function launchPacmanGame()
+let launchPacmanGame = function()
 {
 	if (pacmanGameLaunched == false)
 	{
+		initMap();
 		adaptGameSizeToScreen();
 		genMapBoard();
 		drawMap();

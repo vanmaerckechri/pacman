@@ -157,11 +157,14 @@ let exploreInDirection = function(currentLocation, direction, grid) {
 
 // Create a 4x4 grid
 // Represent the grid as a 2-dimensional array
-let gridRowSize = Math.ceil(tileNumberByRow / 2);
-let gridColSize = Math.ceil(tileNumberByCol / 2);
-let gridGabarit = [];
+let gridRowSize;
+let gridColSize;
+let gridGabarit;
 let initGrid = function()
 {
+  gridRowSize = Math.ceil(tileNumberByRow / 2);
+  gridColSize = Math.ceil(tileNumberByCol / 2);
+  gridGabarit = [];
 	for (let i=0; i<gridRowSize; i++)
 	{
 		  gridGabarit[i] = [];
@@ -188,6 +191,7 @@ let initGrid = function()
 let calculPath = function(ghost, rowOrigin, colOrigin, rowFocus, ColFocus)
 {
 	let grid = JSON.parse(JSON.stringify(gridGabarit));
+  console.log(grid)
 	grid[rowOrigin][colOrigin] = "Start";
 	grid[rowFocus][ColFocus] = "Goal";
 	ghost.path = findShortestPath([rowOrigin,colOrigin], grid);
