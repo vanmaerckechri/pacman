@@ -191,7 +191,6 @@ let initGrid = function()
 let calculPath = function(ghost, rowOrigin, colOrigin, rowFocus, ColFocus)
 {
 	let grid = JSON.parse(JSON.stringify(gridGabarit));
-  console.log(grid)
 	grid[rowOrigin][colOrigin] = "Start";
 	grid[rowFocus][ColFocus] = "Goal";
 	ghost.path = findShortestPath([rowOrigin,colOrigin], grid);

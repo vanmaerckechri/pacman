@@ -1,13 +1,24 @@
 // -- CANVAS --
-var canvasBackground = document.getElementById("canvasBackground");
-var ctxBackground = canvasBackground.getContext("2d");
-var canvasFood = document.getElementById("canvasFood");
-var ctxFood = canvasFood.getContext("2d");
-var canvasPlayer = document.getElementById("canvasPlayer");
-var ctxPlayer = canvasPlayer.getContext("2d");
-var canvasGhosts = document.getElementById("canvasGhosts");
-var ctxGhosts = canvasGhosts.getContext("2d");
+var canvasBackground;
+var ctxBackground;
+var canvasFood;
+var ctxFood;
+var canvasPlayer;
+var ctxPlayer;
+var canvasGhosts;
+var ctxGhosts;
 
+function initCanvas()
+{
+	canvasBackground = document.getElementById("canvasBackground");
+	ctxBackground = canvasBackground.getContext("2d");
+	canvasFood = document.getElementById("canvasFood");
+	ctxFood = canvasFood.getContext("2d");
+	canvasPlayer = document.getElementById("canvasPlayer");
+	ctxPlayer = canvasPlayer.getContext("2d");
+	canvasGhosts = document.getElementById("canvasGhosts");
+	ctxGhosts = canvasGhosts.getContext("2d");	
+}
 // Engine
 function engine()
 {
@@ -39,8 +50,6 @@ function adaptGameSizeToScreen()
     let canvasContainer = document.getElementById("canvasContainer");
     let maxSize = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
     let gameSize = window.innerWidth < window.innerHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
-    console.log(maxSize)
-    console.log(gameSize)
     if (gameSize > maxSize)
     {   
         let scalePercent = maxSize / gameSize;
@@ -75,6 +84,7 @@ let launchPacmanGame = function()
 {
 	if (pacmanGameLaunched == false)
 	{
+		initCanvas();
 		initMap();
 		adaptGameSizeToScreen();
 		genMapBoard();
