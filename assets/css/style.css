@@ -10,6 +10,7 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
 
 body {
   width: 100vw;
+  height: 100vh;
   overflow: hidden; }
 
 .pacmanContainer {
@@ -19,17 +20,37 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; }
-  .pacmanContainer .canvasPlayer, .pacmanContainer .canvasFood, .pacmanContainer .canvasGhosts {
+  height: 100%;
+  background-color: black; }
+  .pacmanContainer .ui .scoreContainer {
+    font-family: 'Orbitron', sans-serif;
+    color: white; }
+  .pacmanContainer .ui .gameOver {
+    display: none;
     position: absolute;
-    left: 0;
-    top: 0; }
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+    color: white;
+    font-size: 50px;
+    transform: translate(-50%, -50%);
+    background-color: black; }
+  .pacmanContainer .canvasContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .pacmanContainer .canvasContainer .canvasPlayer, .pacmanContainer .canvasContainer .canvasFood, .pacmanContainer .canvasContainer .canvasGhosts {
+      position: absolute;
+      left: 0;
+      top: 0; }
   .pacmanContainer .mobilePad {
     margin-top: 10px;
     display: none;
     position: relative;
-    width: 170px;
-    height: 170px;
+    min-width: 170px;
+    min-height: 170px;
+    max-width: 170px;
+    max-height: 170px;
     background-image: url("../img/pad.svg");
     background-size: 100% 100%; }
     .pacmanContainer .mobilePad .mobilePadTop, .pacmanContainer .mobilePad .mobilePadRight, .pacmanContainer .mobilePad .mobilePadBottom, .pacmanContainer .mobilePad .mobilePadLeft {

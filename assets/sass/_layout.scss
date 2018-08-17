@@ -2,6 +2,7 @@
 body
 {
 	width: 100vw;
+	height: 100vh;
 	overflow: hidden;
 }
 .pacmanContainer
@@ -13,22 +14,48 @@ body
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+	background-color: black;
   	.ui
   	{
+  		.scoreContainer
+  		{
+  			font-family: 'Orbitron', sans-serif;
+  			color: white;
+  		}
+  		.gameOver
+  		{
+  			display: none;
+  			position: absolute;
+  			top: 50%;
+  			left: 50%;
+  			z-index: 100;
+  			color: white;
+  			font-size: 50px;
+  			transform: translate(-50%, -50%);
+  			background-color: black;
+  		}
   	}
-  	.canvasPlayer, .canvasFood, .canvasGhosts
-	{
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
+  	.canvasContainer
+  	{
+  		display: flex;
+  		justify-content: center;
+  		align-items: center;
+	  	.canvasPlayer, .canvasFood, .canvasGhosts
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+  	}
 	.mobilePad
 	{
 		margin-top: 10px;
 		display: none;
 		position: relative;
-		width: 170px;
-		height: 170px;
+		min-width: 170px;
+		min-height: 170px;
+		max-width: 170px;
+		max-height: 170px;
 		background-image: url("../img/pad.svg");
 		background-size: 100% 100%;
 		.mobilePadTop, .mobilePadRight, .mobilePadBottom, .mobilePadLeft
