@@ -1,16 +1,16 @@
-let ghost_afraid = new Image();
-ghost_afraid.src = 'assets/img/ghost_afraid.svg';
-
-let ghost_afraidFlash = new Image();
-ghost_afraidFlash.src = 'assets/img/ghost_afraidFlash.svg';
-
-let ghost_dead = new Image();
-ghost_dead.src = 'assets/img/ghost_dead.svg';
-
-let ghosts = [];
+let ghosts;
+let ghostsImages;
 
 let initGhosts = function()
 {
+    let ghost_afraid = new Image();
+    let ghost_afraidFlash = new Image();
+    let ghost_dead = new Image();
+
+    ghost_afraid.src = 'assets/img/ghost_afraid.svg';
+    ghost_afraidFlash.src = 'assets/img/ghost_afraidFlash.svg';
+    ghost_dead.src = 'assets/img/ghost_dead.svg';
+
     let ghost =
     {
         name: "",
@@ -38,8 +38,10 @@ let initGhosts = function()
         displayPointsByGhostPosX: false,
         displayPointsByGhostPosY: false,
         wantDropGarbage: false,
-        garbageTime: null,
+        garbageTime: null
     };
+    ghosts = [];
+
     // red
     let ghost_red_left = new Image();
     ghost_red_left.src = 'assets/img/ghost_red_left.svg';
@@ -50,6 +52,7 @@ let initGhosts = function()
     let ghost_red_bottom = new Image();
     ghost_red_bottom.src = 'assets/img/ghost_red_bottom.svg';
     let red = JSON.parse(JSON.stringify(ghost));
+
     red["img"] = [ghost_red_top, ghost_red_right, ghost_red_bottom, ghost_red_left];
     red["startAt"] = 0;
     red["startPath"] = ["East", "North", "North", "West", "North", "North"];
@@ -126,6 +129,12 @@ let initGhosts = function()
     pink["name"] = "pink";
     pink["switchMove"] = "embush";
     ghosts.push(pink);
+    for (let i = ghosts.length - 1; i >= 0; i--)
+    {
+        ghosts[i]["ghost_afraid"] = ghost_afraid;
+        ghosts[i]["ghost_afraidFlash"] = ghost_afraidFlash;
+        ghosts[i]["ghost_dead"] = ghost_dead;
+    }
 }
 
 let moveRandomGhost = function(ghost)
@@ -487,23 +496,23 @@ let manageGhosts = function()
         // display
         if (ghost["display"] == "afraid")
         {
-            ctxGhosts.drawImage(ghost_afraid, ghost.posX, ghost.posY, ghost.size, ghost.size);
+            ctxGhosts.drawImage(ghost["ghost_afraid"], ghost.posX, ghost.posY, ghost.size, ghost.size);
         }
         else if (ghost["display"] == "afraidFlash")
         {
             if (ghost.afraidFlashTempo == false)
             {
-                ghost["afraidFlashSwitch"] = ghost_afraidFlash
+                ghost["afraidFlashSwitch"] = ghost["ghost_afraidFlash"];
                 ghost.afraidFlashTempo = setInterval(function()
                 {   
-                    ghost["afraidFlashSwitch"] = ghost["afraidFlashSwitch"] == ghost_afraid ? ghost_afraidFlash : ghost_afraid;
+                    ghost["afraidFlashSwitch"] = ghost["afraidFlashSwitch"] == ghost["ghost_afraid"] ? ghost["ghost_afraidFlash"] : ghost["ghost_afraid"];
                 },500);
             }
             ctxGhosts.drawImage(ghost["afraidFlashSwitch"], ghost.posX, ghost.posY, ghost.size, ghost.size);
         }
         else if (ghost["display"] == "dead")
         {
-            ctxGhosts.drawImage(ghost_dead, ghost.posX, ghost.posY, ghost.size, ghost.size);
+            ctxGhosts.drawImage(ghost["ghost_dead"], ghost.posX, ghost.posY, ghost.size, ghost.size);
         }
         else 
         {
