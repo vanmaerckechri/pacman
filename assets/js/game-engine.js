@@ -163,7 +163,7 @@ let launchPacmanGame = function()
 		}
 		placeCanvasOnBackground();
 		window.requestAnimationFrame(engine); 
-		pacmanGameLaunched = true;
+		//pacmanGameLaunched = true;
 	}
 }
 
@@ -177,6 +177,7 @@ function closeGame()
         for(let c = 0; c < tileNumberByCol; c++)
         {
         	clearInterval(mapBoards[r][c].foodNegatifTime);
+        	clearInterval(mapBoards[r][c].foodTime);
         }
     }
     clearTimeout(bonusTempo);
