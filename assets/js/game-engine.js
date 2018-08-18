@@ -81,11 +81,73 @@ function adaptToMobileLandscape()
 }
 // -- LOAD MAP --
 
+let createHtml = function()
+{
+	let pacmanContainer = document.getElementById("pacmanContainer");
+
+	let ui = document.createElement("div");
+	ui.setAttribute("class", "ui");
+	let scoreContainer = document.createElement("div");
+	scoreContainer.setAttribute("class", "scoreContainer");
+	scoreContainer.innerText = "score: ";
+	let score = document.createElement("span");
+	score.setAttribute("id", "score");
+	score.innerText = "0";
+	let gameOverDiv = document.createElement("div");
+	gameOverDiv.setAttribute("id", "gameOver");
+	gameOverDiv.setAttribute("class", "gameOver");
+	gameOverDiv.innerText = "GameOver";
+	scoreContainer.appendChild(score);
+	ui.appendChild(scoreContainer);
+	ui.appendChild(gameOverDiv);
+	pacmanContainer.appendChild(ui);
+
+	let canvasContainer = document.createElement("div");
+	canvasContainer.setAttribute("id", "canvasContainer");
+	canvasContainer.setAttribute("class", "canvasContainer");
+	let canvasBackground = document.createElement("canvas");
+	canvasBackground.setAttribute("id", "canvasBackground");
+	canvasBackground.setAttribute("class", "canvasBackground");
+	let canvasFood = document.createElement("canvas");
+	canvasFood.setAttribute("id", "canvasFood");
+	canvasFood.setAttribute("class", "canvasFood");
+	let canvasPlayer = document.createElement("canvas");
+	canvasPlayer.setAttribute("id", "canvasPlayer");
+	canvasPlayer.setAttribute("class", "canvasPlayer");
+	let canvasGhosts = document.createElement("canvas");
+	canvasGhosts.setAttribute("id", "canvasGhosts");
+	canvasGhosts.setAttribute("class", "canvasGhosts");
+	canvasContainer.appendChild(canvasBackground);
+	canvasContainer.appendChild(canvasFood);
+	canvasContainer.appendChild(canvasPlayer);
+	canvasContainer.appendChild(canvasGhosts);
+	pacmanContainer.appendChild(canvasContainer);
+
+	let mobilePad = document.createElement("div");
+	mobilePad.setAttribute("id", "mobilePad");
+	mobilePad.setAttribute("class", "mobilePad");
+	let mobilePadTop = document.createElement("div");
+	mobilePadTop.setAttribute("class", "mobilePadTop");
+	let mobilePadRight = document.createElement("div");
+	mobilePadRight.setAttribute("class", "mobilePadRight");
+	let mobilePadBottom = document.createElement("div");
+	mobilePadBottom.setAttribute("class", "mobilePadBottom");
+	let mobilePadLeft = document.createElement("div");
+	mobilePadLeft.setAttribute("class", "mobilePadLeft");
+
+	mobilePad.appendChild(mobilePadTop);
+	mobilePad.appendChild(mobilePadRight);
+	mobilePad.appendChild(mobilePadBottom);
+	mobilePad.appendChild(mobilePadLeft);
+	pacmanContainer.appendChild(mobilePad);
+}
+
 let pacmanGameLaunched = false
 let launchPacmanGame = function()
 {
 	if (pacmanGameLaunched == false)
 	{
+		createHtml();
 		initCanvas();
 		initMap();
 		adaptGameSizeToScreen();
@@ -149,8 +211,11 @@ function closeGame()
 	ctxPlayer = null;
 	canvasGhosts = null;
 	ctxGhosts = null;
-	let pacmanContainer = document.getElementById("pacmanContainer");
-	pacmanContainer.remove();
+	let pacmanContainerChilds = document.querySelectorAll("#pacmanContainer div");
+	for (let i = pacmanContainerChilds.length - 1; i >= 0; i--)
+	{
+		pacmanContainerChilds[i].remove();
+	}
 }
 
 window.addEventListener("load", function()
