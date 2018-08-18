@@ -1,5 +1,4 @@
 let ghosts;
-let ghostsImages;
 
 let initGhosts = function()
 {

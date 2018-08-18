@@ -1,5 +1,8 @@
 // Code from Greg Trowbridge <3 => http://gregtrowbridge.com/a-basic-pathfinding-algorithm/
 
+let gridRowSize;
+let gridColSize;
+let gridGabarit;
 // Start location will be in the following format:
 // [distanceFromTop, distanceFromLeft]
 let findShortestPath = function(startCoordinates, grid) 
@@ -157,9 +160,6 @@ let exploreInDirection = function(currentLocation, direction, grid) {
 
 // Create a 4x4 grid
 // Represent the grid as a 2-dimensional array
-let gridRowSize;
-let gridColSize;
-let gridGabarit;
 let initGrid = function()
 {
   gridRowSize = Math.ceil(tileNumberByRow / 2);

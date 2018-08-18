@@ -7,6 +7,8 @@ var canvasPlayer;
 var ctxPlayer;
 var canvasGhosts;
 var ctxGhosts;
+let canvasAnimation
+
 
 function initCanvas()
 {
@@ -28,7 +30,7 @@ function engine()
     drawPlayer();
     manageGhosts();
     displayPointsByGhost();
-    requestAnimationFrame(engine);
+    canvasAnimation = requestAnimationFrame(engine);
 }
 
 // Superimpose Canvas
@@ -98,9 +100,57 @@ let launchPacmanGame = function()
 		    loadPadMobiles();
 		}
 		placeCanvasOnBackground();
-		requestAnimationFrame(engine); 
+		window.requestAnimationFrame(engine); 
 		pacmanGameLaunched = true;
 	}
+}
+
+function closeGame()
+{
+	let cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+	cancelAnimationFrame(canvasAnimation);
+
+    for(let r = 0; r < tileNumberByRow; r++)
+    {
+        for(let c = 0; c < tileNumberByCol; c++)
+        {
+        	clearInterval(mapBoards[r][c].foodNegatifTime);
+        }
+    }
+    clearTimeout(bonusTempo);
+	canvasAnimation = null;
+	tileSize = null;
+	tileSizeHalf = null;
+	tileNumberByRow = null;
+	tileNumberByCol = null;
+	mapBoards = null;
+	bonusTempo = null;
+	map01 = null;
+	garbagesList = null
+	garbagesImages = null;
+	row4Rand = null;
+	col4Rand = null;
+
+	player = null;
+
+	for (let i = ghosts.length - 1; i >= 0; i--)
+	{
+		clearInterval(ghosts[i].movingTempo);
+		clearInterval(ghosts[i].garbageTime);
+		clearTimeout(ghosts[i].pointsByGhostTempo);
+	}
+	ghosts = null;
+
+	canvasBackground = null;
+	ctxBackground = null;
+	canvasFood = null;
+	ctxFood = null;
+	canvasPlayer = null;
+	ctxPlayer = null;
+	canvasGhosts = null;
+	ctxGhosts = null;
+	let pacmanContainer = document.getElementById("pacmanContainer");
+	pacmanContainer.remove();
 }
 
 window.addEventListener("load", function()
