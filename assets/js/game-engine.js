@@ -174,7 +174,7 @@ let launchPacmanHome = function()
 		tutoTitle.innerText = "Partie Bonus";
 		let tutoContent = document.createElement("div");
 		tutoContent.setAttribute("class", "tutoContent");
-		tutoContent.innerText = "blablabla les règles...";
+		tutoContent.innerHTML = "Bonjour,</br> Un petit Tuto illustré sera présent sur cette page.</br>Le jeu se joue avec les touches du clavier ou avec un joystick virtuel sur les écrans tactiles.</br> En attendant, voici un résumé des règles. le fantôme vert dépose régulièrement des déchets au sol. Il faut les récuperer et les déposer le plus vite possible dans la poubelle adéquate (elles sont situées aux 4 coins de la map). Plus longtemps le déchet reste au sol plus le malus sur les pac-gommes augmente. Lorsque le déchet est ramassé le malus des pac-gommes disparait progressivement.";
 		let launchGameButton = document.createElement("button");
 		launchGameButton.setAttribute("class", "pacmanButton launchGameButton");
 		launchGameButton.setAttribute("id", "launchGameButton");
