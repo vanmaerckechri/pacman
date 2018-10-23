@@ -2,9 +2,12 @@
 
 ## Présentation
 
-Pacman sera présenté comme un petit module récréatif sensibilisant les élèves de primaire au tri des déchets. Il sera proposé entre deux series de questions du projet principal. 
+Petit jeu pour sensibiliser les enfants au tri des déchets.
 
-## Projet Principal
+## Règles
 
-* Réaliser une plateforme éducative accessible aux professeurs ainsi qu'à leurs élèves. Celle-ci devra pouvoir accueillir facilement de futures applications.
-* Réaliser la première application pour la plateforme à partir du projet de l'équipe 1TerreAction, les gagnants du hackathon sur la citoyenneté mondiale organisé par [Annoncer la Couleur](http://www.annoncerlacouleur.be/).
+* Manger le plus de pac-gommes pour augmenter son score.
+* Eviter les fantômes.
+* Attention, le fantôme vert va régulièrement déposer des déchets au sol, il faut les ramasser le plus vite possible et les déposer au bon endroit (l'un des 4 coins de tri).
+* Plus le déchet restera longtemps au sol, plus il infectera les pac-gommes à proximité. Ceci aura pour effet de transformer leur bonus de points en malus de plus en plus pénalisant. Heureusement une fois le déchet ramasser les pac-gommes reviennent progressivement à la position du bonus initiale.
+* Il n'est possible que de ramasser un déchet à la fois.
