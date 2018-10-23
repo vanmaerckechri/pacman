@@ -22,7 +22,7 @@ body
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 		font-family: 'Orbitron', sans-serif;
 		color: white;
@@ -36,7 +36,6 @@ body
 		}
 		.launchGameButton
 		{
-			align-self: flex-end;
 		}
 	}
   	.ui
@@ -48,6 +47,9 @@ body
   		}
   		.gameOver
   		{
+  			padding: 10px 15px;
+  			border: 3px solid white;
+  			border-radius: 8px;
   			display: none;
   			position: absolute;
   			top: 50%;
@@ -115,20 +117,21 @@ body
 	}
 	.pacmanButton
 	{
+		margin-top: 10px;
 		border: none;
 		border-radius: 8px;
 		padding: 8px 10px;
 		font-family: 'Orbitron', sans-serif;
-		color: rgba(255, 255, 255, .9);
 		font-size: 1rem;
 		font-weight: bold;
-		background-color: rgba(0, 60, 120, .4);
+		color: #2c2e35;
+		background-color: rgba(255, 255, 255, .9);
 		transition: all .5s;
 		&:hover
 		{
 			cursor: pointer;
-			color: black;
-			background-color: rgba(255, 255, 255, .9);
+			background-color: #b7e1f9;
+			box-shadow: 0px 0px 20px 0px #4ab4f1;
 		}
 	}
 }
